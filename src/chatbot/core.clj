@@ -1,6 +1,7 @@
-(ns chatbot.core)
+(ns chatbot.core
+  (:require [chatbot.get_data :as data]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn main
+  ""
+  []
+  (data/create-data))
