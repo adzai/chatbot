@@ -1,8 +1,10 @@
 (ns chatbot.get_data
-  (:require [net.cgrand.enlive-html :as html]
-            [clojure.java.io :as io]
-            [clj-http.client :as client]))
+  (:require [clojure.java.io :as io]
+            [clojure.string :as str]
+            [clj-http.client :as client]
+            [net.cgrand.enlive-html :as html]))
 
+; Park URLs from https://www.praha.eu/jnp/cz/co_delat_v_praze/parky
 (def parks 
   [
    {:name "bertramka"
@@ -30,23 +32,34 @@
    {:name "vysehrad"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/vysehrad/index.html"}])
 
-(defn download-files []
+(defn download-files
+  "Produces a lazy sequence of content to be downloaded which can be executed
+  in parallel"
+  []
   (println "Downloading pages")
   (let [urls (map #(:url %) parks)]
+    ; pmap runs in parallel, so the data can be downloaded 
+    ; concurrently with client/get (when it is evaluated, now it produces
+    ; a lazy sequence)
     (pmap #(:body (client/get %)) urls)))
 
-(defn format-to-json [lst]
+(defn format-to-json 
+  "Format a list of strings to JSON format"
+  [lst]
   (when-not (empty? lst)
-    (let [string (clojure.string/join "" lst)
-          split (clojure.string/split string #":")
+    (let [string (str/join "" lst)
+          split (str/split string #":")
           s1 (first split)
-          s2-sp (clojure.string/replace (clojure.string/triml 
-                                          (last split)) #"\(" "")
-          s2-s (clojure.string/replace s2-sp #"\)" "")
-          s2 (clojure.string/replace s2-s #"\s\s+" " ")]
+          s2-sp (str/replace (str/triml 
+                               (last split)) #"\(" "")
+          s2-s (str/replace s2-sp #"\)" "")
+          s2 (str/replace s2-s #"\s\s+" " ")]
       (str "\"" s1 "\": " "\"" s2 "\""))))
 
-(defn extract-data [content]
+(defn extract-data 
+  "Extracts relevant data from html using CSS selectors and formats it
+  to JSON"
+  [content]
   (println "Extracting data")
   (let [website-content
         (html/html-resource (java.io.StringReader. content))]
@@ -75,7 +88,9 @@
       (format-to-json 
         (map html/text (html/select website-content [:p.i_doba]))) "}")))
 
-(defn get-all-data [contents]
+(defn get-all-data
+  "Iterate through every html entry and returns a JSON string"
+  [contents]
   (loop [parks parks
          contents contents
          park (first parks)
@@ -85,17 +100,23 @@
              (str end-str "\"" (get park :name) "\":\n\t"
                   (extract-data (first contents)) ",\n")) end-str)))
 
-(defn write-data [data]
+(defn write-data
+  "Writes a JSON string to a file"
+  [data]
   (let [file "data/data-cz.json"]
     (when-not (.exists (io/file file))
-      (spit file (str "{" (clojure.string/join "" (drop-last (drop-last data)))
+      (spit file (str "{" (str/join "" (drop-last (drop-last data)))
                       "}")))))
 
-(defn create-data []
+(defn create-data
+  "Creates usable JSON data 
+  from https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/"
+  []
   (when-not (.exists (io/file "data/data-cz.json"))
     (.mkdir (java.io.File. "data"))
     (let [contents (download-files)
           data (get-all-data contents)]
       (write-data data))
+    ; Shutdown threads created by pmap
     (shutdown-agents)
     (println "Data successfully downloaded")))
