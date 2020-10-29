@@ -1,58 +1,39 @@
 (ns chatbot.get_data
-  (:require [net.cgrand.enlive-html :as html])
-  (:require [clojure.java.shell :as shell])
-  (:require [clojure.java.io :as io]))
+  (:require [net.cgrand.enlive-html :as html]
+            [clojure.java.io :as io]
+            [clj-http.client :as client]))
 
 (def parks 
   [
    {:name "bertramka"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/bertramka/index.html"
-    :file "data/bertramka.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/bertramka/index.html"}
    {:name "frantiskanska-zahrada"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/frantiskanska_zahrada/index.html"
-    :file "data/frantiskanska-zahrada.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/frantiskanska_zahrada/index.html"}
    {:name "obora-hvezda"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/hvezda/index.html"
-    :file "data/obora-hvezda.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/hvezda/index.html"}
    {:name "kampa"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/kampa/index.html"
-    :file "data/kampa.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/kampa/index.html"}
    {:name "kinskeho-zahrada"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/kinskeho_zahrada/index.html"
-    :file "data/kinskeho-zahrada.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/kinskeho_zahrada/index.html"}
    {:name "klamovka"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/klamovka/index.html"
-    :file "data/klamovka.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/klamovka/index.html"}
    {:name "ladronka"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/ladronka/index.html"
-    :file "data/ladronka.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/ladronka/index.html"}
    {:name "letna"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/letna/index.html"
-    :file "data/letna.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/letna/index.html"}
    {:name "petrin"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/petrin/index.html"
-    :file "data/petrin.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/petrin/index.html"}
    {:name "riegrovy-sady"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/riegrovy_sady/index.html"
-    :file "data/riegrovy-sady.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/riegrovy_sady/index.html"}
    {:name "stromovka"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/stromovka/index.html"
-    :file "data/stromovka.html"}
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/stromovka/index.html"}
    {:name "vysehrad"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/vysehrad/index.html"
-    :file "data/vysehrad.html"}])
+    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/vysehrad/index.html"}])
 
 (defn download-files []
   (println "Downloading pages")
-  (let [header 
-        "--user-agent=\"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.89 Safari/537.36\""]
-    (loop [parks parks
-           park (first parks)]
-      (when-not (empty? parks)
-        (when-not (.exists (io/file (get park :file)))
-          (shell/sh "wget" header (get park :url) "-O" (get park :file)))
-        (recur (rest parks) (first (rest parks)))))
-    (shutdown-agents)))
+  (let [urls (map #(:url %) parks)]
+    (pmap #(:body (client/get %)) urls)))
 
 (defn format-to-json [lst]
   (when-not (empty? lst)
@@ -65,11 +46,10 @@
           s2 (clojure.string/replace s2-s #"\s\s+" " ")]
       (str "\"" s1 "\": " "\"" s2 "\""))))
 
-(defn extract-data [park]
+(defn extract-data [content]
   (println "Extracting data")
   (let [website-content
-        (html/html-resource (java.io.StringReader. 
-                              (slurp (get park :file))))]
+        (html/html-resource (java.io.StringReader. content))]
     (str 
       "{" 
       (format-to-json 
@@ -95,23 +75,15 @@
       (format-to-json 
         (map html/text (html/select website-content [:p.i_doba]))) "}")))
 
-(defn get-all-data []
+(defn get-all-data [contents]
   (loop [parks parks
+         contents contents
          park (first parks)
          end-str ""]
     (if-not (empty? parks)
-      (recur (rest parks) (first (rest parks))
+      (recur (rest parks) (rest contents) (first (rest parks))
              (str end-str "\"" (get park :name) "\":\n\t"
-                  (extract-data park) ",\n")) end-str)))
-
-(defn cleanup []
-  (println "Cleaning up")
-  (loop [parks parks
-         park (first parks)]
-    (when-not (empty? parks)
-      (when (.exists (io/file (get park :file)))
-        (io/delete-file (get park :file)))
-      (recur (rest parks) (first (rest parks))))))
+                  (extract-data (first contents)) ",\n")) end-str)))
 
 (defn write-data [data]
   (let [file "data/data-cz.json"]
@@ -122,8 +94,8 @@
 (defn create-data []
   (when-not (.exists (io/file "data/data-cz.json"))
     (.mkdir (java.io.File. "data"))
-    (download-files)
-    (let [data (get-all-data)]
+    (let [contents (download-files)
+          data (get-all-data contents)]
       (write-data data))
-    (cleanup)
+    (shutdown-agents)
     (println "Data successfully downloaded")))
