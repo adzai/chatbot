@@ -5,7 +5,7 @@
             [net.cgrand.enlive-html :as html]))
 
 ; Park URLs from https://www.praha.eu/jnp/cz/co_delat_v_praze/parky
-(def parks 
+(def parks
   [
    {:name "bertramka"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/bertramka/index.html"}
@@ -38,54 +38,55 @@
   []
   (println "Downloading pages")
   (let [urls (map #(:url %) parks)]
-    ; pmap runs in parallel, so the data can be downloaded 
+    ; pmap runs in parallel, so the data can be downloaded
     ; concurrently with client/get (when it is evaluated, now it produces
     ; a lazy sequence)
     (pmap #(:body (client/get %)) urls)))
 
-(defn format-to-json 
+(defn format-to-json
   "Format a list of strings to JSON format"
   [lst]
   (when-not (empty? lst)
     (let [string (str/join "" lst)
           split (str/split string #":")
-          s1 (first split)
-          s2-sp (str/replace (str/triml 
-                               (last split)) #"\(" "")
-          s2-s (str/replace s2-sp #"\)" "")
-          s2 (str/replace s2-s #"\s\s+" " ")]
-      (str "\"" s1 "\": " "\"" s2 "\""))))
+          json_key (first split)
+          json_val (-> (last split)
+                       (str/triml)
+                       (str/replace #"\(" "")
+                       (str/replace #"\)" "")
+                       (str/replace #"\s\s+" " "))]
+      (str "\"" json_key "\": " "\"" json_val "\""))))
 
-(defn extract-data 
+(defn extract-data
   "Extracts relevant data from html using CSS selectors and formats it
   to JSON"
   [content]
   (println "Extracting data")
   (let [website-content
         (html/html-resource (java.io.StringReader. content))]
-    (str 
-      "{" 
-      (format-to-json 
+    (str
+      "{"
+      (format-to-json
         (map html/text (html/select website-content [:p.i_wc]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_misto]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_kolo])))",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_brusle]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_sport]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_hriste]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_mhd]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_parking]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_cesty]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_provoz]))) ",\n\t"
-      (format-to-json 
+      (format-to-json
         (map html/text (html/select website-content [:p.i_doba]))) "}")))
 
 (defn get-all-data
@@ -109,7 +110,7 @@
                       "}")))))
 
 (defn create-data
-  "Creates usable JSON data 
+  "Creates usable JSON data
   from https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/"
   []
   (when-not (.exists (io/file "data/data-cz.json"))
