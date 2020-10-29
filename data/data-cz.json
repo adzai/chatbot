@@ -1,4 +1,4 @@
-{"Bertramka":
+{"bertramka":
 	{"WC": "ANO",
 	"Zajímavosti": "Kulturní památka, koncerty vážné hudby, společenské akce, muzeum W. A. Mozarta",
 	"Cyklostezky": "ANO",
@@ -10,7 +10,7 @@
 	"Povrch cest": "Dlažba",
 	"Provozovatel": "Městská část Praha 5 a spol. Comenius",
 	"Otevírací doba": "30-16 hod."},
-"Františkánská-zahrada":
+"frantiskanska-zahrada":
 	{"WC": "ANO, bezbariérové",
 	"Zajímavosti": "Příjemné posezení v samém centru města, vhodné pro děti i seniory, psi NE, v sousedství kostel P. Marie Sněžné",
 	"Cyklostezky": "ANO ",
@@ -22,7 +22,7 @@
 	"Povrch cest": "Dlažba, v dětském koutku speciální povrch ",
 	"Provozovatel": "Hlavní město Praha ",
 	"Otevírací doba": "Celoročně, uzavírá se na noc "},
-"Obora Hvězda":
+"obora-hvezda":
 	{"WC": "Mobilní buňky v oboře, během sezony duben až říjen také WC v letohrádku ",
 	"Zajímavosti": "Vhodné pro rodiny s dětmi i turisty, psi ano, památné stromy, naučná stezka, přírodní zajímavosti.",
 	"Cyklostezky": "Možnost jízdy na kole po pěšinách, v zimě běžky",
@@ -34,7 +34,7 @@
 	"Povrch cest": "Zpevněné mlatové a lesní",
 	"Provozovatel": "Památník národního písemnictví a Hlavní město Praha ",
 	"Otevírací doba": "Celoročně obora, letohrádek duben 10-17, květen až září 10-18 hod., říjen 10-17 hod."},
-"Kampa":
+"kampa":
 	{"WC": "ANO",
 	"Zajímavosti": "Výhled na Vltavu, galerie Sovovy Mlýny, Čertovka, Karlův most, Werichův dům, památné stromy",
 	"Cyklostezky": "ANO",
@@ -46,7 +46,7 @@
 	"Povrch cest": "asfalt ",
 	"Provozovatel": "Městská část Praha 1 ",
 	"Otevírací doba": "Celoročně volný přístup "},
-"Kinského zahrada":
+"kinskeho-zahrada":
 	{"WC": "ANO",
 	"Zajímavosti": "Příjemné místo k procházkám i s dětmi, klidová zóna uprostřed města, muzeum, okrasná jezírka, přírodní zajímavost - Petřínské skalky",
 	"Cyklostezky": "NE ",
@@ -58,7 +58,7 @@
 	"Povrch cest": "Dlažba ",
 	"Provozovatel": "Halvní město Praha ",
 	"Otevírací doba": "Celoročně "},
-"Klamovka":
+"klamovka":
 	{"WC": "ANO v restauraci a klubu",
 	"Zajímavosti": "Historické zajímavosti, umělecká galerie, hudební klub a zahradní restaurace, dětské hřiště i pro nejmenší, psi ANO ",
 	"Cyklostezky": "ANO",
@@ -70,7 +70,7 @@
 	"Povrch cest": "Dlažba a asfalt",
 	"Provozovatel": "Městská část Praha 5 ",
 	"Otevírací doba": "Celoročně"},
-"Ladronka":
+"ladronka":
 	{"WC": "ANO v objektu restaurace",
 	"Zajímavosti": "Rozsáhlý areál pro volný čas, vhodný pro všechny věkové kategorie, psi ANO, možnost celodenního pobytu, v průběhu roku hudební a zábavné akce.",
 	"Cyklostezky": "ANO ",
@@ -82,7 +82,7 @@
 	"Povrch cest": "Asfaltové v kombinaci s dlažbou a mlatovou úpravou",
 	"Provozovatel": "Městská část Praha 6 ",
 	"Otevírací doba": "Celoročně"},
-"Letná":
+"letna":
 	{"WC": "ANO v objektu restaurací",
 	"Zajímavosti": "Rozsáhlý areál pro volný čas, vhodný pro všechny věkové kategorie, psi ANO, možnost celodenního pobytu, v průběhu roku kulturní akce ",
 	"Cyklostezky": "ANO	",
@@ -94,7 +94,7 @@
 	"Povrch cest": "Asfaltové",
 	"Provozovatel": "Hlavní město Praha ",
 	"Otevírací doba": "Celoročně"},
-"Petřín":
+"petrin":
 	{"WC": "V přilehlých restauracích a u rozhledny ",
 	"Zajímavosti": "vhodné pro rodiny s dětmi i turisty, možno pěšky i lanovkou, rozhledna, bludiště, hvězdárna, podzemní štoly, ovocné sady",
 	"Cyklostezky": "ANO",
@@ -106,7 +106,7 @@
 	"Povrch cest": "asfaltové, betonové, dlážděné, mlatové",
 	"Provozovatel": "Hlavní město Praha",
 	"Otevírací doba": "Celoročně volný přístup na Petřín, celoročně Štefánikova hvězdárna, rozhledna Leden, únor, březen, listopad, prosinec 10-18 hod., duben, září, říjen 10-19 hod, květen až srpen 10-22 hod."},
-"Riegrovy sady":
+"riegrovy-sady":
 	{"WC": "ANO v restauraci a mobilní na dětském hřišti",
 	"Zajímavosti": "Klasicistní rozhledna z 20. let 19. st. – po rekonstrukci restaurace, trojstranný obelisk asi z r. 1840, vyhlídka na Prahu, psi ANO ",
 	"Cyklostezky": "ANO",
@@ -118,7 +118,7 @@
 	"Povrch cest": "Asfalt",
 	"Provozovatel": "Městská část Praha 2 ",
 	"Otevírací doba": "Celoročně volný přístup"},
-"Stromovka":
+"stromovka":
 	{"WC": "V přilehlých restauracích",
 	"Zajímavosti": "Pro rodiny s dětmi i turisty, možno pěšky do ZOO a Botanické zahrady, psi ano, přírodní zajímavosti, Planetárium, Výstaviště",
 	"Cyklostezky": "ANO",
@@ -130,7 +130,7 @@
 	"Povrch cest": "Zpevněné mlatové a asfaltové",
 	"Provozovatel": "Hlavní město Praha",
 	"Otevírací doba": "Celoročně volný přístup"},
-"Vyšehrad":
+"vysehrad":
 	{"WC": "ANO",
 	"Zajímavosti": "Národní kulturní památka s historickou hodnotou, areál vhodný k procházkám a návštěvě pamětihodností a pro rodinný výlet s dětmi, zajímavý výhled na Prahu, muzeum, hřbitov slavných osobností Slavín",
 	"Cyklostezky": "ANO",

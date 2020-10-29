@@ -5,40 +5,40 @@
 
 (def parks 
   [
-   {:name "Bertramka"
+   {:name "bertramka"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/bertramka/index.html"
     :file "data/bertramka.html"}
-   {:name "Františkánská-zahrada"
+   {:name "frantiskanska-zahrada"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/frantiskanska_zahrada/index.html"
     :file "data/frantiskanska-zahrada.html"}
-   {:name "Obora Hvězda"
+   {:name "obora-hvezda"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/hvezda/index.html"
     :file "data/obora-hvezda.html"}
-   {:name "Kampa"
+   {:name "kampa"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/kampa/index.html"
     :file "data/kampa.html"}
-   {:name "Kinského zahrada"
+   {:name "kinskeho-zahrada"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/kinskeho_zahrada/index.html"
     :file "data/kinskeho-zahrada.html"}
-   {:name "Klamovka"
+   {:name "klamovka"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/klamovka/index.html"
     :file "data/klamovka.html"}
-   {:name "Ladronka"
+   {:name "ladronka"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/ladronka/index.html"
     :file "data/ladronka.html"}
-   {:name "Letná"
+   {:name "letna"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/letna/index.html"
     :file "data/letna.html"}
-   {:name "Petřín"
+   {:name "petrin"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/petrin/index.html"
     :file "data/petrin.html"}
-   {:name "Riegrovy sady"
+   {:name "riegrovy-sady"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/riegrovy_sady/index.html"
     :file "data/riegrovy-sady.html"}
-   {:name "Stromovka"
+   {:name "stromovka"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/stromovka/index.html"
     :file "data/stromovka.html"}
-   {:name "Vyšehrad"
+   {:name "vysehrad"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/vysehrad/index.html"
     :file "data/vysehrad.html"}])
 
@@ -98,11 +98,11 @@
 (defn get-all-data []
   (loop [parks parks
          park (first parks)
-         end-lst ""]
+         end-str ""]
     (if-not (empty? parks)
       (recur (rest parks) (first (rest parks))
-             (str end-lst "\"" (get park :name) "\":\n\t"
-                  (extract-data park) ",\n")) end-lst)))
+             (str end-str "\"" (get park :name) "\":\n\t"
+                  (extract-data park) ",\n")) end-str)))
 
 (defn cleanup []
   (println "Cleaning up")
@@ -119,8 +119,7 @@
       (spit file (str "{" (clojure.string/join "" (drop-last (drop-last data)))
                       "}")))))
 
-(defn create-data
-  []
+(defn create-data []
   (when-not (.exists (io/file "data/data-cz.json"))
     (.mkdir (java.io.File. "data"))
     (download-files)
