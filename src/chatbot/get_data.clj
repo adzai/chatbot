@@ -38,52 +38,74 @@
    {:name "Stromovka"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/stromovka/index.html"
     :file "data/stromovka.html"}
-   {:name "Vojanovy sady"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/vojanovy_sady/index.html"
-    :file "data/vojanovy-sady.html"}
    {:name "Vyšehrad"
     :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/vysehrad/index.html"
     :file "data/vysehrad.html"}])
 
-(defn download-files [parks]
+(defn download-files []
+  (println "Downloading pages")
   (let [header 
         "--user-agent=\"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.89 Safari/537.36\""]
-  (loop [parks parks
-         park (first parks)]
-    (when-not (empty? parks)
-      (when-not (.exists (io/file (get park :file)))
-        (shell/sh "wget" header (get park :url) "-O" (get park :file)))
-      (recur (rest parks) (first (rest parks)))))
-  (shutdown-agents)))
+    (loop [parks parks
+           park (first parks)]
+      (when-not (empty? parks)
+        (when-not (.exists (io/file (get park :file)))
+          (shell/sh "wget" header (get park :url) "-O" (get park :file)))
+        (recur (rest parks) (first (rest parks)))))
+    (shutdown-agents)))
+
+(defn format-to-json [lst]
+  (when-not (empty? lst)
+    (let [string (clojure.string/join "" lst)
+          split (clojure.string/split string #":")
+          s1 (first split)
+          s2-sp (clojure.string/replace (clojure.string/triml 
+                                          (last split)) #"\(" "")
+          s2-s (clojure.string/replace s2-sp #"\)" "")
+          s2 (clojure.string/replace s2-s #"\s\s+" " ")]
+      (str "\"" s1 "\": " "\"" s2 "\""))))
 
 (defn extract-data [park]
+  (println "Extracting data")
   (let [website-content
         (html/html-resource (java.io.StringReader. 
                               (slurp (get park :file))))]
-    (concat (map html/text (html/select website-content [:p.i_wc]))
-            (map html/text (html/select website-content [:p.i_misto]))
-            (map html/text (html/select website-content [:p.i_kolo]))
-            (map html/text (html/select website-content [:p.i_brusle]))
-            (map html/text (html/select website-content [:p.i_sport]))
-            (map html/text (html/select website-content [:p.i_hriste]))
-            (map html/text (html/select website-content [:p.i_mhd]))
-            (map html/text (html/select website-content [:p.i_gps]))
-            (map html/text (html/select website-content [:p.i_parking]))
-            (map html/text (html/select website-content [:p.i_cesty]))
-            (map html/text (html/select website-content [:p.i_provoz]))
-            (map html/text (html/select website-content [:p.i_doba])))))
+    (str 
+      "{" 
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_wc]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_misto]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_kolo])))",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_brusle]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_sport]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_hriste]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_mhd]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_parking]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_cesty]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_provoz]))) ",\n\t"
+      (format-to-json 
+        (map html/text (html/select website-content [:p.i_doba]))) "}")))
 
 (defn get-all-data []
   (loop [parks parks
          park (first parks)
-         end-lst '()]
+         end-lst ""]
     (if-not (empty? parks)
       (recur (rest parks) (first (rest parks))
-             (cons (cons (str "Name: " (get park :name))
-                         (extract-data park))
-                   end-lst)) end-lst)))
+             (str end-lst "\"" (get park :name) "\":\n\t"
+                  (extract-data park) ",\n")) end-lst)))
 
 (defn cleanup []
+  (println "Cleaning up")
   (loop [parks parks
          park (first parks)]
     (when-not (empty? parks)
@@ -92,19 +114,17 @@
       (recur (rest parks) (first (rest parks))))))
 
 (defn write-data [data]
-  (let [file "data/data-cz.txt"]
+  (let [file "data/data-cz.json"]
     (when-not (.exists (io/file file))
-      (loop [data data
-             row (first data)]
-        (when-not (empty? data)
-          (spit file (str row "\n") :append true)
-          (recur (rest (rest data)) (first (rest data))))))))
+      (spit file (str "{" (clojure.string/join "" (drop-last (drop-last data)))
+                      "}")))))
 
 (defn create-data
   []
-  (when-not (.exists (io/file "data/data-cz.txt"))
+  (when-not (.exists (io/file "data/data-cz.json"))
     (.mkdir (java.io.File. "data"))
-  (download-files parks)
-  (let [data (get-all-data)]
-    (write-data data))
-    (cleanup)))
+    (download-files)
+    (let [data (get-all-data)]
+      (write-data data))
+    (cleanup)
+    (println "Data successfully downloaded")))
