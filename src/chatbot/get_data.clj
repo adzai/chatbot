@@ -50,7 +50,7 @@
     (let [string (str/join "" lst)
           split (str/split string #":")
           json_key (first split)
-          json_val (-> (last split)
+          json_val (-> (str/join ":" (rest split))
                        (str/triml)
                        (str/replace #"\(" "")
                        (str/replace #"\)" "")
