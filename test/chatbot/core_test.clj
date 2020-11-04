@@ -11,9 +11,9 @@
       (= true 
          (.exists (io/file "data/data-cz.json"))))))
 
-
+;; EXAMPLE
 ;; (deftest parse-test
-;;   (testing "JSON file in data folder"
+;;   (testing "Test parsing function"
 ;;     (is
 ;;       (= ["can" "i" "ride" "a" "bike" "there" "?"]
 ;;          (parse-sentence "Can I ride a bike there?")))))
