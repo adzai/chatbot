@@ -10,4 +10,10 @@
     (is
       (= true 
          (.exists (io/file "data/data-cz.json"))))))
-    
+
+
+;; (deftest parse-test
+;;   (testing "JSON file in data folder"
+;;     (is
+;;       (= ["can" "i" "ride" "a" "bike" "there" "?"]
+;;          (parse-sentence "Can I ride a bike there?")))))
