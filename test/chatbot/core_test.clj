@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [chatbot.core :refer :all]
             [clojure.java.io :as io]
-            [chatbot.get_data :as data]))
+            [chatbot.get_data :as data]
+            [clojure.string :as str]))
 
 (deftest data-test
   (testing "JSON file in data folder"
@@ -17,3 +18,9 @@
 ;;     (is
 ;;       (= ["can" "i" "ride" "a" "bike" "there" "?"]
 ;;          (parse-sentence "Can I ride a bike there?")))))
+
+(deftest test-parse-function 
+  (testing "Testing parse function")   
+  (is
+   (= (list "my" "name" "is" "ani")
+      (parse-input "My Name Is ANI"))))
