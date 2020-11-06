@@ -23,3 +23,8 @@
     (is
         (= 0.8 
            (similarity "hello" "helo")))))
+
+(deftest parse-json-test
+  (testing "Testing json-parse function"
+    (is
+      (map? (parse-json "data/data-en.json")))))
