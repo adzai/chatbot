@@ -2,25 +2,24 @@
   (:require [clojure.test :refer :all]
             [chatbot.core :refer :all]
             [clojure.java.io :as io]
-            [chatbot.get_data :as data]
-            [clojure.string :as str]))
+            [chatbot.get_data :refer [create-data]]
+            [chatbot.levenshtein :refer [similarity]]))
 
 (deftest data-test
   (testing "JSON file in data folder"
-    (data/create-data)
+    (create-data)
     (is
       (= true 
          (.exists (io/file "data/data-cz.json"))))))
 
-;; EXAMPLE
-;; (deftest parse-test
-;;   (testing "Test parsing function"
-;;     (is
-;;       (= ["can" "i" "ride" "a" "bike" "there" "?"]
-;;          (parse-sentence "Can I ride a bike there?")))))
-
 (deftest test-parse-function 
-  (testing "Testing parse function")   
+  (testing "Testing parse function"
   (is
-   (= (list "my" "name" "is" "ani")
-      (parse-input "My Name Is ANI"))))
+    (= (list "my" "name" "is" "ani")
+       (parse-input "My Name Is ANI")))))
+
+(deftest similarity-test
+  (testing "Testing similarity between two strings"
+    (is
+        (= 0.8 
+           (similarity "hello" "helo")))))
