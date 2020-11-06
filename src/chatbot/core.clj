@@ -1,7 +1,7 @@
 (ns chatbot.core
-  (:require [chatbot.get_data :as data]))
+  (:require [chatbot.get_data :refer [create-data]]))
 
 (defn main
   ""
   []
-  (data/create-data))
+  (create-data))
