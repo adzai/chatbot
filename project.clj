@@ -5,6 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [clj-http "3.10.3"]
-                 [enlive "1.1.6"]]
+                 [enlive "1.1.6"]
+                 [cheshire "5.10.0"]]
   :main chatbot.core/main
   :repl-options {:init-ns chatbot.core})
