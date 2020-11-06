@@ -13,13 +13,13 @@
          (.exists (io/file "data/data-cz.json"))))))
 
 (deftest test-parse-function 
-  (testing "Testing parse function")   
+  (testing "Testing parse function"
   (is
     (= (list "my" "name" "is" "ani")
-       (parse-input "My Name Is ANI"))))
+       (parse-input "My Name Is ANI")))))
 
 (deftest similarity-test
   (testing "Testing similarity between two strings"
     (is
-        (== 0.8 
+        (= 0.8 
            (similarity "hello" "helo")))))
