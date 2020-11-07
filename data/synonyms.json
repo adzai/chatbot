@@ -1,0 +1,12 @@
+{
+"wc": ["wc", "rest room", "bathroom", "toilet", "lavatory", "ladies' room", "men's room"],
+"dogs": ["pet"],
+"bike paths" : ["bike paths", "bike trails", "bike", "bicycle"],
+"skating" : ["skating", "roller", "skateboard", "rollerblade"],
+"sports field" : ["sports field", "playgrond", "playing field"],
+"public transport" : ["public transport", "metro", "subway", "tram", "bus", "transport"],
+"parking" : ["parking", "parking lot", "car"],
+"opening hours" : ["opening hours", "open", "enter"]
+}
+
+
