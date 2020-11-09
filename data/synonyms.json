@@ -1,12 +1,15 @@
 {
-"wc": ["wc", "rest room", "bathroom", "toilet", "lavatory", "ladies' room", "men's room"],
-"dogs": ["pet"],
-"bike paths" : ["bike paths", "bike trails", "bike", "bicycle"],
+"wc": ["wc", "restroom", "bathroom", "toilet", "lavatory"],
+"attractions": ["wc", "restroom", "bathroom", "toilet", "lavatory"],
+"dogs": ["dogs", "pet"],
+"biking" : ["bike", "biking", "bicycle"],
 "skating" : ["skating", "roller", "skateboard", "rollerblade"],
-"sports field" : ["sports field", "playgrond", "playing field"],
-"public transport" : ["public transport", "metro", "subway", "tram", "bus", "transport"],
-"parking" : ["parking", "parking lot", "car"],
-"opening hours" : ["opening hours", "open", "enter"]
+"sports" : ["sports", "gymnastics", "exercise"]
+"playground" : ["playground", "playing"],
+"transportation" : ["transportation", "metro", "subway", "tram", "bus", "transport"],
+"parking" : ["parking", "car"],
+"opening" : ["opening", "open", "enter"]
 }
+
 
 
