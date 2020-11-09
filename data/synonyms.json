@@ -1,6 +1,6 @@
 {
 "wc" : ["wc", "restroom", "bathroom", "toilet", "lavatory"],
-"attractions" : ["wc", "restroom", "bathroom", "toilet", "lavatory"],
+"attractions" : ["attractions", "sightseeing", "landmark", "entertainment"],
 "dogs" : ["dogs", "pet"],
 "biking" : ["bike", "biking", "bicycle"],
 "skating" : ["skating", "roller", "skateboard", "rollerblade"],
@@ -10,6 +10,3 @@
 "parking" : ["parking", "car"],
 "opening" : ["opening", "open", "enter"]
 }
-
-
-
