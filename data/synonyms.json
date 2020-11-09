@@ -1,7 +1,7 @@
 {
-"wc": ["wc", "restroom", "bathroom", "toilet", "lavatory"],
-"attractions": ["wc", "restroom", "bathroom", "toilet", "lavatory"],
-"dogs": ["dogs", "pet"],
+"wc" : ["wc", "restroom", "bathroom", "toilet", "lavatory"],
+"attractions" : ["wc", "restroom", "bathroom", "toilet", "lavatory"],
+"dogs" : ["dogs", "pet"],
 "biking" : ["bike", "biking", "bicycle"],
 "skating" : ["skating", "roller", "skateboard", "rollerblade"],
 "sports" : ["sports", "gymnastics", "exercise"]
