@@ -48,19 +48,28 @@
         lower-cased-words (map str/lower-case words)]
     lower-cased-words))
 
+(def synonyms-map {
+"wc"  ["wc", "restroom", "bathroom", "toilet", "lavatory"],
+"attractions"  ["attractions", "sightseeing", "landmark", "entertainment"],
+"dogs"  ["dogs", "pet"],
+"biking"  ["bike", "biking", "bicycle"],
+"skating"  ["skating", "roller", "skateboard", "rollerblade"],
+"sports"  ["sports", "gymnastics", "exercise"]
+"playground"  ["playground", "playing"],
+"transportation"  ["transportation", "metro", "subway", "tram", "bus", "transport"],
+"parking"  ["parking", "car"],
+"opening"  ["opening", "open", "enter"]
+})
 
-(def keywords (list "wc" "attractions" "biking" "skating" "sports" "playground" "transportation" "parking" "dogs"))
 
-(defn asking-for-input
-  []
-  (println "Chatbot: Hi there! I'm here to help you and answer all the questions you have about the Bertramka park.")
-  (let [input (read-line)
-        words (parse-input input)]
-    (doseq [keyword keywords]
-      (let [max-similarity (apply max (for [x words] (similarity x keyword)))]
-       (if (> max-similarity 0.7) 
-        (println keyword))))))
-
+(defn identifying-keyword [input]
+  (let [words (parse-input input)
+        synonyms (vals synonyms-map)]
+    (doseq [synonym synonyms]
+      (doseq [x synonym] 
+        (let [max-similarity (apply max (for [y words] (similarity y x)))]
+        (if (> max-similarity 0.7) 
+          (println (first synonym))))))))
 
     
          
