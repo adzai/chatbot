@@ -7,6 +7,5 @@
 "sports" : ["sports", "gymnastics", "exercise"]
 "playground" : ["playground", "playing"],
 "transportation" : ["transportation", "metro", "subway", "tram", "bus", "transport"],
-"parking" : ["parking", "car"],
-"opening" : ["opening", "open", "enter"]
+"parking" : ["parking", "car"]
 }
