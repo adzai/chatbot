@@ -69,7 +69,7 @@
       (doseq [x synonym] 
         (let [max-similarity (apply max (for [y words] (similarity y x)))]
         (if (> max-similarity 0.7) 
-          (println (first synonym))))))))
+          (find-park-data (first synonym))))))))
 
     
          
