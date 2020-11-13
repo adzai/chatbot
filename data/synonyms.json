@@ -1,0 +1,12 @@
+{
+"wc" : ["wc", "restroom", "bathroom", "toilet", "lavatory"],
+"attractions" : ["attractions", "sightseeing", "landmark", "entertainment"],
+"dogs" : ["dogs", "pet"],
+"biking" : ["bike", "biking", "bicycle"],
+"skiing" : ["skiing"],
+"skating" : ["skating", "roller", "skateboard", "rollerblade"],
+"sports" : ["sports", "gymnastics", "exercise"]
+"playground" : ["playground", "playing"],
+"transportation" : ["transportation", "metro", "subway", "tram", "bus", "transport"],
+"parking" : ["parking", "car"]
+}
