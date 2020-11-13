@@ -1,4 +1,5 @@
 {"wc": true,
+<<<<<<< Updated upstream
  "attractions": "cultural monument, classical music concerts, social events, W. A. ​​Mozart Museum",
  "biking": true,
  "skating": false,
@@ -6,3 +7,12 @@
  "playground": false,
  "transportation": "trams No. 4, 7, 9, 10, 58, 59.",
  "parking": true}
+=======
+"attractions": "cultural monument, classical music concerts, social events, W. A. ​​Mozart Museum",
+"biking": true,
+"skating": false,
+"sports": false,
+"playground": false,
+"transportation": "trams No. 4, 7, 9, 10, 58, 59.",
+"parking": true}
+>>>>>>> Stashed changes
