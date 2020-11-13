@@ -5,7 +5,7 @@
 "biking" : ["bike", "biking", "bicycle"],
 "skiing" : ["skiing"],
 "skating" : ["skating", "roller", "skateboard", "rollerblade"],
-"sports" : ["sports", "gymnastics", "exercise"]
+"sports" : ["sports", "gymnastics", "exercise"],
 "playground" : ["playground", "playing"],
 "transportation" : ["transportation", "metro", "subway", "tram", "bus", "transport"],
 "parking" : ["parking", "car"]
