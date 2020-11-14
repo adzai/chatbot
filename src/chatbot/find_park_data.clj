@@ -20,6 +20,11 @@
 
       (= found-keyword "transportation")
       (println (format ">Chatbot: You can get to Bertramka these ways:, they are: %s" (get (parse-json "data/synonyms.json") found-keyword)))
+      
+      (= found-keyword "sports")
+      (if (= true (get (parse-json "data/synonyms.json") keyword))
+        (println (format ">Chatbot: There is a sport field in Bertramka. " keyword))
+        (println (format ">Chatbot: Unfortunately, there is no sport field in Bertramka. " keyword)))
 
       (= found-keyword "dogs")
       (if (= "yes" (get (parse-json "data/synonyms.json") found-keyword))
