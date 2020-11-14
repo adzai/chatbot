@@ -1,8 +1,9 @@
-{"wc": "yes",
-"attractions": "yes",
-"biking": "yes",
-"skating": "no",
-"sports": "no",
-"playground": "no",
-"transportation": "yes",
-"parking": "yes"}
+{"wc": true,
+ "attractions": "cultural monument, classical music concerts, social events, W. A. Mozart Museum",
+ "biking": true,
+ "skating": false,
+ "sports": false,
+ "playground": false,
+ "transportation": "trams No. 4, 7, 9, 10, 58, 59.",
+ "parking": true}
+
