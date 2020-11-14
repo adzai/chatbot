@@ -3,7 +3,7 @@
   structure containing data about the park and prints out the corresponding
   bot's answer depending on the keyword type"
   [keyword]
-  (when-not (nil?(get park-map keyword))
+  (when-not (nil? (get park-map keyword))
     (cond
       (some #(= keyword %) ["wc" "playground" "parking"])
         (if (= "yes" (get (parse-json "data/synonyms.json") keyword))
