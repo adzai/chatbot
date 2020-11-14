@@ -6,12 +6,12 @@
   (when-not (nil? (get park-map found-keyword))
     (cond
       (some #(= found-keyword %) ["wc" "playground" "parking"])
-        (if (= "yes" (get (parse-json "data/synonyms.json") found-keyword))
+        (if (= true (get (parse-json "data/synonyms.json") found-keyword))
           (println (format ">Chatbot: You can find %s in Bertramka. " found-keyword))
           (println (format ">Chatbot: Unfortunately, there is no %s in Bertramka. " found-keyword)))
 
       (some #(= found-keyword %) ["biking" "skating" "skiing"])
-      (if (= "yes" (get (parse-json "data/synonyms.json") found-keyword))
+      (if (= true (get (parse-json "data/synonyms.json") found-keyword))
         (println (format ">Chatbot: %s is possible in Bertramka. " found-keyword))
         (println (format ">Chatbot: Unfortunately, %s is not possible in Bertramka. " found-keyword)))
 
