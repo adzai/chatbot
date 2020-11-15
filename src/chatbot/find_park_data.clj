@@ -3,7 +3,7 @@
   structure containing data about the park and prints out the corresponding
   bot's answer depending on the keyword type"
   [found-keyword]
-  (when-not (nil? (get (parse-json "data/Bertramka.json") found-keyword))
+  (if-not (nil? (get (parse-json "data/Bertramka.json") found-keyword))
     (cond
       (some #(= found-keyword %) ["wc" "playground" "parking"])
         (if (= true (get (parse-json "data/Bertramka.json") found-keyword))
@@ -29,4 +29,6 @@
       (= found-keyword "dogs")
       (if (= "yes" (get (parse-json "data/Bertramka.json") found-keyword))
         (println ">Chatbot: You can enter Bertramka with your dogs")
-        (println ">Chatbot:  Unfortunately, you can't enter Bertramka with your dogs")))))
+        (println ">Chatbot:  Unfortunately, you can't enter Bertramka with your dogs")))
+
+    (println (format ">Chatbot: There is no information provided about %s" found-keyword))))
