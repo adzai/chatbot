@@ -14,9 +14,9 @@
 
 (deftest test-parse-function 
   (testing "Testing parse function"
-  (is
-    (= (list "my" "name" "is" "ani")
-       (parse-input "My Name Is ANI")))))
+    (is
+     (= (list "my" "name" "is" "ani")
+        (parse-input "My Name Is ANI")))))
 
 (deftest similarity-test
   (testing "Testing similarity between two strings"
