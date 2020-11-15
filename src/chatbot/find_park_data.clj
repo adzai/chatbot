@@ -31,4 +31,4 @@
         (println ">Chatbot: You can enter Bertramka with your dogs")
         (println ">Chatbot:  Unfortunately, you can't enter Bertramka with your dogs")))
 
-    (println (format ">Chatbot: There is no information provided about %s" found-keyword))))
+    (println (format ">Chatbot: There is no information provided about %s " found-keyword))))
