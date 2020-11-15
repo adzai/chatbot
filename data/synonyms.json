@@ -2,7 +2,7 @@
 "wc" : ["wc", "restroom", "bathroom", "toilet", "lavatory"],
 "attractions" : ["attractions", "sightseeing", "landmark", "entertainment"],
 "dogs" : ["dogs", "pet"],
-"biking" : ["bike", "biking", "bicycle"],
+"biking" : ["biking", "bike", "bicycle"],
 "skiing" : ["skiing"],
 "skating" : ["skating", "roller", "skateboard", "rollerblade"],
 "sports" : ["sports", "gymnastics", "exercise"],
