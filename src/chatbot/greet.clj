@@ -12,9 +12,8 @@
   [greeting-vector input]
    (let [words (parse-input input)]
      (if (not (empty? greeting-vector))
-       (do
-         (let [max-similarity (apply max (for [y words] (similarity y (first greeting-vector))))]
-           (if (> max-similarity 0.7)
-             (rand-nth responses)
-             (greeting (rest greeting-vector) input))))
-       false))) 
+       (let [max-similarity (apply max (for [y words] (similarity y (first greeting-vector))))]
+         (if (> max-similarity 0.7)
+           (rand-nth responses)
+           (greeting (rest greeting-vector) input)))
+       false)))
