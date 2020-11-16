@@ -17,4 +17,4 @@
            (if (> max-similarity 0.7)
              (println (rand-nth responses))
              (greeting (rest greeting-vector) input))))
-       true))) 
+       false))) 
