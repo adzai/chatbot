@@ -15,6 +15,6 @@
        (do
          (let [max-similarity (apply max (for [y words] (similarity y (first greeting-vector))))]
            (if (> max-similarity 0.7)
-             (println (rand-nth responses))
+             (rand-nth responses)
              (greeting (rest greeting-vector) input))))
        false))) 
