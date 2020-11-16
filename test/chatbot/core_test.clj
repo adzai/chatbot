@@ -33,4 +33,4 @@
 (deftest greeting-test
   (testing "Testing greeting function"
     (is
-      (= true (greeting possible-greetings "something")))))
+      (= false (greeting possible-greetings "something")))))
