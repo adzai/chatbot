@@ -1,3 +1,8 @@
+(ns chatbot.greet
+  (:require [chatbot.core :refer [parse-input]]
+            [chatbot.levenshtein :refer [similarity]]))
+  
+  
 (def possible-greetings (vector "hey" "hi" "hello" "morning" "evening" "afternoon"))
 
 (def responses (vector ">Chatbot: Hello, thanks for visiting" ">Chatbot: Good to see you again" ">Chatbot: Hi there, how can I help?"))
