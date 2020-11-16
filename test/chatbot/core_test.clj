@@ -3,7 +3,8 @@
             [chatbot.core :refer :all]
             [clojure.java.io :as io]
             [chatbot.get_data :refer [create-data]]
-            [chatbot.levenshtein :refer [similarity]]))
+            [chatbot.levenshtein :refer [similarity]]
+            [chatbot.greet :refer :all]))
 
 (deftest data-test
   (testing "JSON file in data folder"
@@ -28,3 +29,8 @@
   (testing "Testing json-parse function"
     (is
       (map? (parse-json "data/data-en.json")))))
+
+(deftest greeting-test
+  (testing "Testing greeting function"
+    (is
+      (= true (greeting possible-greetings "something")))))
