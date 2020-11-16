@@ -22,16 +22,16 @@
           (if (> max-similarity 0.75)
             (find-park-data (first synonyms))
             (recur (rest synonyms-vec))))
-        true)))))
+        false)))))
 
 (defn keyword-response-list
   "Takes the list of vectors containing synonyms and calls keyword-response function on the first vector. 
   If the keyword is not found in any of the vectors, then returns true "
   [synonyms-lst input]
   (if (not (empty? synonyms-lst))
-    (if (= true (keyword-response-vector (first synonyms-lst) input))
+    (if (= false (keyword-response-vector (first synonyms-lst) input))
       (keyword-response-list (rest synonyms-lst) input))
-    true)) 
+    false)) 
 
 (defn keyword-response-main 
   "Parses the user-input and retrieves values from the synonyms-map and calls keyword-response-list on the synonyms list. "
