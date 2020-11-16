@@ -39,4 +39,4 @@
   (testing "Testing greeting function with the input which is a greeting"
     (is
       (= true 
-         (contains? responses (greeting possible-greetings "hi"))))))
+         (some #(= (greeting possible-greetings "hi") %) responses)))))
