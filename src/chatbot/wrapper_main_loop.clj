@@ -1,5 +1,7 @@
 (defn main-loop
-  "Receives user input until a terminating keyword is met.The main loop calls help function if user input is help. Checks if the keyword is not identified and prints the random error message. Otherwise greets user or answers the questions about the park."
+  "Receives user input until a terminating keyword is met.The main loop calls help function if user input is help.
+   Checks if the keyword is not identified and prints the random error message.
+   Otherwise greets user or answers the questions about the park."
   []
   (println "Chatbot> Hi!")
   (println "Chatbot> I am your park guide. I will tell you about Bertramka park. To end the conversation, enter 'finish'. Ask your questions")
