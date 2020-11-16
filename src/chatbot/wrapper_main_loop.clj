@@ -9,6 +9,6 @@
     (when-not (= "finish" user-input)
       (if (= "help" user-input)
         (help-function))
-      (if (and (= true (greeting possible-greetings user-input)) (= true (keyword-response-main user-input)))
+      (if (and (= false (greeting possible-greetings user-input)) (= false (keyword-response-main user-input)))
           (println (rand-nth possible-error-messages)))
       (recur (read-line)))))
