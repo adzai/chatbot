@@ -25,7 +25,8 @@
         true)))))
 
 (defn keyword-response-list
-  "Takes the list of vectors containing synonyms and calls keyword-response function on the first vector. If the keyword is not found in any of the vectors, then returns true "
+  "Takes the list of vectors containing synonyms and calls keyword-response function on the first vector. 
+  If the keyword is not found in any of the vectors, then returns true "
   [synonyms-lst input]
   (if (not (empty? synonyms-lst))
     (if (= true (keyword-response-vector (first synonyms-lst) input))
