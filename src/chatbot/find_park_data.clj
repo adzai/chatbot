@@ -27,7 +27,7 @@
         (println (format ">Chatbot: Unfortunately, there is no sport field in Bertramka.")))
 
       (= found-keyword "dogs")
-      (if (= "yes" (get (parse-json "data/Bertramka.json") found-keyword))
+      (if (= true (get (parse-json "data/Bertramka.json") found-keyword))
         (println ">Chatbot: You can enter Bertramka with your dogs")
         (println ">Chatbot:  Unfortunately, you can't enter Bertramka with your dogs")))
 
