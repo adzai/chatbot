@@ -1,13 +1,4 @@
-(def synonyms-map {"wc"  ["wc", "restroom", "bathroom", "toilet", "lavatory"],
-                   "attractions"  ["attractions", "sightseeing", "landmark", "entertainment"],
-                   "dogs"  ["dogs", "pet"],
-                   "biking"  ["biking", "bike", "bicycle"],
-                   "skiing"  ["skiing"],
-                   "skating"  ["skating", "roller", "skateboard", "rollerblade"],
-                   "sports"  ["sports", "gymnastics", "exercise"],
-                   "playground"  ["playground", "playing"],
-                   "transportation"  ["transportation", "metro", "subway", "tram", "bus", "transport"],
-                   "parking"  ["parking", "car"]})
+(def synonyms-map (parse-json "data/synonyms.json"))
 
 
 (defn keyword-response-vector  
