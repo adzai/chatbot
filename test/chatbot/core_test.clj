@@ -30,7 +30,13 @@
     (is
       (map? (parse-json "data/data-en.json")))))
 
-(deftest greeting-test
-  (testing "Testing greeting function"
+(deftest greeting-input-not-identified-test
+  (testing "Testing greeting function with the input which is not a greeting"
     (is
       (= false (greeting possible-greetings "something")))))
+
+(deftest greeting-input-identified-test
+  (testing "Testing greeting function with the input which is a greeting"
+    (is
+      (= true 
+         (contains? responses (greeting possible-greetings "hi"))))))
