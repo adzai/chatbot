@@ -10,7 +10,9 @@
   (loop [synonyms-vec synonyms-vector]
     (let [synonym (first synonyms-vec)]
       (if (not (nil? synonym)) 
-        (let [max-similarity (apply max (for [y words] (similarity y (first synonyms-vec))))]
+        (let [max-similarity 
+              (apply max 
+                     (for [y words] (similarity y (first synonyms-vec))))]
           (if (> max-similarity 0.75)
             (first synonyms)
             (recur (rest synonyms-vec))))
