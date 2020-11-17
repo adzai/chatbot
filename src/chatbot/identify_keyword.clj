@@ -26,7 +26,8 @@
   [synonyms-lst input]
   (if (seq synonyms-lst)
     (if (= false (keyword-response-vector (first synonyms-lst) input))
-      (keyword-response-list (rest synonyms-lst) input))
+      (keyword-response-list (rest synonyms-lst) input)
+      (keyword-response-vector (first synonyms-lst) input))
     false)) 
 
 (defn keyword-response-main 
