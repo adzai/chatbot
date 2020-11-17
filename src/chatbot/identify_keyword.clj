@@ -24,7 +24,7 @@
    and calls keyword-response function on the first vector. 
    If the keyword is not found in any of the vectors, then returns false"
   [synonyms-lst input]
-  (if (not (empty? synonyms-lst))
+  (if (seq synonyms-lst)
     (if (= false (keyword-response-vector (first synonyms-lst) input))
       (keyword-response-list (rest synonyms-lst) input))
     false)) 
