@@ -18,7 +18,7 @@
    Otherwise returns false."
   [greeting-vector input]
    (let [words (parse-input input)]
-     (if (not (empty? greeting-vector))
+     (if (seq greeting-vector)
        (let [max-similarity 
              (apply max 
                     (for [y words] 
