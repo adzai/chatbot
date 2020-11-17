@@ -19,6 +19,7 @@ jobs:
       run: sudo ./.bin/install-clj-kondo
     - name: Run clj-kondo
       run: clj-kondo --lint src --config '{:output {:pattern "::{{level}} file={{filename}},line={{row}},col={{col}}::{{message}}"}}'
+    - name: Run bikeshed
+      run: lein bikeshed
     - name: Run tests
       run: lein test
-

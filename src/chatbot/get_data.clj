@@ -8,29 +8,41 @@
 (def parks
   [
    {:name "bertramka"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/bertramka/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/bertramka/index.html")}
    {:name "frantiskanska-zahrada"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/frantiskanska_zahrada/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/frantiskanska_zahrada/index.html")}
    {:name "obora-hvezda"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/hvezda/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/hvezda/index.html")}
    {:name "kampa"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/kampa/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/kampa/index.html")}
    {:name "kinskeho-zahrada"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/kinskeho_zahrada/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/kinskeho_zahrada/index.html")}
    {:name "klamovka"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/klamovka/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/klamovka/index.html")}
    {:name "ladronka"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/ladronka/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/ladronka/index.html")}
    {:name "letna"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/letna/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/letna/index.html")}
    {:name "petrin"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/petrin/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/petrin/index.html")}
    {:name "riegrovy-sady"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/riegrovy_sady/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/riegrovy_sady/index.html")}
    {:name "stromovka"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/stromovka/index.html"}
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/stromovka/index.html")}
    {:name "vysehrad"
-    :url "https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/vysehrad/index.html"}])
+    :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
+              "parky/vysehrad/index.html")}])
 
 (defn download-files
   "Produces a lazy sequence of content to be downloaded which can be executed
