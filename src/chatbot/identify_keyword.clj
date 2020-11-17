@@ -33,6 +33,5 @@
   "Parses the user-input, retrieves values from the synonyms-map 
    and calls keyword-response-list on the synonyms list"
   [input]
-  (let [words (parse-input input)
-        synonyms (vals synonyms-map)]
+  (let [synonyms (vals synonyms-map)]
     (keyword-response-list synonyms input)))
