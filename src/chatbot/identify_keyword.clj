@@ -1,3 +1,7 @@
+(ns chatbot.identify_keyword 
+  (:require [chatbot.core :refer [parse-json,parse-input]]
+            [chatbot.levenshtein :refer [similarity]]))
+
 (def synonyms-map (parse-json "data/synonyms.json"))
 
 (defn keyword-response-vector  
