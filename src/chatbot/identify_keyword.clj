@@ -1,6 +1,5 @@
 (def synonyms-map (parse-json "data/synonyms.json"))
 
-
 (defn keyword-response-vector  
   "Takes the vector of synonyms, identifies keyword and prints the corresponding response. If the keyword is not identified, function returns true"
   [synonyms-vector input]
@@ -11,7 +10,7 @@
       (if (not (nil? synonym)) 
         (let [max-similarity (apply max (for [y words] (similarity y (first synonyms-vec))))]
           (if (> max-similarity 0.75)
-            (find-park-data (first synonyms))
+            (first synonyms)
             (recur (rest synonyms-vec))))
         false)))))
 
