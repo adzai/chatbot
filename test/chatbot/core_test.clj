@@ -33,29 +33,38 @@
 (deftest keyword-response-vector-valid-test
   (testing "Testing keyword identifier function with valid input"
     (is 
-      (= "wc" (keyword-response-vector (vector "wc" "restroom" "bath") "restroom")))))
+      (= "wc" 
+         (keyword-response-vector 
+          (vector "wc" "restroom" "bath") "restroom")))))
 
 (deftest keyword-response-vector-invalid-test
   (testing "Testing keyword identifier function with invalid input"
     (is 
-      (= false (keyword-response-vector (first (vals synonyms-map)) "something")))))
-
-(deftest keyword-response-list-valid-test
-  (testing "Testing keyword identifier with list of vectors and invalid input"
-    (is
-      (= "transportation" (keyword-response-list (vals synonyms-map) "metro")))))
+      (= false 
+         (keyword-response-vector 
+          (first (vals synonyms-map)) "something")))))
 
 (deftest keyword-response-list-invalid-test
   (testing "Testing keyword identifier with list of vectors and invalid input"
     (is
-      (= false (keyword-response-list (vals synonyms-map) "something")))))
+      (= false 
+         (keyword-response-list (vals synonyms-map) "something")))))
+
+
+(deftest keyword-response-list-valid-test
+  (testing "Testing keyword identifier with list of vectors and invalid input"
+    (is
+      (= "transportation" 
+         (keyword-response-list (vals synonyms-map) "metro")))))
 
 (deftest keyword-response-main-valid-test
   (testing "Testing the keyword identifier function with valid input"
     (is
-      (= "biking" (keyword-response-main "bicycle")))))
+      (= "biking" 
+         (keyword-response-main "bicycle")))))
 
 (deftest keyord-response-main-invalid-test
   (testing "Testing the keyword identifier function with invalid input"
     (is
-      (= false (keyword-response-main "Something")))))
+      (= false 
+         (keyword-response-main "Something")))))
