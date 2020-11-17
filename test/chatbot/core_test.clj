@@ -9,10 +9,10 @@
   (testing "JSON file in data folder"
     (create-data)
     (is
-      (= true 
+      (= true
          (.exists (io/file "data/data-cz.json"))))))
 
-(deftest test-parse-function 
+(deftest test-parse-function
   (testing "Testing parse function"
   (is
     (= (list "my" "name" "is" "ani")
@@ -21,7 +21,7 @@
 (deftest similarity-test
   (testing "Testing similarity between two strings"
     (is
-        (= 0.8 
+        (= 0.8
            (similarity "hello" "helo")))))
 
 (deftest parse-json-test
