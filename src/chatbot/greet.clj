@@ -2,7 +2,6 @@
   (:require [chatbot.core :refer [parse-input]]
             [chatbot.levenshtein :refer [similarity]]))
   
-  
 (def possible-greetings 
   (vector "hey" "hi" "hello" "morning" "evening" "afternoon"))
 
