@@ -38,5 +38,5 @@
 (deftest greeting-input-identified-test
   (testing "Testing greeting function with the input which is a greeting"
     (is
-      (= true 
+      (= true
          (some #(= (greeting possible-greetings "hi") %) responses)))))
