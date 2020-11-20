@@ -1,8 +1,7 @@
 (ns chatbot.greet
   (:require [chatbot.core :refer [parse-input]]
             [chatbot.levenshtein :refer [similarity]]))
-  
-  
+
 (def possible-greetings
   (vector "hey" "hi" "hello" "morning" "evening" "afternoon"))
 
@@ -21,7 +20,7 @@
      (if (seq greeting-vector)
        (let [max-similarity
              (apply max
-                    (for [y words] 
+                    (for [y words]
                       (similarity y (first greeting-vector))))]
          (if (> max-similarity 0.7)
            (rand-nth responses)
