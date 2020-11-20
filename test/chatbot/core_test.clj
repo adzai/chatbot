@@ -63,6 +63,12 @@
       (= "biking"
          (keyword-response-main "bicycle")))))
 
+(deftest keyword-response-main-test
+  (testing "Testing the keyword identifier function with input - dog"
+    (is
+      (= "dogs"
+         (keyword-response-main "dog")))))
+
 (deftest keyord-response-main-invalid-test
   (testing "Testing the keyword identifier function with invalid input"
     (is

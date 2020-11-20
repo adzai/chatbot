@@ -18,7 +18,7 @@
               (apply max
                      (for [y words]
                        (similarity y (first synonyms-vec))))]
-          (if (> max-similarity 0.75)
+          (if (>= max-similarity 0.75)
             (first synonyms)
             (recur (rest synonyms-vec))))
         false)))))
