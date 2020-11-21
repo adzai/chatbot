@@ -4,7 +4,8 @@
             [clojure.java.io :as io]
             [chatbot.get_data :refer [create-data]]
             [chatbot.levenshtein :refer [similarity]]
-            [chatbot.greet :refer :all]))
+            [chatbot.greet :refer :all]
+            [chatbot.find_park_data :refer [find-park-data]]))
 
 (deftest data-test
   (testing "JSON file in data folder"
