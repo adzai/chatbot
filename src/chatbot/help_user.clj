@@ -3,7 +3,7 @@
   []
   ">Chatbot: The chatbot is designed to answer users'
    questions regarding Bertramka park.
-   The bot provides information about following aspects 
+   The bot provides information about following aspects
    of Bertramka: wc, attractions, biking, skating,
    sports field, playground, transportation and parking.
    Error messages are used to infrom user that
