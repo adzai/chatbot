@@ -4,7 +4,7 @@
             [clojure.java.io :as io]
             [chatbot.get_data :refer [create-data]]
             [chatbot.levenshtein :refer [similarity]]
-            [chatbot.identify_keyword :refer :all]))
+            [chatbot.identify_keyword :refer :all]
             [chatbot.greet :refer :all]))
 
 (deftest data-test
