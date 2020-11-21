@@ -45,7 +45,7 @@
 (deftest find-park-data-test
   (testing "Testing the keyword response function with input - wc"
     (is
-      (= ">Chatbot: Unfortunately, there is no wc in Bertramka."
+      (= ">Chatbot: You can find wc in Bertramka."
          (find-park-data "wc")))))
 
 (deftest find-park-data-absent-keyword-test
