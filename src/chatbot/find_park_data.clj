@@ -24,7 +24,7 @@
               ">Chatbot: %s is possible in Bertramka."
               found-keyword)
             (format
-              ">Chatbot: Unfortunately, %s is not possible in Bertramka." 
+              ">Chatbot: Unfortunately, %s is not possible in Bertramka."
               found-keyword))
 
         (= found-keyword "attractions")
