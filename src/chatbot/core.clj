@@ -10,10 +10,10 @@
 
 (defn parse-json [file-name]
   (let [file (slurp file-name)]
-    (parse-string 
-      file 
-      (fn [k] 
-        (keyword 
+    (parse-string
+      file
+      (fn [k]
+        (keyword
           (str/lower-case
             (clojure.string/join "-"
                                  (clojure.string/split k #" "))))))))
