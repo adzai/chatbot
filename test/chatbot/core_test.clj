@@ -3,7 +3,8 @@
             [chatbot.core :refer :all]
             [clojure.java.io :as io]
             [chatbot.get_data :refer [create-data]]
-            [chatbot.levenshtein :refer [similarity]]))
+            [chatbot.levenshtein :refer [similarity]]
+            [chatbot.greet :refer :all]))
 
 (deftest data-test
   (testing "JSON file in data folder"
@@ -14,9 +15,9 @@
 
 (deftest test-parse-function
   (testing "Testing parse function"
-  (is
-    (= (list "my" "name" "is" "ani")
-       (parse-input "My Name Is ANI")))))
+    (is
+     (= (list "my" "name" "is" "ani")
+        (parse-input "My Name Is ANI")))))
 
 (deftest similarity-test
   (testing "Testing similarity between two strings"
@@ -29,6 +30,17 @@
     (is
       (map? (parse-json "data/data-en.json")))))
 
+(deftest greeting-input-not-identified-test
+  (testing "Testing greeting function with the input which is not a greeting"
+    (is
+      (= false (greeting possible-greetings "something")))))
+
+(deftest greeting-input-identified-test
+  (testing "Testing greeting function with the input which is a greeting"
+    (is
+      (= true
+         (some #(= (greeting possible-greetings "hi") %) responses)))))
+
 (deftest find-park-data-test
   (testing "Testing the keyword response function with input - wc"
     (is
@@ -40,4 +52,3 @@
     (is
       (= ">Chatbot: There is no information provided about dogs."
          (find-park-data "dogs")))))
-
