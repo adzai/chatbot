@@ -48,6 +48,6 @@
             ">Chatbot: You can enter Bertramka with your dogs."
             ">Chatbot: Unfortunately, you can't enter Bertramka with dogs."))
 
-      (format 
+      (format
         ">Chatbot: There is no information provided about %s."
         user-keyword))))
