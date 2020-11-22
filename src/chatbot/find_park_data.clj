@@ -7,7 +7,7 @@
   bot's answer depending on the keyword type"
   [user-keyword]
   (let [found-keyword (keyword user-keyword)
-        park-data (get park-map found-keyword)]
+        park-data (get (parse-json "data/Bertramka.json") found-keyword)]
     (if-not (nil? park-data)
       (cond
         (some #(= found-keyword %) [:wc :playground :parking])
