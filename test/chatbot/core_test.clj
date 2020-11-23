@@ -4,8 +4,8 @@
             [clojure.java.io :as io]
             [chatbot.get_data :refer [create-data]]
             [chatbot.levenshtein :refer [similarity]]
-            [chatbot.identify_keyword :refer :all]
             [chatbot.greet :refer :all]
+            [chatbot.identify_keyword :refer :all]
             [chatbot.find_park_data :refer [find-park-data]]))
 
 (deftest data-test
@@ -84,9 +84,10 @@
 
 (deftest greeting-input-identified-test
   (testing "Testing greeting function with the input which is a greeting"
-    (is
-      (= true
-         (some #(= (greeting possible-greetings "hi") %) responses)))))
+    (let [greeting-result (greeting possible-greetings "hi")]
+      (is
+        (= true
+           (some #(= greeting-result %) responses))))))
 
 (deftest find-park-data-test
   (testing "Testing the keyword response function with input - wc"
