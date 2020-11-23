@@ -5,7 +5,8 @@
             [chatbot.get_data :refer [create-data]]
             [chatbot.levenshtein :refer [similarity]]
             [chatbot.identify_keyword :refer :all]
-            [chatbot.greet :refer :all]))
+            [chatbot.greet :refer :all]
+            [chatbot.find_park_data :refer [find-park-data]]))
 
 (deftest data-test
   (testing "JSON file in data folder"
@@ -86,3 +87,15 @@
     (is
       (= true
          (some #(= (greeting possible-greetings "hi") %) responses)))))
+
+(deftest find-park-data-test
+  (testing "Testing the keyword response function with input - wc"
+    (is
+      (= ">Chatbot: You can find wc in Bertramka."
+         (find-park-data "wc")))))
+
+(deftest find-park-data-absent-keyword-test
+  (testing "Testing the keyword response function with non-existent keyword"
+    (is
+      (= ">Chatbot: There is no information provided about dogs."
+         (find-park-data "dogs")))))
