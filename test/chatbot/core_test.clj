@@ -5,6 +5,7 @@
             [chatbot.get_data :refer [create-data]]
             [chatbot.levenshtein :refer [similarity]]
             [chatbot.greet :refer :all]
+            [chatbot.identify_keyword :refer :all]
             [chatbot.find_park_data :refer [find-park-data]]))
 
 (deftest data-test
@@ -31,6 +32,51 @@
     (is
       (map? (parse-json "data/data-en.json")))))
 
+(deftest keyword-response-vector-valid-test
+  (testing "Testing keyword identifier function with valid input"
+    (is
+      (= "wc"
+         (keyword-response-vector
+          (vector "wc" "restroom" "bath") "restroom")))))
+
+(deftest keyword-response-vector-invalid-test
+  (testing "Testing keyword identifier function with invalid input"
+    (is
+      (= false
+         (keyword-response-vector
+          (first (vals synonyms-map)) "something")))))
+
+(deftest keyword-response-list-invalid-test
+  (testing "Testing keyword identifier with list of vectors and invalid input"
+    (is
+      (= false
+         (keyword-response-list (vals synonyms-map) "something")))))
+
+
+(deftest keyword-response-list-valid-test
+  (testing "Testing keyword identifier with list of vectors and invalid input"
+    (is
+      (= "transportation"
+         (keyword-response-list (vals synonyms-map) "metro")))))
+
+(deftest keyword-response-main-valid-test
+  (testing "Testing the keyword identifier function with valid input"
+    (is
+      (= "biking"
+         (keyword-response-main "bicycle")))))
+
+(deftest keyword-response-main-test
+  (testing "Testing the keyword identifier function with input - dog"
+    (is
+      (= "dogs"
+         (keyword-response-main "dog")))))
+
+(deftest keyord-response-main-invalid-test
+  (testing "Testing the keyword identifier function with invalid input"
+    (is
+      (= false
+         (keyword-response-main "Something")))))
+
 (deftest greeting-input-not-identified-test
   (testing "Testing greeting function with the input which is not a greeting"
     (is
@@ -38,9 +84,10 @@
 
 (deftest greeting-input-identified-test
   (testing "Testing greeting function with the input which is a greeting"
-    (is
-      (= true
-         (some #(= (greeting possible-greetings "hi") %) responses)))))
+    (let [greeting-result (greeting possible-greetings "hi")]
+      (is
+        (= true
+           (some #(= greeting-result %) responses))))))
 
 (deftest find-park-data-test
   (testing "Testing the keyword response function with input - wc"
