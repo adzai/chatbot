@@ -1,6 +1,6 @@
 (ns chatbot.core-test
   (:require [clojure.test :refer :all]
-            [chatbot.core :refer :all]
+            [chatbot.parse :refer :all]
             [clojure.java.io :as io]
             [chatbot.get_data :refer [create-data]]
             [chatbot.levenshtein :refer [similarity]]
