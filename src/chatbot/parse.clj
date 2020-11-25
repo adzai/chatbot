@@ -16,4 +16,3 @@
           (str/lower-case
             (clojure.string/join "-"
                                  (clojure.string/split k #" "))))))))
-
