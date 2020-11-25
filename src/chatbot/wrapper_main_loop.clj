@@ -1,8 +1,8 @@
 (ns chatbot.wrapper_main_loop
-  (:require [chatbot.core :refer :all]
+  (:require [chatbot.core :refer [help-function possible-error-messages]]
             [chatbot.identify_keyword :refer [keyword-response-main]]
             [chatbot.find_park_data :refer [find-park-data]]
-            [chatbot.greet :refer :all]))
+            [chatbot.greet :refer [greeting possible-greetings]]))
 
 (defn wrapper-main-loop
   "Receives user input until a terminating keyword is met.
