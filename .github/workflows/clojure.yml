@@ -15,5 +15,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: lein deps
+    - name: Install clj-kondo
+      run: sudo ./.bin/install-clj-kondo
+    - name: Run clj-kondo
+      run: clj-kondo --lint src --config '{:output {:pattern "::{{level}} file={{filename}},line={{row}},col={{col}}::{{message}}"}}'
+    - name: Run bikeshed
+      run: lein bikeshed
     - name: Run tests
       run: lein test
