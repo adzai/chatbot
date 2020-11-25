@@ -1,7 +1,8 @@
 (ns chatbot.core
   (:require [chatbot.get_data :refer [create-data]]
             [clojure.string :as str]
-            [cheshire.core :refer [parse-string]]))
+            [cheshire.core :refer [parse-string]]
+            [chatbot.wrapper_main_loop :refer [wrapper-main-loop]]))
 
 (defn parse-input [input]
   (let [words (str/split input #" ")
@@ -27,4 +28,7 @@
 (defn main
   ""
   []
+  (wrapper-main-loop)
   (create-data))
+
+
