@@ -42,5 +42,3 @@
   []
   (wrapper-main-loop)
   (create-data))
-
-
