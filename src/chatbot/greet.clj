@@ -1,5 +1,5 @@
 (ns chatbot.greet
-  (:require [chatbot.core :refer [parse-input]]
+  (:require [chatbot.parse :refer [parse-input]]
             [chatbot.levenshtein :refer [similarity]]))
 
 (def possible-greetings
