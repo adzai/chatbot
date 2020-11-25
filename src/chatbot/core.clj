@@ -1,8 +1,5 @@
 (ns chatbot.core
-  (:require [chatbot.get_data :refer [create-data]]
-            [clojure.string :as str]
-            [cheshire.core :refer [parse-string]]
-            [chatbot.greet :refer [greeting possible-greetings]]))
+  (:require [chatbot.get_data :refer [create-data]]))
 
 (def possible-error-messages
   (vector ">Chatbot: Sorry, I didn't understand you, please try again!"
