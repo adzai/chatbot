@@ -1,5 +1,7 @@
 (ns chatbot.find_park_data
-  (:require [chatbot.parse :refer [parse-json]]))
+  (:require
+    [chatbot.parse :refer [parse-json]]
+    [chatbot.bot_utils :as bot_utils]))
 
 (defn find-park-data
   "Checks what value of the keyword identified in user input is in the data
@@ -13,41 +15,41 @@
         (some #(= found-keyword %) [:wc :playground :parking])
           (if (= true park-data)
             (format
-              ">Chatbot: You can find %s in Bertramka."
-              user-keyword)
+              "%sYou can find %s in Bertramka."
+              bot_utils/prefix user-keyword)
             (format
-              ">Chatbot: Unfortunately, there is no %s in Bertramka."
-              user-keyword))
+              "%sUnfortunately, there is no %s in Bertramka."
+              bot_utils/prefix user-keyword))
 
         (some #(= found-keyword %) [:biking :skating :skiing])
           (if (= true park-data)
             (format
-              ">Chatbot: %s is possible in Bertramka."
-              user-keyword)
+              "%s%s is possible in Bertramka."
+              bot_utils/prefix user-keyword)
             (format
-              ">Chatbot: Unfortunately, %s is not possible in Bertramka."
-              user-keyword))
+              "%sUnfortunately, %s is not possible in Bertramka."
+              bot_utils/prefix user-keyword))
 
         (= found-keyword :attractions)
           (format
-            ">Chatbot: In Bertramka you can find such attractions as: %s."
-            park-data)
+            "%sIn Bertramka you can find such attractions as: %s."
+            bot_utils/prefix park-data)
 
         (= found-keyword :transportation)
           (format
-            ">Chatbot: You can get to Bertramka these ways:, they are: %s."
-            park-data)
+            "%sYou can get to Bertramka these ways:, they are: %s."
+            bot_utils/prefix park-data)
 
         (= found-keyword :sports)
           (if (= true park-data)
-            ">Chatbot: There is a sport field in Bertramka."
-            ">Chatbot: Unfortunately, there is no sport field in Bertramka.")
+            (str bot_utils/prefix "There is a sport field in Bertramka.")
+            (str bot_utils/prefix "Unfortunately, there is no sport field in Bertramka."))
 
         (= found-keyword :dogs)
           (if (= true park-data)
-            ">Chatbot: You can enter Bertramka with your dogs."
-            ">Chatbot: Unfortunately, you can't enter Bertramka with dogs."))
+            (str bot_utils/prefix "You can enter Bertramka with your dogs.")
+            (str bot_utils/prefix "Unfortunately, you can't enter Bertramka with dogs.")))
 
       (format
-        ">Chatbot: There is no information provided about %s."
-        user-keyword))))
+        "%sThere is no information provided about %s."
+        bot_utils/prefix user-keyword))))
