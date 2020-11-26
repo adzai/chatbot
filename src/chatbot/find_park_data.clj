@@ -43,12 +43,14 @@
         (= found-keyword :sports)
           (if (= true park-data)
             (str bot_utils/prefix "There is a sport field in Bertramka.")
-            (str bot_utils/prefix "Unfortunately, there is no sport field in Bertramka."))
+            (str bot_utils/prefix "Unfortunately, there is no sport field "
+                 "in Bertramka."))
 
         (= found-keyword :dogs)
           (if (= true park-data)
             (str bot_utils/prefix "You can enter Bertramka with your dogs.")
-            (str bot_utils/prefix "Unfortunately, you can't enter Bertramka with dogs.")))
+            (str bot_utils/prefix "Unfortunately, you can't enter Bertramka "
+                 "with dogs.")))
 
       (format
         "%sThere is no information provided about %s."
