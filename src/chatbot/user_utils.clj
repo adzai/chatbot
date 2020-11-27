@@ -30,5 +30,7 @@
                 (recur))
             (= "skip" (str/lower-case ans))
             nil
-            :else (dosync (ref-set user-prompt (str ans "> "))))))
+            :else (dosync
+                    (ref-set user-prompt (str ans "> "))
+                    (println (str bot/bot-prompt "User name changed to " ans))))))
   nil)

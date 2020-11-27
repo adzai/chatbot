@@ -4,7 +4,8 @@
             [chatbot.find_park_data :refer [find-park-data]]
             [chatbot.greet :refer [greeting possible-greetings]]
             [chatbot.bot_utils :as bot]
-            [chatbot.user_utils :as user]))
+            [chatbot.user_utils :as user]
+            [clojure.string :as str]))
 
 
 
@@ -20,12 +21,16 @@
             "To end the conversation, enter 'finish'. "
             "Ask your questions."))
   (user/set-user-prompt!)
-  (println "Feel free to ask any question about Bertramka!")
-  (loop [user-input (user/get-user-input)]
+  (println (str bot/bot-prompt "You can change your username anytime by typing 'username'"))
+  (println (str bot/bot-prompt "Now feel free to ask any question about Bertramka!"))
+  (loop [user-input (str/lower-case (user/get-user-input))]
     (when-not (= "finish" user-input)
      (cond
        (= "help" user-input)
        (println (bot/help-function))
+
+       (= "username" user-input)
+       (user/set-user-prompt!)
 
        (and (= false (greeting possible-greetings user-input))
             (= false (keyword-response-main user-input)))
