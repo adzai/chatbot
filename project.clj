@@ -12,5 +12,5 @@
            :docstrings false
            :var-redefs false
            :name-collisions false}
-  :main chatbot.core/main
-  :repl-options {:init-ns chatbot.core})
+:main chatbot.core/main
+:repl-options {:init-ns chatbot.core})

@@ -4,7 +4,7 @@
             [chatbot.find_park_data :refer [find-park-data]]
             [chatbot.greet :refer [greeting possible-greetings]]
             [chatbot.bot_utils :as bot]
-            [chatbot.user_utils :as user]
+            [chatbot.user_utils :as chat-user]
             [clojure.string :as str]))
 
 
@@ -20,17 +20,17 @@
                        "I will tell you about Bertramka park. "
                        "To end the conversation, enter 'finish'. "
                        "Ask your questions."))
-  (user/set-user-prompt!)
+  (chat-user/set-user-prompt!)
   (bot/bot-print! "You can change your username anytime by typing 'username'")
   (bot/bot-print! "Feel free to ask any question about Bertramka!")
-  (loop [user-input (str/lower-case (user/get-user-input))]
+  (loop [user-input (str/lower-case (chat-user/get-user-input))]
     (when-not (= "finish" user-input)
       (cond
         (= "help" user-input)
         (bot/bot-print! (bot/help-function))
 
         (= "username" user-input)
-        (user/set-user-prompt!)
+        (chat-user/set-user-prompt!)
 
         (and (= false (greeting possible-greetings user-input))
              (= false (keyword-response-main user-input)))
@@ -41,7 +41,7 @@
 
         (not (= false (keyword-response-main user-input)))
         (bot/bot-print! (find-park-data (keyword-response-main user-input))))
-      (recur (user/get-user-input)))))
+      (recur (chat-user/get-user-input)))))
 
 
 (defn main
