@@ -20,32 +20,32 @@
                        "I will tell you about Bertramka park. "
                        "To end the conversation, enter 'finish'. "
                        "Ask your questions."))
-                  (user/set-user-prompt!)
-                  (bot/bot-print! "You can change your username anytime by typing 'username'")
-                  (bot/bot-print! "Now feel free to ask any question about Bertramka!")
-                  (loop [user-input (str/lower-case (user/get-user-input))]
-                    (when-not (= "finish" user-input)
-                      (cond
-                        (= "help" user-input)
-                        (bot/bot-print! (bot/help-function))
+  (user/set-user-prompt!)
+  (bot/bot-print! "You can change your username anytime by typing 'username'")
+  (bot/bot-print! "Feel free to ask any question about Bertramka!")
+  (loop [user-input (str/lower-case (user/get-user-input))]
+    (when-not (= "finish" user-input)
+      (cond
+        (= "help" user-input)
+        (bot/bot-print! (bot/help-function))
 
-                        (= "username" user-input)
-                        (user/set-user-prompt!)
+        (= "username" user-input)
+        (user/set-user-prompt!)
 
-                        (and (= false (greeting possible-greetings user-input))
-                             (= false (keyword-response-main user-input)))
-                        (bot/bot-print! (rand-nth bot/possible-error-messages))
+        (and (= false (greeting possible-greetings user-input))
+             (= false (keyword-response-main user-input)))
+        (bot/bot-print! (rand-nth bot/possible-error-messages))
 
-                        (not (= false (greeting possible-greetings user-input)))
-                        (bot/bot-print! (greeting possible-greetings user-input))
+        (not (= false (greeting possible-greetings user-input)))
+        (bot/bot-print! (greeting possible-greetings user-input))
 
-                        (not (= false (keyword-response-main user-input)))
-                        (bot/bot-print! (find-park-data (keyword-response-main user-input))))
-                      (recur (user/get-user-input)))))
+        (not (= false (keyword-response-main user-input)))
+        (bot/bot-print! (find-park-data (keyword-response-main user-input))))
+      (recur (user/get-user-input)))))
 
 
-  (defn main
-    ""
-    []
-    (wrapper-main-loop)
-    (create-data))
+(defn main
+  ""
+  []
+  (wrapper-main-loop)
+  (create-data))

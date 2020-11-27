@@ -1,7 +1,6 @@
 (ns chatbot.find_park_data
   (:require
-    [chatbot.parse :refer [parse-json]]
-    [chatbot.bot_utils :as bot]))
+    [chatbot.parse :refer [parse-json]]))
 
 (defn find-park-data
   "Checks what value of the keyword identified in user input is in the data
