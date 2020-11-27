@@ -1,6 +1,5 @@
 (ns chatbot.core
-  (:require [chatbot.get_data :refer [create-data]]
-            [chatbot.identify_keyword :refer [keyword-response-main]]
+  (:require [chatbot.identify_keyword :refer [keyword-response-main]]
             [chatbot.find_park_data :refer [find-park-data]]
             [chatbot.bot_utils :as bot]
             [chatbot.user_utils :as chat-user]
