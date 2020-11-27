@@ -8,8 +8,7 @@
             [clojure.string :as str]))
 
 
-
-(defn wrapper-main-loop
+(defn main-loop
   "Receives user input until a terminating keyword is met.
   The main loop calls help function if user input is help.
   Checks if the keyword is not identified and prints the random error message.
@@ -42,10 +41,3 @@
         (not (= false (keyword-response-main user-input)))
         (bot/bot-print! (find-park-data (keyword-response-main user-input))))
       (recur (chat-user/get-user-input)))))
-
-
-(defn main
-  ""
-  []
-  (wrapper-main-loop)
-  (create-data))
