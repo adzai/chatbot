@@ -32,7 +32,7 @@
             (do (bot/bot-print! "Empty input")
                 (recur))
             (= "skip" (str/lower-case ans))
-            nil
+            (bot/bot-print! "Username selection skipped.")
             :else (dosync
                     (ref-set user-prompt (str ans "> "))
                     (bot/bot-print! (str "User name changed to " ans))))))
