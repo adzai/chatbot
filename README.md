@@ -18,7 +18,7 @@ a [clojure installation](https://clojure.org/guides/getting_started).
 
 ## Installation
 ```
-$ git clone https://github.com/adzai/chatbot
+$ git clone https://github.com/adzai/chatbot.git
 $ cd chatbot
 $ lein deps
 ```
