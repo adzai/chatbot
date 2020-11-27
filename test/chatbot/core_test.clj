@@ -7,7 +7,7 @@
             [chatbot.greet :refer :all]
             [chatbot.identify_keyword :refer :all]
             [chatbot.find_park_data :refer [find-park-data]]
-            [chatbot.bot_utils :as bot_utils]))
+            [chatbot.bot_utils :as bot]))
 
 (deftest data-test
   (testing "JSON file in data folder"
@@ -93,11 +93,12 @@
 (deftest find-park-data-test
   (testing "Testing the keyword response function with input - wc"
     (is
-      (= (str bot_utils/prefix "You can find wc in Bertramka.")
+      (= (str bot/bot-prompt "You can find wc in Bertramka.")
          (find-park-data "wc")))))
 
 (deftest find-park-data-absent-keyword-test
   (testing "Testing the keyword response function with non-existent keyword"
     (is
-      (= (str bot_utils/prefix "There is no information provided about dogs.")
+      (= (str bot/bot-prompt "There is no information provided "
+              "about dogs.")
          (find-park-data "dogs")))))

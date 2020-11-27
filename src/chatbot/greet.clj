@@ -1,15 +1,15 @@
 (ns chatbot.greet
   (:require [chatbot.parse :refer [parse-input]]
             [chatbot.levenshtein :refer [similarity]]
-            [chatbot.bot_utils :as bot_utils]))
+            [chatbot.bot_utils :as bot]))
 
 (def possible-greetings
   (vector "hey" "hi" "hello" "morning" "evening" "afternoon"))
 
 (def responses
-  (vector (str bot_utils/prefix "Hello, thanks for visiting")
-          (str bot_utils/prefix "Good to see you again")
-          (str bot_utils/prefix "Hi there, how can I help?")))
+  (vector (str bot/bot-prompt "Hello, thanks for visiting")
+          (str bot/bot-prompt "Good to see you again")
+          (str bot/bot-prompt "Hi there, how can I help?")))
 
 (defn greeting
   "Using similarity function, identifies if
