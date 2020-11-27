@@ -13,46 +13,46 @@
     (if-not (nil? park-data)
       (cond
         (some #(= found-keyword %) [:wc :playground :parking])
-          (if (= true park-data)
-            (format
-              "%sYou can find %s in Bertramka."
-              bot/bot-prompt user-keyword)
-            (format
-              "%sUnfortunately, there is no %s in Bertramka."
-              bot/bot-prompt user-keyword))
+        (if (= true park-data)
+          (format
+            "You can find %s in Bertramka."
+            user-keyword)
+          (format
+            "Unfortunately, there is no %s in Bertramka."
+            user-keyword))
 
         (some #(= found-keyword %) [:biking :skating :skiing])
-          (if (= true park-data)
-            (format
-              "%s%s is possible in Bertramka."
-              bot/bot-prompt user-keyword)
-            (format
-              "%sUnfortunately, %s is not possible in Bertramka."
-              bot/bot-prompt user-keyword))
+        (if (= true park-data)
+          (format
+            "%s is possible in Bertramka."
+            user-keyword)
+          (format
+            "Unfortunately, %s is not possible in Bertramka."
+            user-keyword))
 
         (= found-keyword :attractions)
-          (format
-            "%sIn Bertramka you can find such attractions as: %s."
-            bot/bot-prompt park-data)
+        (format
+          "In Bertramka you can find such attractions as: %s."
+          park-data)
 
         (= found-keyword :transportation)
-          (format
-            "%sYou can get to Bertramka these ways:, they are: %s."
-            bot/bot-prompt park-data)
+        (format
+          "You can get to Bertramka these ways:, they are: %s."
+          park-data)
 
         (= found-keyword :sports)
-          (if (= true park-data)
-            (str bot/bot-prompt "There is a sport field in Bertramka.")
-            (str bot/bot-prompt "Unfortunately, there is no sport field "
-                 "in Bertramka."))
+        (if (= true park-data)
+          (str "There is a sport field in Bertramka.")
+          (str "Unfortunately, there is no sport field "
+               "in Bertramka."))
 
         (= found-keyword :dogs)
-          (if (= true park-data)
-            (str bot/bot-prompt "You can enter Bertramka with your "
-                                      "dogs.")
-            (str bot/bot-prompt "Unfortunately, you can't enter
-                                      Bertramka with dogs.")))
+        (if (= true park-data)
+          (str "You can enter Bertramka with your "
+               "dogs.")
+          (str "Unfortunately, you can't enter
+               Bertramka with dogs.")))
 
       (format
-        "%sThere is no information provided about %s."
-        bot/bot-prompt user-keyword))))
+        "There is no information provided about %s."
+        user-keyword))))

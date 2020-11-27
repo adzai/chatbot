@@ -16,21 +16,21 @@
 (defn set-user-prompt!
   "Sets the username"
   []
-  (println (str bot/bot-prompt "Input your username or type 'skip'"))
+  (bot/bot-print! "Input your username or type 'skip'")
   (loop []
     (print @user-prompt)
     (flush)
     (let [ans (str/trim (read-line))]
       (cond
             (> (count (str/split ans #" ")) 1)
-            (do (println "Use a 1 word username")
+            (do (bot/bot-print! "Use a 1 word username")
                 (recur))
             (> (count ans) 15)
-            (do (println "Choose a shorter username (max 15 characters)")
+            (do (bot/bot-print! "Choose a shorter username (max 15 characters)")
                 (recur))
             (= "skip" (str/lower-case ans))
             nil
             :else (dosync
                     (ref-set user-prompt (str ans "> "))
-                    (println (str bot/bot-prompt "User name changed to " ans))))))
+                    (bot/bot-print! (str "User name changed to " ans))))))
   nil)

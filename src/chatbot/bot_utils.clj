@@ -8,6 +8,11 @@
            "please try in different words.")
           (str bot-prompt "I am sorry, I could not understand you")))
 
+(defn bot-print!
+  "Format's the message with a bot-prompt and prints it out"
+  [msg]
+  (println (str bot-prompt msg)))
+
 (defn help-function
   "Describes the functionalities of Chatbot."
   []
