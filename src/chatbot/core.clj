@@ -2,7 +2,6 @@
   (:require [chatbot.get_data :refer [create-data]]
             [chatbot.identify_keyword :refer [keyword-response-main]]
             [chatbot.find_park_data :refer [find-park-data]]
-            [chatbot.greet :refer [greeting possible-greetings]]
             [chatbot.bot_utils :as bot]
             [chatbot.user_utils :as chat-user]
             [clojure.string :as str]))
@@ -31,12 +30,12 @@
         (= "username" user-input)
         (chat-user/set-user-prompt!)
 
-        (and (= false (greeting possible-greetings user-input))
+        (and (= false (bot/greeting bot/possible-greetings user-input))
              (= false (keyword-response-main user-input)))
         (bot/bot-print! (rand-nth bot/possible-error-messages))
 
-        (not (= false (greeting possible-greetings user-input)))
-        (bot/bot-print! (greeting possible-greetings user-input))
+        (not (= false (bot/greeting bot/possible-greetings user-input)))
+        (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
 
         (not (= false (keyword-response-main user-input)))
         (bot/bot-print! (find-park-data (keyword-response-main user-input))))
