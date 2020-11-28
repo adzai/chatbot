@@ -1,3 +1,4 @@
+; Utilities for creating the initial czech dataset data/data-cz.json
 (ns chatbot.get_data
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
