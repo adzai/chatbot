@@ -9,6 +9,8 @@ So far the bot provides information about the
 but all of the parks seen [here](https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/index.html)
 will be eventually added.
 
+The work on this project will be documented on https://adzai.github.io/chatbot/
+
 ## Requirements
 * The chatbot is written in [clojure](https://clojure.org/) and as such requires
 a [clojure installation](https://clojure.org/guides/getting_started).
