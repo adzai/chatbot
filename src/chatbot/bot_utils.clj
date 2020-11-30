@@ -13,6 +13,11 @@
 (def possible-greetings
   (vector "hey" "hi" "hello" "morning" "evening" "afternoon"))
 
+(def possible-goodbye-messages
+  (vector "See you next time!"
+          "Goodbye!"
+          "Bye!"))
+
 (def responses
   (vector "Hello, thanks for visiting"
           "Good to see you again"
