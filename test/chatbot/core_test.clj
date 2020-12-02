@@ -71,7 +71,7 @@
       (= "dogs"
          (keyword-response-main "dog")))))
 
-(deftest keyord-response-main-invalid-test
+(deftest keyword-response-main-invalid-test
   (testing "Testing the keyword identifier function with invalid input"
     (is
       (= false
