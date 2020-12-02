@@ -3,8 +3,7 @@
             [chatbot.find_park_data :refer [find-park-data]]
             [chatbot.parse :refer [parse-input]]
             [chatbot.bot_utils :as bot]
-            [chatbot.user_utils :as chat-user]
-            [clojure.string :as str]))
+            [chatbot.user_utils :as chat-user]))
 
 
 (defn main-loop
