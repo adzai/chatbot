@@ -1,5 +1,5 @@
 (ns chatbot.identify_keyword
-  (:require [chatbot.parse :refer [parse-json parse-input]]
+  (:require [chatbot.parse :refer [parse-json]]
             [chatbot.levenshtein :refer [similarity]]))
 
 (def synonyms-map (parse-json "data/synonyms.json"))
@@ -9,7 +9,7 @@
    and prints the corresponding response.
    If the keyword is not identified, function returns false"
   [synonyms-vector input]
-  (let [words (parse-input input)
+  (let [words input
         synonyms synonyms-vector]
   (loop [synonyms-vec synonyms-vector]
     (let [synonym (first synonyms-vec)]
