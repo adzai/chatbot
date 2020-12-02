@@ -50,7 +50,8 @@
   (testing "Testing keyword identifier with list of vectors and invalid input"
     (is
       (= false
-         (keyword-response-list (vals synonyms-map) (parse-input "something"))))))
+         (keyword-response-list (vals synonyms-map)
+                                (parse-input "something"))))))
 
 
 (deftest keyword-response-list-valid-test
