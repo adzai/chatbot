@@ -37,14 +37,14 @@
     (is
       (= "wc"
          (keyword-response-vector
-           (vector "wc" "restroom" "bath") "restroom")))))
+           (vector "wc" "restroom" "bath") ("restroom"))))))
 
 (deftest keyword-response-vector-invalid-test
   (testing "Testing keyword identifier function with invalid input"
     (is
       (= false
          (keyword-response-vector
-           (first (vals synonyms-map)) "something")))))
+           (first (vals synonyms-map)) ("something"))))))
 
 (deftest keyword-response-list-invalid-test
   (testing "Testing keyword identifier with list of vectors and invalid input"
@@ -80,11 +80,11 @@
 (deftest greeting-input-not-identified-test
   (testing "Testing greeting function with the input which is not a greeting"
     (is
-      (= false (greeting possible-greetings "something")))))
+      (= false (greeting possible-greetings ("something"))))))
 
 (deftest greeting-input-identified-test
   (testing "Testing greeting function with the input which is a greeting"
-    (let [greeting-result (greeting possible-greetings "hi")]
+    (let [greeting-result (greeting possible-greetings ("hi"))]
       (is
         (= true
            (some #(= greeting-result %) responses))))))
