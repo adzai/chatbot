@@ -41,4 +41,4 @@
            (not (= false (keyword-response-main user-input)))
            (bot/bot-print! (find-park-data (keyword-response-main user-input))))
 
-         (recur (chat-user/get-user-input))))))
+         (recur (parse-input (chat-user/get-user-input)))))))
