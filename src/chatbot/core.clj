@@ -15,8 +15,8 @@
   (bot/bot-print! "Hi!")
   (bot/bot-print! (str "I am your park guide. "
                        "I will tell you about Bertramka park. "
-                       "To end the conversation, enter 'finish'. "
-                       "Ask your questions."))
+                       "To end the conversation, enter 'finish'."))
+
   (chat-user/set-user-prompt!)
   (bot/bot-print! "You can change your username anytime by typing 'username'")
   (bot/bot-print! "Feel free to ask any question about Bertramka!")

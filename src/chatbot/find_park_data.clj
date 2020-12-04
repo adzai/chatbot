@@ -1,6 +1,7 @@
 (ns chatbot.find_park_data
   (:require
-    [chatbot.parse :refer [parse-json]]))
+    [chatbot.parse :refer [parse-json]]
+    [clojure.string :as str]))
 
 (defn find-park-data
   "Checks what value of the keyword identified in user input is in the data
@@ -24,7 +25,7 @@
         (if (= true park-data)
           (format
             "%s is possible in Bertramka."
-            user-keyword)
+            (str/capitalize user-keyword))
           (format
             "Unfortunately, %s is not possible in Bertramka."
             user-keyword))
