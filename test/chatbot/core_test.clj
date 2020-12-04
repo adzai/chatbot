@@ -37,54 +37,55 @@
     (is
       (= "wc"
          (keyword-response-vector
-           (vector "wc" "restroom" "bath") "restroom")))))
+           (vector "wc" "restroom" "bath") (parse-input "restroom"))))))
 
 (deftest keyword-response-vector-invalid-test
   (testing "Testing keyword identifier function with invalid input"
     (is
       (= false
          (keyword-response-vector
-           (first (vals synonyms-map)) "something")))))
+           (first (vals synonyms-map)) (parse-input "something"))))))
 
 (deftest keyword-response-list-invalid-test
   (testing "Testing keyword identifier with list of vectors and invalid input"
     (is
       (= false
-         (keyword-response-list (vals synonyms-map) "something")))))
+         (keyword-response-list (vals synonyms-map)
+                                (parse-input "something"))))))
 
 
 (deftest keyword-response-list-valid-test
   (testing "Testing keyword identifier with list of vectors and invalid input"
     (is
       (= "transportation"
-         (keyword-response-list (vals synonyms-map) "metro")))))
+         (keyword-response-list (vals synonyms-map) (parse-input "metro"))))))
 
 (deftest keyword-response-main-valid-test
   (testing "Testing the keyword identifier function with valid input"
     (is
       (= "biking"
-         (keyword-response-main "bicycle")))))
+         (keyword-response-main (parse-input "bicycle"))))))
 
 (deftest keyword-response-main-test
   (testing "Testing the keyword identifier function with input - dog"
     (is
       (= "dogs"
-         (keyword-response-main "dog")))))
+         (keyword-response-main (parse-input "dog"))))))
 
-(deftest keyord-response-main-invalid-test
+(deftest keyword-response-main-invalid-test
   (testing "Testing the keyword identifier function with invalid input"
     (is
       (= false
-         (keyword-response-main "Something")))))
+         (keyword-response-main (parse-input "Something"))))))
 
 (deftest greeting-input-not-identified-test
   (testing "Testing greeting function with the input which is not a greeting"
     (is
-      (= false (greeting possible-greetings "something")))))
+      (= false (greeting possible-greetings (parse-input "something"))))))
 
 (deftest greeting-input-identified-test
   (testing "Testing greeting function with the input which is a greeting"
-    (let [greeting-result (greeting possible-greetings "hi")]
+    (let [greeting-result (greeting possible-greetings (parse-input "hi"))]
       (is
         (= true
            (some #(= greeting-result %) responses))))))
