@@ -1,6 +1,5 @@
 (ns chatbot.bot_utils
-  (:require [chatbot.parse :refer [parse-input]]
-            [chatbot.levenshtein :refer [similarity]]))
+  (:require [chatbot.levenshtein :refer [similarity]]))
 
 (def bot-prompt "Chatbot> ")
 
@@ -47,7 +46,7 @@
     If true, function prints random greeting message.
     Otherwise returns false."
     [greeting-vector input]
-    (let [words (parse-input input)]
+    (let [words input]
       (if (seq greeting-vector)
         (let [max-similarity
               (apply max

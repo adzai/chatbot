@@ -1,9 +1,9 @@
 (ns chatbot.core
   (:require [chatbot.identify_keyword :refer [keyword-response-main]]
             [chatbot.find_park_data :refer [find-park-data]]
+            [chatbot.parse :refer [parse-input]]
             [chatbot.bot_utils :as bot]
-            [chatbot.user_utils :as chat-user]
-            [clojure.string :as str]))
+            [chatbot.user_utils :as chat-user]))
 
 
 (defn main-loop
@@ -20,8 +20,8 @@
   (chat-user/set-user-prompt!)
   (bot/bot-print! "You can change your username anytime by typing 'username'")
   (bot/bot-print! "Feel free to ask any question about Bertramka!")
-  (loop [user-input (str/lower-case (chat-user/get-user-input))]
-     (if (= "finish" user-input)
+  (loop [user-input (parse-input (chat-user/get-user-input))]
+     (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
        (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
        (do
          (cond
@@ -41,4 +41,4 @@
            (not (= false (keyword-response-main user-input)))
            (bot/bot-print! (find-park-data (keyword-response-main user-input))))
 
-         (recur (chat-user/get-user-input))))))
+         (recur (parse-input (chat-user/get-user-input)))))))
