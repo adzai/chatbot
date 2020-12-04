@@ -3,3 +3,9 @@ h1 {
   text-align: center;
   font-size: 3.5rem;
 }
+
+p {
+    font-size: 1.5rem;
+    margin-left: 7rem;
+    margin-right: 7rem;
+}
