@@ -4,7 +4,12 @@
 
 (defn parse-input [input]
   (let [words (str/split input #" ")
-        lower-cased-words (map str/lower-case words)]
+        letter-words
+        (map
+          #(str/join
+             ""
+             (filter (fn [x] (Character/isLetter x)) %)) words)
+        lower-cased-words (map str/lower-case letter-words)]
     lower-cased-words))
 
 (defn parse-json [file-name]

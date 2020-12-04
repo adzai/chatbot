@@ -25,10 +25,10 @@
        (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
        (do
          (cond
-           (= "help" user-input)
-           (bot/bot-print! (bot/help-function))
+           (= '("help") user-input)
+           (bot/help-function)
 
-           (= "username" user-input)
+           (= '("username") user-input)
            (chat-user/set-user-prompt!)
 
            (and (= false (bot/greeting bot/possible-greetings user-input))
