@@ -29,6 +29,36 @@ $ lein deps
 ```
 lein run
 ```
+Chatbot will greet you and prompt you for a username. The username can be changed later at any time.
+```
+Chatbot> Hi!
+Chatbot> I am your park guide. I will tell you about Bertramka park. To end the conversation, enter 'finish'.
+Chatbot> Input your username or type 'skip'
+User> Adam
+Chatbot> User name changed to Adam
+Chatbot> You can change your username anytime by typing 'username'
+Chatbot> Feel free to ask any question about Bertramka!
+```
+
+Now you can ask your questions about the Bertramka park.
+```
+Adam> Can I ride my bicycle in the Bertramka park?
+Chatbot> Biking is possible in Bertramka.
+```
+
+If you need help, you can type *help* in the input field.
+```
+Adam> help
+Chatbot> The chatbot is designed to answer users' questions regarding Bertramka park.
+Chatbot> The bot provides information about following aspects of Bertramka: wc, attractions, biking, skating, sports field, playground, transportation and parking.
+Chatbot> Error messages are used to inform user that  asked questions are obscure to chatbot.
+Chatbot> The user can finish the conversation by typing word - finish.
+```
+When you got all the information you needed, you can end the conversation by typing *finish*.
+```
+Adam> finish
+Chatbot> Bye!
+```
 
 ## Tests
 ```
