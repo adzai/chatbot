@@ -15,8 +15,8 @@
   (bot/bot-print! "Hi!")
   (bot/bot-print! (str "I am your park guide. "
                        "I will tell you about Bertramka park. "
-                       "To end the conversation, enter 'finish'. "
-                       "Ask your questions."))
+                       "To end the conversation, enter 'finish'."))
+
   (chat-user/set-user-prompt!)
   (bot/bot-print! "You can change your username anytime by typing 'username'")
   (bot/bot-print! "Feel free to ask any question about Bertramka!")
@@ -25,10 +25,10 @@
        (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
        (do
          (cond
-           (= "help" user-input)
-           (bot/bot-print! (bot/help-function))
+           (= '("help") user-input)
+           (bot/help-function)
 
-           (= "username" user-input)
+           (= '("username") user-input)
            (chat-user/set-user-prompt!)
 
            (and (= false (bot/greeting bot/possible-greetings user-input))

@@ -11,7 +11,7 @@
   []
   (print @user-prompt)
   (flush)
-  (read-line))
+  (str/trimr (read-line)))
 
 (defn set-user-prompt!
   "Sets the username"
