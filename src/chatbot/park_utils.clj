@@ -2,15 +2,32 @@
   (:require [clojure.string :as str]
             [chatbot.bot_utils :as bot]
             [chatbot.user_utils :as chat-user]
-            [chatbot.parse :refer [park->keyword keyword->park
-                                   parse-json]]))
+            [chatbot.parse :refer [parse-json]]))
 
 (def park-name (ref ""))
 
 (def data-map (parse-json "data/data-en.json"))
 (def keywords (keys data-map))
 
-(defn user-select-park
+(defn park->keyword
+  "Takes a park name e.g. 'Riegerovy sady' and transforms it into
+  a keyword :riegerovy-sady"
+  [park-name]
+  (-> park-name
+      (str/replace #" " "-")
+      (str/lower-case)
+      (keyword)))
+
+(defn keyword->park
+  "Takes a keyword  e.g. :riegerovy-sady and transforms it into
+  a park name 'Riegerovy Sady'"
+  [kw]
+  (-> kw
+      (str/replace #":" "")
+      (str/replace #"-" " ")
+      (str/capitalize)))
+
+(defn user-select-park!
   "Prompt the user to select a park"
   []
   (bot/bot-print! (str "Select a park to get info for "

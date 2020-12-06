@@ -18,7 +18,7 @@
 
   (chat-user/set-user-prompt!)
   (bot/bot-print! "You can change your username anytime by typing 'username'")
-  (park/user-select-park)
+  (park/user-select-park!)
   (bot/bot-print! "To end the conversation, enter 'finish'.")
   (bot/bot-print! "If you want the change the park type 'park'")
   (loop [user-input (parse-input (chat-user/get-user-input))]
@@ -39,7 +39,7 @@
           greeting?
           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
           park-change?
-          (park/user-select-park)
+          (park/user-select-park!)
 
           response
           (bot/bot-print! (park/find-park-data response))
