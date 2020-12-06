@@ -6,6 +6,9 @@
             [chatbot.user_utils :as chat-user]))
 
 
+; This will be changed when processing multiple parks
+(def park-name "Bertramka")
+
 (defn main-loop
   "Receives user input until a terminating keyword is met.
   The main loop calls help function if user input is help.
@@ -21,24 +24,25 @@
   (bot/bot-print! "You can change your username anytime by typing 'username'")
   (bot/bot-print! "Feel free to ask any question about Bertramka!")
   (loop [user-input (parse-input (chat-user/get-user-input))]
-     (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
-       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
-       (do
-         (cond
-           (= '("help") user-input)
-           (bot/help-function)
+    (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
+      (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
+      (let [help? (= '("help") user-input)
+            username-change? (= '("username") user-input)
+            greeting? (bot/greeting bot/possible-greetings user-input)
+            response (keyword-response-main user-input)]
+        (cond
+          help?
+          (bot/help-function)
 
-           (= '("username") user-input)
-           (chat-user/set-user-prompt!)
+          username-change?
+          (chat-user/set-user-prompt!)
 
-           (and (= false (bot/greeting bot/possible-greetings user-input))
-                (= false (keyword-response-main user-input)))
-           (bot/bot-print! (rand-nth bot/possible-error-messages))
+          greeting?
+          (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
 
-           (not (= false (bot/greeting bot/possible-greetings user-input)))
-           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
+          response
+          (bot/bot-print! (find-park-data response park-name))
 
-           (not (= false (keyword-response-main user-input)))
-           (bot/bot-print! (find-park-data (keyword-response-main user-input))))
+          :else (bot/bot-print! (rand-nth bot/possible-error-messages)))
 
-         (recur (parse-input (chat-user/get-user-input)))))))
+        (recur (parse-input (chat-user/get-user-input)))))))
