@@ -24,25 +24,25 @@
   (bot/bot-print! "You can change your username anytime by typing 'username'")
   (bot/bot-print! "Feel free to ask any question about Bertramka!")
   (loop [user-input (parse-input (chat-user/get-user-input))]
-     (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
-       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
-       (let [help? (= '("help") user-input)
-             username-change? (= '("username") user-input)
-             greeting? (bot/greeting bot/possible-greetings user-input)
-             response (keyword-response-main user-input)]
-         (cond
-           help?
-           (bot/help-function)
+    (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
+      (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
+      (let [help? (= '("help") user-input)
+            username-change? (= '("username") user-input)
+            greeting? (bot/greeting bot/possible-greetings user-input)
+            response (keyword-response-main user-input)]
+        (cond
+          help?
+          (bot/help-function)
 
-           username-change?
-           (chat-user/set-user-prompt!)
+          username-change?
+          (chat-user/set-user-prompt!)
 
-           greeting?
-           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
+          greeting?
+          (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
 
-           response
-           (bot/bot-print! (find-park-data response park-name))
+          response
+          (bot/bot-print! (find-park-data response park-name))
 
-           :else (bot/bot-print! (rand-nth bot/possible-error-messages)))
+          :else (bot/bot-print! (rand-nth bot/possible-error-messages)))
 
-         (recur (parse-input (chat-user/get-user-input)))))))
+        (recur (parse-input (chat-user/get-user-input)))))))

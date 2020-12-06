@@ -11,9 +11,10 @@
       (str/lower-case)
       (keyword)))
 
-(defn parse-input [input]
+(defn parse-input
   "Accepts a string and returns a vector of words which are lower cased
   and letter only"
+  [input]
   (let [words (str/split input #" ")
         letter-words
         (map
@@ -23,13 +24,14 @@
         lower-cased-words (map str/lower-case letter-words)]
     lower-cased-words))
 
-(defn parse-json [file-name]
+(defn parse-json
   "Reads in a JSON file and returns a clojure map"
+  [file-name]
   (let [file (slurp file-name)]
     (parse-string
       file
       (fn [k]
         (keyword
           (str/lower-case
-            (clojure.string/join "-"
-                                 (clojure.string/split k #" "))))))))
+            ; In case words contain spaces replace them with a hyphen
+            (str/join "-" (str/split k #" "))))))))
