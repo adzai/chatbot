@@ -10,10 +10,9 @@
   [user-keyword]
   (let [found-keyword (keyword user-keyword)
         park-data (get (parse-json "data/Bertramka.json") found-keyword)]
-    (if-not (nil? park-data)
-      (cond
-        (some #(= found-keyword %) [:wc :playground :parking])
-        (if (= true park-data)
+    (if park-data
+      (cond (some #(= found-keyword %) [:wc :playground :parking])
+        (if park-data
           (format
             "You can find %s in Bertramka."
             user-keyword)
@@ -22,7 +21,7 @@
             user-keyword))
 
         (some #(= found-keyword %) [:biking :skating :skiing])
-        (if (= true park-data)
+        (if park-data
           (format
             "%s is possible in Bertramka."
             (str/capitalize user-keyword))
@@ -41,13 +40,13 @@
           park-data)
 
         (= found-keyword :sports)
-        (if (= true park-data)
+        (if park-data
           (str "There is a sport field in Bertramka.")
           (str "Unfortunately, there is no sport field "
                "in Bertramka."))
 
         (= found-keyword :dogs)
-        (if (= true park-data)
+        (if park-data
           (str "You can enter Bertramka with your "
                "dogs.")
           (str "Unfortunately, you can't enter

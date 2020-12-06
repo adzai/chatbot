@@ -23,22 +23,23 @@
   (loop [user-input (parse-input (chat-user/get-user-input))]
      (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
        (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
-       (do
+       (let [help? (= '("help") user-input)
+             username-change? (= '("username") user-input)
+             greeting? (bot/greeting bot/possible-greetings user-input)
+             response (keyword-response-main user-input)]
          (cond
-           (= '("help") user-input)
+           help?
            (bot/help-function)
 
-           (= '("username") user-input)
+           username-change?
            (chat-user/set-user-prompt!)
 
-           (and (= false (bot/greeting bot/possible-greetings user-input))
-                (= false (keyword-response-main user-input)))
-           (bot/bot-print! (rand-nth bot/possible-error-messages))
-
-           (not (= false (bot/greeting bot/possible-greetings user-input)))
+           greeting?
            (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
 
-           (not (= false (keyword-response-main user-input)))
-           (bot/bot-print! (find-park-data (keyword-response-main user-input))))
+           response
+           (bot/bot-print! (find-park-data response))
+
+           :else (bot/bot-print! (rand-nth bot/possible-error-messages)))
 
          (recur (parse-input (chat-user/get-user-input)))))))
