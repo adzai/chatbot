@@ -1,6 +1,5 @@
 (ns chatbot.core
   (:require [chatbot.identify_keyword :refer [keyword-response-main]]
-            [chatbot.find_park_data :refer [find-park-data]]
             [chatbot.parse :refer [parse-input]]
             [chatbot.bot_utils :as bot]
             [chatbot.park_utils :as park]
@@ -43,7 +42,7 @@
           (park/user-select-park)
 
           response
-          (bot/bot-print! (find-park-data response @park/park-name))
+          (bot/bot-print! (park/find-park-data response))
 
           :else (bot/bot-print! (rand-nth bot/possible-error-messages)))
 

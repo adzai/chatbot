@@ -6,7 +6,7 @@
             [chatbot.levenshtein :refer [similarity]]
             [chatbot.bot_utils :refer :all]
             [chatbot.identify_keyword :refer :all]
-            [chatbot.find_park_data :refer [find-park-data]]))
+            [chatbot.park_utils :refer [park-name find-park-data]]))
 
 (deftest data-test
   (testing "JSON file in data folder"
@@ -92,13 +92,19 @@
 
 (deftest find-park-data-test
   (testing "Testing the keyword response function with input - wc"
+    ; Set park-name manually since normally the user has to choose one when
+    ; prompted
+    (dosync (ref-set park-name "Bertramka"))
     (is
       (= "You can find wc in Bertramka.")
-      (find-park-data "wc" "Bertramka"))))
+      (find-park-data "wc"))))
 
 (deftest find-park-data-absent-keyword-test
   (testing "Testing the keyword response function with non-existent keyword"
+    ; Set park-name manually since normally the user has to choose one when
+    ; prompted
+    (dosync (ref-set park-name "Bertramka"))
     (is
       (= (str "There is no information provided "
               "about dogs in Bertramka.")
-         (find-park-data "dogs" "Bertramka")))))
+         (find-park-data "dogs")))))
