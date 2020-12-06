@@ -1,6 +1,6 @@
 (ns chatbot.park_utils
   (:require [clojure.string :as str]
-            [chatbot.bot_utils :as bot]
+            [chatbot.bot_utils :refer [bot-print!]]
             [chatbot.user_utils :as chat-user]
             [chatbot.parse :refer [parse-json]]))
 
@@ -30,8 +30,8 @@
 (defn user-select-park!
   "Prompt the user to select a park"
   []
-  (bot/bot-print! (str "Select a park to get info for "
-                       " (type corresponding number:"))
+  (bot-print! (str "Select a park to get info for "
+                       "(type the corresponding number):"))
   (loop [i 1
          keywords keywords]
     (when-not (empty? keywords)
@@ -46,9 +46,9 @@
         (dosync (ref-set park-name
                          (keyword->park (nth keywords (dec input)))))
         (do
-          (bot/bot-print! "Enter a valid number between 1-12")
+          (bot-print! "Enter a valid number between 1-12")
           (recur)))))
-  (bot/bot-print! (str "Ok, now I will answer your questions "
+  (bot-print! (str "Ok, I will now answer your questions "
                        "about the " @park-name
                        " park!")))
 

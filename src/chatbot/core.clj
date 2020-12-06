@@ -6,7 +6,6 @@
             [chatbot.user_utils :as chat-user]))
 
 
-; This will be changed when processing multiple parks
 (defn main-loop
   "Receives user input until a terminating keyword is met.
   The main loop calls help function if user input is help.
@@ -15,12 +14,12 @@
   []
   (bot/bot-print! "Hi!")
   (bot/bot-print! "I am your park guide.")
-
   (chat-user/set-user-prompt!)
-  (bot/bot-print! "You can change your username anytime by typing 'username'")
+  (bot/bot-print! "You can change your username at any time by typing 'username'.")
   (park/user-select-park!)
   (bot/bot-print! "To end the conversation, enter 'finish'.")
-  (bot/bot-print! "If you want the change the park type 'park'")
+  (bot/bot-print! "If you need help, type 'help'.")
+  (bot/bot-print! "If you want to change the park type 'park'.")
   (loop [user-input (parse-input (chat-user/get-user-input))]
     (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
