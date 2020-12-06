@@ -6,6 +6,7 @@
             [chatbot.levenshtein :refer [similarity]]
             [chatbot.bot_utils :refer :all]
             [chatbot.identify_keyword :refer :all]
+            [chatbot.core :refer [park-name]]
             [chatbot.find_park_data :refer [find-park-data]]))
 
 (deftest data-test
@@ -94,11 +95,11 @@
   (testing "Testing the keyword response function with input - wc"
     (is
       (= "You can find wc in Bertramka.")
-      (find-park-data "wc"))))
+      (find-park-data "wc" park-name))))
 
 (deftest find-park-data-absent-keyword-test
   (testing "Testing the keyword response function with non-existent keyword"
     (is
       (= (str "There is no information provided "
-              "about dogs.")
-         (find-park-data "dogs")))))
+              "about dogs in " park-name ".")
+         (find-park-data "dogs" park-name)))))

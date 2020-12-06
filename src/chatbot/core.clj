@@ -6,6 +6,9 @@
             [chatbot.user_utils :as chat-user]))
 
 
+; This will be changed when processing multiple parks
+(def park-name "Bertramka")
+
 (defn main-loop
   "Receives user input until a terminating keyword is met.
   The main loop calls help function if user input is help.
@@ -38,7 +41,7 @@
            (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
 
            response
-           (bot/bot-print! (find-park-data response))
+           (bot/bot-print! (find-park-data response park-name))
 
            :else (bot/bot-print! (rand-nth bot/possible-error-messages)))
 

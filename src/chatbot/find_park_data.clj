@@ -7,51 +7,52 @@
   "Checks what value of the keyword identified in user input is in the data
   structure containing data about the park and prints out the corresponding
   bot's answer depending on the keyword type"
-  [user-keyword]
+  [user-keyword park-name]
   (let [found-keyword (keyword user-keyword)
-        park-data (get (parse-json "data/Bertramka.json") found-keyword)]
-    (if park-data
+        park-data? (get (parse-json
+                          (str "data/" park-name ".json")) found-keyword)]
+    (if-not (nil? park-data?)
       (cond (some #(= found-keyword %) [:wc :playground :parking])
-        (if park-data
-          (format
-            "You can find %s in Bertramka."
-            user-keyword)
-          (format
-            "Unfortunately, there is no %s in Bertramka."
-            user-keyword))
+            (if park-data?
+              (format
+                "You can find %s in %s."
+                user-keyword park-name)
+              (format
+                "Unfortunately, there is no %s in %s."
+                user-keyword park-name))
 
-        (some #(= found-keyword %) [:biking :skating :skiing])
-        (if park-data
-          (format
-            "%s is possible in Bertramka."
-            (str/capitalize user-keyword))
-          (format
-            "Unfortunately, %s is not possible in Bertramka."
-            user-keyword))
+            (some #(= found-keyword %) [:biking :skating :skiing])
+            (if park-data?
+              (format
+                "%s is possible in %s."
+                (str/capitalize user-keyword) park-name)
+              (format
+                "Unfortunately, %s is not possible in %s."
+                user-keyword park-name))
 
-        (= found-keyword :attractions)
-        (format
-          "In Bertramka you can find such attractions as: %s."
-          park-data)
+            (= found-keyword :attractions)
+            (format
+              "In %s you can find such attractions as: %s."
+              park-name park-data?)
 
-        (= found-keyword :transportation)
-        (format
-          "You can get to Bertramka these ways:, they are: %s."
-          park-data)
+            (= found-keyword :transportation)
+            (format
+              "You can get to %s these ways:, they are: %s."
+              park-name park-data?)
 
-        (= found-keyword :sports)
-        (if park-data
-          (str "There is a sport field in Bertramka.")
-          (str "Unfortunately, there is no sport field "
-               "in Bertramka."))
+            (= found-keyword :sports)
+            (if park-data?
+              (str "There is a sport field in " park-name ".")
+              (str "Unfortunately, there is no sport field "
+                   "in " park-name "."))
 
-        (= found-keyword :dogs)
-        (if park-data
-          (str "You can enter Bertramka with your "
-               "dogs.")
-          (str "Unfortunately, you can't enter
-               Bertramka with dogs.")))
+            (= found-keyword :dogs)
+            (if park-data?
+              (str "You can enter " park-name " with your "
+                   "dogs.")
+              (str "Unfortunately, you can't enter
+                   " park-name " with dogs.")))
 
       (format
-        "There is no information provided about %s."
-        user-keyword))))
+        "There is no information provided about %s in %s."
+        user-keyword park-name))))
