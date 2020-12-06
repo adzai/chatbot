@@ -16,8 +16,8 @@
       (if (not (nil? synonym))
         (let [max-similarity
               (apply max
-                     (for [y words]
-                       (similarity y (first synonyms-vec))))]
+                     (for [word words]
+                       (similarity word (first synonyms-vec))))]
           (if (>= max-similarity 0.75)
             (first synonyms)
             (recur (rest synonyms-vec))))
