@@ -1,8 +1,7 @@
 (ns chatbot.park_utils
   (:require [chatbot.bot_utils :as bot]
             [chatbot.user_utils :as chat-user]
-            [chatbot.parse :refer [keyword->park parse-json]]
-            [clojure.string :as str]))
+            [chatbot.parse :refer [keyword->park parse-json]]))
 
 (def park-name (ref ""))
 
@@ -19,7 +18,8 @@
       (println (str i ": " (keyword->park (first keywords))))
       (recur (inc i) (rest keywords))))
   (loop []
-    (let [input (read-string (str/trim (chat-user/get-user-input)))]
+    (let [raw-input (chat-user/get-user-input)
+          input (if (= "" raw-input) false (read-string raw-input))]
       (if (and (number? input)
                (<= input (count keywords))
                (> input 0))
