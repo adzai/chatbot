@@ -1,6 +1,6 @@
 (ns chatbot.find_park_data
   (:require
-    [chatbot.parse :refer [parse-json]]
+    [chatbot.parse :refer [parse-json park->keyword]]
     [clojure.string :as str]))
 
 (defn find-park-data
@@ -9,8 +9,9 @@
   bot's answer depending on the keyword type"
   [user-keyword park-name]
   (let [found-keyword (keyword user-keyword)
-        park-data? (get (parse-json
-                          (str "data/" park-name ".json")) found-keyword)]
+        park-keyword (park->keyword park-name)
+        park-info (get (parse-json "data/data-en.json") park-keyword)
+        park-data? (get park-info found-keyword)]
     (if-not (nil? park-data?)
       (cond (some #(= found-keyword %) [:wc :playground :parking])
             (if park-data?

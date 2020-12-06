@@ -2,6 +2,15 @@
   (:require [clojure.string :as str]
             [cheshire.core :refer [parse-string]]))
 
+(defn park->keyword
+  "Takes a park name e.g. 'Riegerovy Sady' and transforms it into
+  a keyword :riegerovy-sady"
+  [park-name]
+  (-> park-name
+      (str/replace #" " "-")
+      (str/lower-case)
+      (keyword)))
+
 (defn parse-input [input]
   (let [words (str/split input #" ")
         letter-words
