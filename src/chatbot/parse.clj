@@ -12,6 +12,8 @@
       (keyword)))
 
 (defn parse-input [input]
+  "Accepts a string and returns a vector of words which are lower cased
+  and letter only"
   (let [words (str/split input #" ")
         letter-words
         (map
@@ -22,6 +24,7 @@
     lower-cased-words))
 
 (defn parse-json [file-name]
+  "Reads in a JSON file and returns a clojure map"
   (let [file (slurp file-name)]
     (parse-string
       file
