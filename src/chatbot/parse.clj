@@ -11,6 +11,13 @@
       (str/lower-case)
       (keyword)))
 
+(defn keyword->park
+  [kw]
+  (-> kw
+      (str/replace #":" "")
+      (str/replace #"-" " ")
+      (str/capitalize)))
+
 (defn parse-input
   "Accepts a string and returns a vector of words which are lower cased
   and letter only"
