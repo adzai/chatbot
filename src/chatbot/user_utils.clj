@@ -11,7 +11,7 @@
   []
   (print @user-prompt)
   (flush)
-  (read-line))
+  (str/trimr (read-line)))
 
 (defn set-user-prompt!
   "Sets the username"
@@ -22,18 +22,22 @@
     (flush)
     (let [ans (str/trim (read-line))]
       (cond
-            (> (count (str/split ans #" ")) 1)
-            (do (bot/bot-print! "Use a 1 word username")
-                (recur))
-            (> (count ans) 15)
-            (do (bot/bot-print! "Choose a shorter username (max 15 characters)")
-                (recur))
-            (= (count ans) 0)
-            (do (bot/bot-print! "Empty input")
-                (recur))
-            (= "skip" (str/lower-case ans))
-            (bot/bot-print! "Username selection skipped.")
-            :else (dosync
-                    (ref-set user-prompt (str ans "> "))
-                    (bot/bot-print! (str "User name changed to " ans))))))
+        (> (count (str/split ans #" ")) 1)
+        (do (bot/bot-print! "Use a 1 word username")
+            (recur))
+
+        (> (count ans) 15)
+        (do (bot/bot-print! "Choose a shorter username (max 15 characters)")
+            (recur))
+
+        (= (count ans) 0)
+        (do (bot/bot-print! "Empty input")
+            (recur))
+
+        (= "skip" (str/lower-case ans))
+        (bot/bot-print! "Username selection skipped.")
+
+        :else (dosync
+                (ref-set user-prompt (str ans "> "))
+                (bot/bot-print! (str "User name changed to " ans))))))
   nil)
