@@ -1,15 +1,12 @@
 ![Clojure CI](https://github.com/adzai/chatbot/workflows/Clojure%20CI/badge.svg?branch=main)
 # Prague Parks Chatbot (WIP)
 
-The chatbot provides various information to it's users about 
+The Prague Parks Chatbot answers the user's questions about various
 parks in Prague and activities related to them.
+A list of those parks
+can be found [here](https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/index.html).
 
-So far the bot provides information about the 
-[Bertramka](https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/bertramka/index.html) park,
-but all of the parks seen [here](https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/index.html)
-will be eventually added.
-
-The work on this project will be documented on https://adzai.github.io/chatbot/
+The work on this project is documented on https://adzai.github.io/chatbot/
 
 ## Requirements
 * The chatbot is written in [clojure](https://clojure.org/) and as such requires
@@ -32,28 +29,39 @@ lein run
 Chatbot will greet you and prompt you for a username. The username can be changed later at any time.
 ```
 Chatbot> Hi!
-Chatbot> I am your park guide. I will tell you about Bertramka park. To end the conversation, enter 'finish'.
-Chatbot> Input your username or type 'skip'
+Chatbot> I am your park guide.
+Chatbot> Input your username or type 'skip'.
 User> Adam
 Chatbot> User name changed to Adam
-Chatbot> You can change your username anytime by typing 'username'
-Chatbot> Feel free to ask any question about Bertramka!
+Chatbot> You can change your username at any time by typing 'username'.
 ```
-
-Now you can ask your questions about the Bertramka park.
+After the username selection, you will be prompted to select a park.
+```
+Chatbot> Select a park to get info for (type the corresponding number):
+1: Bertramka
+2: Vysehrad
+3: Kinskeho zahrada
+4: Petrin
+5: Riegrovy sady
+6: Obora hvezda
+7: Kampa
+8: Frantiskanska zahrada
+9: Ladronka
+10: Stromovka
+11: Letna
+12: Klamovka
+Adam> 1
+```
+Now you can ask your questions about the chosen park.
+The park can be changed later by typing *park*.
 ```
 Adam> Can I ride my bicycle in the Bertramka park?
 Chatbot> Biking is possible in Bertramka.
 ```
 
-If you need help, you can type *help* in the input field.
-```
-Adam> help
-Chatbot> The chatbot is designed to answer users' questions regarding Bertramka park.
-Chatbot> The bot provides information about following aspects of Bertramka: wc, attractions, biking, skating, sports field, playground, transportation and parking.
-Chatbot> Error messages are used to inform user that  asked questions are obscure to chatbot.
-Chatbot> The user can finish the conversation by typing word - finish.
-```
+If you need an overview of the chatbot's commands and overall functionality
+of the chatbot, type *help* in the input field.
+
 When you got all the information you needed, you can end the conversation by typing *finish*.
 ```
 Adam> finish
@@ -70,4 +78,3 @@ lein test
 & [Iryna](https://github.com/irinakulinich3712)
 
 ## [License](https://github.com/adzai/chatbot/blob/main/LICENSE)
-
