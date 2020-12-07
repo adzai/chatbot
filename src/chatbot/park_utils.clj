@@ -20,7 +20,7 @@
 
 (defn keyword->park
   "Takes a keyword  e.g. :riegerovy-sady and transforms it into
-  a park name 'Riegerovy Sady'"
+  a park name 'Riegerovy sady'"
   [kw]
   (-> kw
       (str/replace #":" "")
@@ -31,7 +31,7 @@
   "Prompt the user to select a park"
   []
   (bot-print! (str "Select a park to get info for "
-                       "(type the corresponding number):"))
+                   "(type the corresponding number):"))
   (loop [i 1
          keywords keywords]
     (when-not (empty? keywords)
@@ -49,8 +49,8 @@
           (bot-print! "Enter a valid number between 1-12")
           (recur)))))
   (bot-print! (str "Ok, I will now answer your questions "
-                       "about the " @park-name
-                       " park!")))
+                   "about the " @park-name
+                   " park!")))
 
 (defn find-park-data
   "Checks what value of the keyword identified in user input is in the data
@@ -107,7 +107,9 @@
         "There is no information provided about %s in %s."
         user-keyword @park-name))))
 
-(defn park-history []
+(defn park-history
+  "Returns historic information about a park that the user selected"
+  []
   (let [full-info-map (parse-json "data/park-history.json")
         park-keyword (park->keyword @park-name)]
     (get full-info-map park-keyword)))
