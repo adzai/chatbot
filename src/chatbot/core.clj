@@ -1,6 +1,6 @@
 (ns chatbot.core
   (:require [chatbot.identify_keyword :refer [keyword-response-main]]
-            [chatbot.find_park_data :refer [find-park-data]]
+            [chatbot.find_park_data :refer [find-park-data park-history]]
             [chatbot.parse :refer [parse-input]]
             [chatbot.bot_utils :as bot]
             [chatbot.user_utils :as chat-user]))
@@ -28,6 +28,7 @@
       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
       (let [help? (= '("help") user-input)
             username-change? (= '("username") user-input)
+            park-history? (= '("history") user-input)
             greeting? (bot/greeting bot/possible-greetings user-input)
             response (keyword-response-main user-input)]
         (cond
@@ -36,6 +37,9 @@
 
           username-change?
           (chat-user/set-user-prompt!)
+
+          park-history?
+          (bot/bot-print! (park-history park-name))
 
           greeting?
           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
