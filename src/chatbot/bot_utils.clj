@@ -36,6 +36,11 @@
                    "such as wc, attractions, biking, skating, "
                    "sports field, playground, transportation, parking "
                    "and more."))
+  (bot-print! (str "The bot provides information about following aspects "
+                   "of Bertramka: wc, attractions, biking, skating, "
+                   "sports field, playground, transportation and parking."))
+  (bot-print! (str "The user can get familiarized with the history of "
+                    " specific park by typing word - history."))
   (bot-print! (str "Error messages are used to inform user that "
                    " asked questions are obscure to chatbot."))
   (bot-print! (str "The user can change their username by "

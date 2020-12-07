@@ -106,3 +106,8 @@
       (format
         "There is no information provided about %s in %s."
         user-keyword @park-name))))
+
+(defn park-history []
+  (let [full-info-map (parse-json "data/park-history.json")
+        park-keyword (park->keyword @park-name)]
+    (get full-info-map park-keyword)))

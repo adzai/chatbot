@@ -5,7 +5,6 @@
             [chatbot.park_utils :as park]
             [chatbot.user_utils :as chat-user]))
 
-
 (defn main-loop
   "Receives user input until a terminating keyword is met.
   The main loop calls help function if user input is help.
@@ -20,12 +19,14 @@
   (park/user-select-park!)
   (bot/bot-print! "To end the conversation, enter 'finish'.")
   (bot/bot-print! "If you need help, type 'help'.")
+  (bot/bot-print! "History of the park can be viewed by entering 'history'.")
   (bot/bot-print! "If you want to change the park type 'park'.")
   (loop [user-input (parse-input (chat-user/get-user-input))]
     (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
       (let [help? (= '("help") user-input)
             username-change? (= '("username") user-input)
+            park-history? (= '("history") user-input)
             greeting? (bot/greeting bot/possible-greetings user-input)
             park-change? (= '("park") user-input)
             response (keyword-response-main user-input)]
@@ -35,6 +36,9 @@
 
           username-change?
           (chat-user/set-user-prompt!)
+
+          park-history?
+          (bot/bot-print! (park/park-history))
 
           greeting?
           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
