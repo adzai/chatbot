@@ -31,16 +31,21 @@
   "Describes the functionalities of Chatbot."
   []
   (bot-print! (str "The chatbot is designed to answer users' "
-                   "questions regarding Bertramka park."))
-  (bot-print! (str "The bot provides information about following aspects "
-                   "of Bertramka: wc, attractions, biking, skating, "
-                   "sports field, playground, transportation and parking."))
+                   "questions regarding the park of their choice."))
+  (bot-print! (str "The bot provides information about various aspects "
+                   "such as wc, attractions, biking, skating, "
+                   "sports field, playground, transportation, parking "
+                   "and more."))
   (bot-print! (str "The user can get familiarized with the history of "
-                    " specific park by typing word - history."))
+                    " specific park by typing the word - history."))
   (bot-print! (str "Error messages are used to inform user that "
-                   " asked questions are obscure to chatbot."))
+                   " asked questions are obscure to the chatbot."))
+  (bot-print! (str "The user can change their username by "
+                   "typing the word - username."))
+  (bot-print! (str "The user can change the park the chatbot is "
+                   "answering questions about by typing the word - park."))
   (bot-print! (str "The user can finish the conversation by "
-                   "typing word - finish.")))
+                   "typing the word - finish.")))
 
 (defn greeting
   "Using similarity function, identifies if
