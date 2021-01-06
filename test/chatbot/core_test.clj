@@ -108,3 +108,8 @@
       (= (str "There is no information provided "
               "about dogs in Bertramka.")
          (find-park-data "dogs")))))
+
+(deftest finish-test
+  (testing "testing the terminating keywords"
+    (is
+     (= true (finish? (list "exit"))))))

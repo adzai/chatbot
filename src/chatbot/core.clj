@@ -22,7 +22,7 @@
   (bot/bot-print! "History of the park can be viewed by entering 'history'.")
   (bot/bot-print! "If you want to change the park type 'park'.")
   (loop [user-input (parse-input (chat-user/get-user-input))]
-    (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
+    (if (bot/finish? user-input)
       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
       (let [help? (= '("help") user-input)
             username-change? (= '("username") user-input)
