@@ -47,7 +47,8 @@
   (bot-print! (str "The user can change the park the chatbot is "
                    "answering questions about by typing the word - park."))
   (bot-print! (str "The user can finish the conversation by "
-                   "typing the terminating keyword, such as exit, quit, end, terminate or bye.")))
+                   "typing the terminating keyword, such as exit, 
+                    quit, end, terminate or bye.")))
 
 (defn greeting
   "Using similarity function, identifies if
@@ -65,7 +66,6 @@
           (rand-nth responses)
           (greeting (rest greeting-vector) input)))
       false)))
-
 
 (defn finish? [input]
   (if
