@@ -47,7 +47,7 @@
   (bot-print! (str "The user can change the park the chatbot is "
                    "answering questions about by typing the word - park."))
   (bot-print! (str "The user can finish the conversation by "
-                   "typing the terminating keyword, such as exit, 
+                   "typing the terminating keyword, such as exit,
                     quit, end, terminate or bye.")))
 
 (defn greeting
