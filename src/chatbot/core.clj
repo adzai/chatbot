@@ -1,7 +1,6 @@
 (ns chatbot.core
   (:require [chatbot.identify_keyword :refer [keyword-response-main]]
             [chatbot.parse :refer [parse-input]]
-            [web.backend :as web]
             [chatbot.bot_utils :as bot]
             [chatbot.park_utils :as park]
             [chatbot.user_utils :as chat-user]))
@@ -11,9 +10,7 @@
   The main loop calls help function if user input is help.
   Checks if the keyword is not identified and prints the random error message.
   Otherwise greets user or answers the questions about the park."
-  [& args]
-  (when (some #(= "--web" %) args)
-    (web/run-backend!))
+  []
   (bot/bot-print! "Hi!")
   (bot/bot-print! "I am your park guide.")
   (chat-user/set-user-prompt!)
@@ -45,7 +42,6 @@
 
           greeting?
           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
-
           park-change?
           (park/user-select-park!)
 
