@@ -112,9 +112,9 @@
 
 (deftest decision-tree
   (testing "Testing decision tree building"
-  (let [tree (make-tree)]
-    (tree-insert! tree nil "What color was the bird?" nil)
-    (tree-insert! tree "Black" "What color was the beak?"
-                 "What color was the bird?")
-    (is
-      (= "Black" (:answer-to-previous (first @(:children @(:root tree)))))))))
+    (let [tree (make-tree)]
+      (tree-insert! tree nil "What color was the bird?")
+      (tree-insert! tree "Black" "What color was the beak?"
+                    :attach-to "What color was the bird?")
+      (is
+        (= "Black" (:answer-to-previous (first @(:children @(:root tree)))))))))

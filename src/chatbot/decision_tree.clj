@@ -15,31 +15,32 @@
   (Node. answer-to-previous response-to-user (ref '())))
 
 (defn tree-insert-helper!
-  "Helper function for inserting a node in a tree."
-  [answer-to-previous response-to-user parent-response-to-user queue]
+  "Helper function for inserting a node in a tree.
+   The attach-to value is used to identify to which node the newly
+   created node should be attached."
+  [answer-to-previous response-to-user attach-to queue]
   (if (empty? queue)
     (println "Target response to user was not found")
     (let [current-node (first queue)]
-      (if (= parent-response-to-user (:response-to-user current-node))
+      (if (= attach-to (:response-to-user current-node))
         (dosync
           (ref-set (:children current-node)
                    (cons (make-node answer-to-previous response-to-user)
                          @(:children current-node))))
-        (recur answer-to-previous response-to-user parent-response-to-user
+        (recur answer-to-previous response-to-user attach-to
                (concat (rest queue)
                        @(:children current-node)))))))
 
 (defn tree-insert!
- "Inserts a node in a tree.
-  parent-response-to-user value is used to identify to which node the newly
-  created node should be attached"
-  [tree answer-to-previous response-to-user parent-response-to-user]
-  (if (nil? parent-response-to-user)
+  "Inserts a node in a tree."
+  [tree answer-to-previous response-to-user
+   & {:keys [attach-to] :or {attach-to false}}]
+  (if attach-to
+    (tree-insert-helper! answer-to-previous response-to-user
+                         attach-to
+                         (cons @(:root tree) @(:children @(:root tree))))
     (dosync (ref-set (:root tree) (make-node answer-to-previous
-                                             response-to-user)))
-  (tree-insert-helper! answer-to-previous response-to-user
-                      parent-response-to-user
-                      (cons @(:root tree) @(:children @(:root tree))))))
+                                             response-to-user)))))
 
 (defn find-node-response
   "Returns a nodes which corresponds to the user's response or nil."
@@ -54,13 +55,13 @@
 
 ; Example of constructing a decision tree about birds
 ; (def bird-decision-tree (make-tree))
-; (tree-insert! bird-decision-tree nil "What color was the bird?" nil)
+; (tree-insert! bird-decision-tree nil "What color was the bird?")
 ; (tree-insert! bird-decision-tree "Black" "What color was the beak?"
-;              "What color was the bird?")
+;              :attach-to "What color was the bird?")
 ; (tree-insert! bird-decision-tree "Brown" "It could have been a sparrow."
-;              "What color was the bird?")
+;              :attach-to "What color was the bird?")
 ; (tree-insert! bird-decision-tree "Black" "It was probably a crow."
-;              "What color was the beak?")
+;              :attach-to "What color was the beak?")
 
 ; Example of how the decision tree traversal with user input might look like
 ; (defn questions-loop-helper
