@@ -1,7 +1,6 @@
 (ns chatbot.core
   (:require [chatbot.identify_keyword :refer [keyword-response-main]]
             [chatbot.parse :refer [parse-input]]
-            [web.backend :as web]
             [chatbot.bot_utils :as bot]
             [chatbot.park_utils :as park]
             [chatbot.user_utils :as chat-user]))
@@ -15,9 +14,7 @@
 
   A --web argument can be supplied to start a server on localhost:3000/ instead
   of using the REPL."
-  [& args]
-  (when (some #(= "--web" %) args)
-    (web/run-backend!))
+  []
   (bot/bot-print! "Hi!")
   (bot/bot-print! "I am your park guide.")
   (chat-user/set-user-prompt!)
@@ -49,7 +46,6 @@
 
           greeting?
           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
-
           park-change?
           (park/user-select-park!)
 
