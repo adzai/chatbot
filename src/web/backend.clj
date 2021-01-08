@@ -129,7 +129,7 @@
   (if (nil? (:id session))
     (loop [id (rand-int 100000000)]
       ; check if the id already exists
-      (if-not (some #(= (keyword (str id)) %) (keys @chat-map))
+      (if-not (get @chat-map (keyword (str id)))
         (assoc session :id id)
         (recur (rand-int 100000000))))
       session))
