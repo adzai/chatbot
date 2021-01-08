@@ -1,5 +1,8 @@
 # Prague Parks Chatbot
 
+---
+## ICA1
+
 The presented task is to create a chatbot, which would provide
 information to it's users about various parks in Prague.
 The chatbot has to be written in the clojure programming language,
@@ -67,3 +70,5 @@ slight variations, but have the same meaning. With fuzzy matching
 the chatbot could capture such words as valid keywords.
 To achieve fuzzy string matching, the
 [levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) is used, which allows to calculate the number of edits word 1 is away from word 2.
+
+---
