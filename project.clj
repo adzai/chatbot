@@ -13,6 +13,7 @@
                  [cheshire "5.10.0"]]
 :plugins [[lein-bikeshed "0.5.2"]
           [lein-codox "0.10.7"]]
+:codox {:output-path "doc"}
 :bikeshed {:max-line-length 80
            :docstrings false
            :var-redefs false
