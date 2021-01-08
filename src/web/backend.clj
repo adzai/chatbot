@@ -12,7 +12,6 @@
     [chatbot.park_utils :as park]
     [ring.util.response :refer [response]]))
 
-; TODO: keep separate chat history for different parks
 (def chat-map (ref (hash-map)))
 
 (defn chatbot-page [content current-uri]
@@ -95,54 +94,45 @@
   (when-not (= route-park-name @park/park-name)
     (dosync (ref-set park/park-name route-park-name))))
 
-(defn routes-handler
-  [uri params session]
-  ; handle routes
-  (cond
-    (= uri "/")
-    (response (index))
-
-    (some #(= uri %) list-of-park-uris)
-    (do
-      (set-park! (str/replace uri #"/" ""))
-      (when (get params "input")
-        (dosync
-          (ref-set chat-map
-                   (assoc @chat-map
-                          (keyword (str (:id session)))
-                          (str
-                            (get @chat-map
-                                 (keyword
-                                   (str (:id session))))
-                            "<p class=\"human-msg\">"
-                            (get params "input") "</p>"))))
-        (chatbot-respond! session (get params "input")))
-        (response (chatbot-page (str
-                                    (get @chat-map
-                                         (keyword (str (:id session))))) uri)))
-    :else
-    (response (str "<h1>Route not found</h1>"
-                       "<h2><a href="\/">Home</a></h2>"))))
-
-(defn ensure-session-id
-  [session]
-  (if (nil? (:id session))
-    (loop [id (rand-int 100000000)]
-      ; check if the id already exists
-      (if-not (some #(= (keyword (str id)) %) (keys @chat-map))
-        (assoc session :id id)
-        (recur (rand-int 100000000))))
-      session))
-
 (def request-handler
   (-> (fn [& args]
-        (let [session (get (first args) :session)
+        (let [s (get (first args) :session)
               uri (get (first args) :uri)
               params (get (first args) :params)
-              session+id (ensure-session-id session)
-              server-response (routes-handler uri params session)]
-      (-> server-response
-          (assoc :session session+id))))
+              session (if (nil? (:id s))
+                        (assoc s :id (rand-int 100000000))
+                        s)]
+          ; handle routes
+          (cond
+            (= uri "/")
+            (-> (response (index))
+                (assoc :session session))
+
+            (some #(= uri %) list-of-park-uris)
+          (do
+          (set-park! (str/replace uri #"/" ""))
+          (when (get params "input")
+            (dosync
+              (ref-set chat-map
+                       (assoc @chat-map
+                              (keyword (str (:id session)))
+                              (str
+                                (get @chat-map
+                                     (keyword
+                                       (str (:id session))))
+                                "<p class=\"human-msg\">"
+                                (get params "input") "</p>"))))
+            (chatbot-respond! session (get params "input")))
+          (-> (response (chatbot-page (str
+                                 (get @chat-map
+                                      (keyword (str (:id session))))) uri))
+              (assoc :session session)))
+
+         :else
+            (-> (response (str "<h1>Route not found</h1>"
+                               "<h2><a href="\/">Home</a></h2>"))
+
+                (assoc :session session)))))
       (wrap-resource "public")
       (wrap-params {:encoding "UTF-8"})
       (wrap-session {:cookie-attrs {:max-age 3600}})))
