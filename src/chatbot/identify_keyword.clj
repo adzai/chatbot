@@ -2,11 +2,11 @@
   (:require [chatbot.parse :refer [parse-json]]
             [chatbot.levenshtein :refer [similarity]]))
 
-(def synonyms-map (parse-json "data/synonyms.json"))
+(def synonyms-map "Hash-map of the data/synonyms.json file" (parse-json "data/synonyms.json"))
 
 (defn keyword-response-vector
   "Takes the vector of synonyms, identifies keyword
-  and prints the corresponding response.
+  and returns the corresponding response.
   If the keyword is not identified, function returns false"
   [synonyms-vector input]
   (let [words input
