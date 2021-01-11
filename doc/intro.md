@@ -23,7 +23,7 @@ managed from [the project page](https://github.com/adzai/chatbot/projects/1) on 
 
 The main goal (creating a chatbot which answers questions about
 Prague parks) was split into many smaller goals. Some became milestones
-, other were
+, other
 were tracked under [issues](https://github.com/adzai/chatbot/issues). The created sub tasks allowed everyone to pick one to
 work on and thus allowing work in parallel, as these tasks did not
 depend on each other. Another added benefit of
@@ -69,6 +69,6 @@ could help with the flexibility of the chatbot as a word can have
 slight variations, but have the same meaning. With fuzzy matching
 the chatbot could capture such words as valid keywords.
 To achieve fuzzy string matching, the
-[levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) is used, which allows to calculate the number of edits word 1 is away from word 2.
+[Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) is used, which allows to calculate the number of edits word 1 is away from word 2.
 
 ---
