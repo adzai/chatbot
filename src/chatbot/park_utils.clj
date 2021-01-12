@@ -62,7 +62,7 @@
         park-info (get data-map park-keyword)
         park-data? (get park-info found-keyword)]
     (if-not (nil? park-data?)
-      (cond (some #(= found-keyword %) [:wc :playground :parking])
+      (cond (some #(= found-keyword %) [:wc :playground :parking :restaurant])
             (if park-data?
               (format
                 "You can find %s in %s."
