@@ -22,6 +22,8 @@
           "Good to see you again"
           "Hi there, how can I help?"))
 
+(def terminating-keywords (vector "quit" "exit" "end" "terminate" "bye"))
+
 (defn bot-print!
   "Format's the message with a bot-prompt and prints it out"
   [msg]
@@ -45,7 +47,8 @@
   (bot-print! (str "The user can change the park the chatbot is "
                    "answering questions about by typing the word - park."))
   (bot-print! (str "The user can finish the conversation by "
-                   "typing the word - finish.")))
+                   "typing the terminating keyword, such as exit,
+                    quit, end, terminate or bye.")))
 
 (defn greeting
   "Using similarity function, identifies if
@@ -63,3 +66,9 @@
           (rand-nth responses)
           (greeting (rest greeting-vector) input)))
       false)))
+
+(defn finish? [input]
+  (if
+   (and (= 1 (count input)) (some #(= (first input) %) terminating-keywords))
+    true
+    false))
