@@ -1,23 +1,23 @@
 (ns chatbot.bot_utils
   (:require [chatbot.levenshtein :refer [similarity]]))
 
-(def bot-prompt "Chatbot> ")
+(def bot-prompt "Chatbot prompt in the REPL" "Chatbot> ")
 
-(def possible-error-messages
+(def possible-error-messages "Vector of various error messages"
   (vector "Sorry, I didn't understand you, please try again!"
           (str "The Bot did not understand the question, "
                "please try in different words.")
           "I am sorry, I could not understand you"))
 
-(def possible-greetings
+(def possible-greetings "Vector of various greetings"
   (vector "hey" "hi" "hello" "morning" "evening" "afternoon"))
 
-(def possible-goodbye-messages
+(def possible-goodbye-messages "Vector of various goodbye messages"
   (vector "See you next time!"
           "Goodbye!"
           "Bye!"))
 
-(def responses
+(def responses "Vector of various responses"
   (vector "Hello, thanks for visiting"
           "Good to see you again"
           "Hi there, how can I help?"))

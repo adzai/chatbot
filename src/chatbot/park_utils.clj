@@ -4,10 +4,12 @@
             [chatbot.user_utils :as chat-user]
             [chatbot.parse :refer [parse-json]]))
 
-(def park-name (ref ""))
-
-(def data-map (parse-json "data/data-en.json"))
-(def keywords (keys data-map))
+(def park-name "Name of the currently chosen park"
+  (ref ""))
+(def data-map "Hash-map of the data/date-en.json file"
+  (parse-json "data/data-en.json"))
+(def keywords "Keywords extracted from the data-map"
+  (keys data-map))
 
 (defn park->keyword
   "Takes a park name e.g. 'Riegerovy sady' and transforms it into
