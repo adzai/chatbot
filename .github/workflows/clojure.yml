@@ -25,5 +25,3 @@ jobs:
       run: lein test
     - name: Build documentation
       run: lein codox
-    - name: Rename doc folder to docs
-      run: mv doc docs
