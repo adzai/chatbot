@@ -18,6 +18,7 @@
 (defn chatbot-page [content current-uri]
   (page/html5
     [:head
+     [:meta {:charset "UTF-8"}]
      [:title "Chatbot"]
     (page/include-css "style.css")
     (page/include-js "script.js")]
@@ -36,6 +37,7 @@
 (defn index []
   (page/html5
     [:head
+     [:meta {:charset "UTF-8"}]
      [:title "Chatbot"]
     (page/include-css "style.css")]
     [:body
@@ -49,7 +51,7 @@
        "Klamovka"]]
       [:p
        [:a {:href "/letna"}
-       "Letna"]]
+       "Letná"]]
       [:p
        [:a {:href "/stromovka"}
        "Stromovka"]]
@@ -58,19 +60,19 @@
        "Ladronka"]]
       [:p
        [:a {:href "/frantiskanska-zahrada"}
-       "Frantiskanska zahrada"]]
+       "Františkánská zahrada"]]
       [:p
        [:a {:href "/kampa"}
        "Kampa"]]
       [:p
        [:a {:href "/petrin"}
-       "Petrin"]]
+       "Petřín"]]
       [:p
        [:a {:href "/kinskeho-zahrada"}
-       "Kinskeho zahrada"]]
+       "Kínského zahrada"]]
       [:p
        [:a {:href "/vysehrad"}
-      "Vysehrad"]]]))
+      "Vyšehrad"]]]))
 
 (defn chatbot-respond! [session user-input]
   (let [parsed-input (keyword-response-main (parse-input user-input))
