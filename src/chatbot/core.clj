@@ -51,10 +51,10 @@
 
           greeting?
           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
-          
+
           park-change?
           (park/user-select-park!)
-          
+
           bird-info?
           (dec_tree/questions-loop dec_tree/bird-decision-tree)
 

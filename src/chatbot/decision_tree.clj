@@ -58,7 +58,7 @@
 
 ; Example of constructing a decision tree about birds
 (def bird-decision-tree (make-tree))
-(tree-insert! bird-decision-tree nil 
+(tree-insert! bird-decision-tree nil
               "What color of bird did you see in the park?")
 (tree-insert! bird-decision-tree "black" "What color was the beak?"
              :attach-to "What color of bird did you see in the park?")
