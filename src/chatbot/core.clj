@@ -27,8 +27,8 @@
   (bot/bot-print! "History of the park can be viewed by entering 'history'.")
   (bot/bot-print! "If you want to change the park type 'park'.")
   (bot/bot-print! (str
-                   "By typing the keyword - 'bird', "
-                   "the bot will help you to identify the birds of Prague parks."))
+                   "By typing the keyword - 'bird',the bot will help you "
+                   "to identify the birds of Prague parks."))
   (loop [user-input (parse-input (chat-user/get-user-input))]
     (if (bot/finish? user-input)
       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
