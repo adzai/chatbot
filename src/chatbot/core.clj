@@ -10,10 +10,8 @@
   It consumes user input until a terminating keyword is met.
   The main loop calls help function if user input is help.
   Checks if the keyword is not identified and prints the random error message.
-  Otherwise greets user or answers the questions about the park.
+  Otherwise greets user or answers the questions about the park."
 
-  A --web argument can be supplied to start a server on localhost:3000/ instead
-  of using the REPL."
   []
   (bot/bot-print! "Hi!")
   (bot/bot-print! "I am your park guide.")

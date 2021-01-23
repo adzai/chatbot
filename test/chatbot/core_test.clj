@@ -6,6 +6,7 @@
             [chatbot.levenshtein :refer [similarity]]
             [chatbot.bot_utils :refer :all]
             [chatbot.identify_keyword :refer :all]
+            [chatbot.decision_tree :refer :all]
             [chatbot.park_utils :refer [park-name find-park-data]]))
 
 (deftest data-test
@@ -108,6 +109,16 @@
       (= (str "There is no information provided "
               "about dogs in Bertramka.")
          (find-park-data "dogs")))))
+
+
+(deftest decision-tree
+  (testing "Testing decision tree building"
+    (let [tree (make-tree)]
+      (tree-insert! tree nil "What color was the bird?")
+      (tree-insert! tree "Black" "What color was the beak?"
+                    :attach-to "What color was the bird?")
+      (is
+        (= "Black" (:answer-to-previous (first @(:children @(:root tree)))))))))
 
 (deftest finish-test
   (testing "testing the terminating keywords"
