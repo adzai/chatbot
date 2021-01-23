@@ -1,5 +1,6 @@
 {
 "wc" : ["wc", "restroom", "bathroom", "toilet", "lavatory"],
+"restaurant" : ["restaurant",  "cafe", "cafeteria", "bistro", "eat", "food"],
 "attractions" : ["attractions", "sightseeing", "landmark", "entertainment"],
 "dogs" : ["dogs", "pet"],
 "biking" : ["biking", "bike", "bicycle"],

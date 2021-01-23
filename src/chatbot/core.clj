@@ -6,10 +6,12 @@
             [chatbot.user_utils :as chat-user]))
 
 (defn main-loop
-  "Receives user input until a terminating keyword is met.
+  "When called without arguments, a REPL chatbot is started.
+  It consumes user input until a terminating keyword is met.
   The main loop calls help function if user input is help.
   Checks if the keyword is not identified and prints the random error message.
   Otherwise greets user or answers the questions about the park."
+
   []
   (bot/bot-print! "Hi!")
   (bot/bot-print! "I am your park guide.")
@@ -22,7 +24,7 @@
   (bot/bot-print! "History of the park can be viewed by entering 'history'.")
   (bot/bot-print! "If you want to change the park type 'park'.")
   (loop [user-input (parse-input (chat-user/get-user-input))]
-    (if (and (= 1 (count user-input)) (some #(= "finish" %) user-input))
+    (if (bot/finish? user-input)
       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
       (let [help? (= '("help") user-input)
             username-change? (= '("username") user-input)

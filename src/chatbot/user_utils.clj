@@ -4,7 +4,8 @@
 
 ; User prompt which can be later changed to user's actual name
 ; after asking for it in the conversation
-(def user-prompt (ref "User> "))
+(def user-prompt "User prompt in the REPL"
+  (ref "User> "))
 
 (defn get-user-input
   "Prints the user prompt and returns the user's input"

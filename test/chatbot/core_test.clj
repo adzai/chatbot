@@ -110,6 +110,7 @@
               "about dogs in Bertramka.")
          (find-park-data "dogs")))))
 
+
 (deftest decision-tree
   (testing "Testing decision tree building"
     (let [tree (make-tree)]
@@ -118,3 +119,8 @@
                     :attach-to "What color was the bird?")
       (is
         (= "Black" (:answer-to-previous (first @(:children @(:root tree)))))))))
+
+(deftest finish-test
+  (testing "testing the terminating keywords"
+    (is
+     (= true (finish? (list "exit"))))))
