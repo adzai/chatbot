@@ -76,12 +76,14 @@
      (let [user-input (parse-input (get-user-input))
           next-node (find-node-response user-input @(:children node))]
        (if (nil? next-node)
-          (do 
+          (do
             (bot-print!  "Couldn't find a match for your answer.")
-            (bot-print!  "For more information about birds, type - 'bird'.")           
+            (bot-print!  (str
+                          "For more information about birds,"
+                          "type - 'bird'."))
             (bot-print!  (str
                           "Otherwise, you can continue to get information "
-                          "about the current park " 
+                          "about the current park "
                           "or change the park by typing keyword - 'park'.")))
          (recur next-node)))))
 
