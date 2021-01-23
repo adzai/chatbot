@@ -1,4 +1,7 @@
-(ns chatbot.decision_tree)
+(ns chatbot.decision_tree
+  (:require [chatbot.parse :refer [parse-input]]
+            [chatbot.bot_utils :refer [bot-print!]]
+            [chatbot.user_utils :refer [get-user-input]]))
 
 (defrecord Tree [root])
 
@@ -20,7 +23,7 @@
    created node should be attached."
   [answer-to-previous response-to-user attach-to queue]
   (if (empty? queue)
-    (println "Target response to user was not found")
+    (bot-print! "Target response to user was not found")
     (let [current-node (first queue)]
       (if (= attach-to (:response-to-user current-node))
         (dosync
@@ -48,32 +51,40 @@
   (cond
     (nil? (first lst-of-nodes))
     nil
-    (= user-response (:answer-to-previous (first lst-of-nodes)))
+    (some #(= (:answer-to-previous (first lst-of-nodes)) %) user-response)
        (first lst-of-nodes)
     :else
     (recur user-response (rest lst-of-nodes))))
 
 ; Example of constructing a decision tree about birds
-; (def bird-decision-tree (make-tree))
-; (tree-insert! bird-decision-tree nil "What color was the bird?")
-; (tree-insert! bird-decision-tree "Black" "What color was the beak?"
-;              :attach-to "What color was the bird?")
-; (tree-insert! bird-decision-tree "Brown" "It could have been a sparrow."
-;              :attach-to "What color was the bird?")
-; (tree-insert! bird-decision-tree "Black" "It was probably a crow."
-;              :attach-to "What color was the beak?")
+(def bird-decision-tree (make-tree))
+(tree-insert! bird-decision-tree nil "What color of bird did you see in the park?")
+(tree-insert! bird-decision-tree "black" "What color was the beak?"
+             :attach-to "What color of bird did you see in the park?")
+(tree-insert! bird-decision-tree "brown" "It could have been a sparrow."
+             :attach-to "What color of bird did you see in the park?")
+(tree-insert! bird-decision-tree "black" "It was probably a crow."
+              :attach-to "What color was the beak?")
+(tree-insert! bird-decision-tree "brown" "It was probably a magpie."
+              :attach-to "What color was the beak?")
 
 ; Example of how the decision tree traversal with user input might look like
-; (defn questions-loop-helper
-;   [node]
-;   (println (:response-to-user node))
-;   (when-not (empty? @(:children node))
-;     (let [user-input (read-line)
-;          next-node (find-node-response user-input @(:children node))]
-;       (if (nil? next-node)
-;         (println "Couldn't find a match for your answer")
-;         (recur next-node)))))
+ (defn questions-loop-helper
+   [node]
+   (bot-print! (:response-to-user node))
+   (when-not (empty? @(:children node))
+     (let [user-input (parse-input (get-user-input))
+          next-node (find-node-response user-input @(:children node))]
+       (if (nil? next-node)
+          (do 
+            (bot-print!  "Couldn't find a match for your answer.")
+            (bot-print!  "For more information about birds, type - 'bird'.")           
+            (bot-print!  (str
+                          "Otherwise, you can continue to get information "
+                          "about the current park " 
+                          "or change the park by typing keyword - 'park'.")))
+         (recur next-node)))))
 
-; (defn questions-loop
-;   [tree]
-;   (questions-loop-helper @(:root tree)))
+ (defn questions-loop
+   [tree]
+   (questions-loop-helper @(:root tree)))

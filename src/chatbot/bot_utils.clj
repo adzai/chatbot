@@ -39,16 +39,19 @@
                    "sports field, playground, transportation, parking "
                    "and more."))
   (bot-print! (str "The user can get familiarized with the history of "
-                    " specific park by typing the word - history."))
+                    "specific park by typing the word - history."))
   (bot-print! (str "Error messages are used to inform user that "
                    " asked questions are obscure to the chatbot."))
   (bot-print! (str "The user can change their username by "
                    "typing the word - username."))
   (bot-print! (str "The user can change the park the chatbot is "
                    "answering questions about by typing the word - park."))
+  (bot-print! (str "The chatbot can help the user to identify the birds of Prague parks, "
+                   "based on given characteristics."
+                   "For this, the user should type keyword - 'bird'."  ))
   (bot-print! (str "The user can finish the conversation by "
-                   "typing the terminating keyword, such as exit,
-                    quit, end, terminate or bye.")))
+                   "typing the terminating keyword, such as 'exit',
+                    'quit', 'end', 'terminate' or 'bye'.")))
 
 (defn greeting
   "Using similarity function, identifies if
