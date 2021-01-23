@@ -8,6 +8,7 @@
                  [enlive "1.1.6"]
                  [ring/ring-core "1.7.1"]
                  [hiccup "1.0.5"]
+                 [com.novemberain/monger "3.1.0"]
                  [ring/ring-jetty-adapter "1.7.1"]
                  [ring/ring-devel "1.7.1"]
                  [cheshire "5.10.0"]]
