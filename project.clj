@@ -14,10 +14,13 @@
                  [ring/ring-devel "1.7.1"]
                  [cheshire "5.10.0"]]
   :plugins [[lein-bikeshed "0.5.2"]
+            [lein-codox "0.10.7"]
             [lein-environ "1.2.0"]]
   :bikeshed {:max-line-length 80
              :docstrings false
              :var-redefs false
              :name-collisions false}
+  :codox {:doc-files ["docs/intro.md"]
+        :output-path "docs"}
   :main chatbot.core/main-loop
   :repl-options {:init-ns chatbot.core})

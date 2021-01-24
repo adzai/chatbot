@@ -6,7 +6,8 @@
             [net.cgrand.enlive-html :as html]))
 
 ; Park URLs from https://www.praha.eu/jnp/cz/co_delat_v_praze/parky
-(def parks
+(def parks "Vector of hash maps holding a name of a park and a URL with
+            information about the given park"
   [
    {:name "bertramka"
     :url (str "https://www.praha.eu/jnp/cz/co_delat_v_praze/"
