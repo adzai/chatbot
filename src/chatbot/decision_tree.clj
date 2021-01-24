@@ -23,7 +23,7 @@
    created node should be attached."
   [answer-to-previous response-to-user attach-to queue]
   (if (empty? queue)
-    (bot-print! "Target response to user was not found")
+    (println "Target response to user was not found")
     (let [current-node (first queue)]
       (if (= attach-to (:response-to-user current-node))
         (dosync
@@ -58,16 +58,155 @@
 
 ; Example of constructing a decision tree about birds
 (def bird-decision-tree (make-tree))
+;bird seen or not?
 (tree-insert! bird-decision-tree nil
-              "What color of bird did you see in the park?")
-(tree-insert! bird-decision-tree "black" "What color was the beak?"
-             :attach-to "What color of bird did you see in the park?")
-(tree-insert! bird-decision-tree "brown" "It could have been a sparrow."
-             :attach-to "What color of bird did you see in the park?")
-(tree-insert! bird-decision-tree "black" "It was probably a crow."
-              :attach-to "What color was the beak?")
-(tree-insert! bird-decision-tree "brown" "It was probably a magpie."
-              :attach-to "What color was the beak?")
+              "Have you seen bird in the park? Type 'yes' or 'no'.")
+(tree-insert! bird-decision-tree "no" "Okay,bye"
+            :attach-to
+              "Have you seen bird in the park? Type 'yes' or 'no'.")
+;dark or light colored bird
+(tree-insert! bird-decision-tree "yes"
+              "Was the bird dark or light colored? Type 'dark' or 'light'."
+            :attach-to
+              "Have you seen bird in the park? Type 'yes' or 'no'.")
+
+;dark colored bird - black?
+(tree-insert! bird-decision-tree "dark"
+              "Was the bird black? Type 'yes' or 'no'."
+            :attach-to
+              "Was the bird dark or light colored? Type 'dark' or 'light'.")
+;dark or light colored beak of the black bird
+(tree-insert! bird-decision-tree "yes"
+              (str "Was black bird's beak dark or light colored? "
+                   "Type 'dark' or 'light'.")
+            :attach-to
+              "Was the bird black? Type 'yes' or 'no'.")
+;decision made for black bird with dark beak.
+(tree-insert! bird-decision-tree "dark"
+              (str "It was probably a crow. "
+                   "For more information about birds, "
+                   "please type - 'bird' again.")
+            :attach-to
+              (str "Was black bird's beak dark or light colored? "
+                   "Type 'dark' or 'light'."))
+;decision made for black bird with light beak.
+(tree-insert! bird-decision-tree "light"
+              (str "It was probably a starling. "
+                   "For more information about birds, "
+                   "please type - 'bird' again." )
+            :attach-to
+              (str "Was black bird's beak dark or light colored? "
+                   "Type 'dark' or 'light'."))
+;dark colored bird - brown?
+(tree-insert! bird-decision-tree "no"
+              "Was the bird brown? Type 'yes' or 'no'."
+            :attach-to
+              "Was the bird black? Type 'yes' or 'no'.")
+;dark or light colored beak of the brown bird
+(tree-insert! bird-decision-tree "yes"
+              (str "Was brown bird's beak dark or light colored? "
+                    "Type 'dark' or 'light'.")
+            :attach-to "Was the bird brown? Type 'yes' or 'no'.")
+;decision made for brown bird with dark beak.
+(tree-insert! bird-decision-tree "dark"
+              (str "It could have been a european dipper. "
+                   "For more information about birds, "
+                   "please type - 'bird' again.")
+            :attach-to
+              (str "Was brown bird's beak dark or light colored? "
+                    "Type 'dark' or 'light'."))
+;decision made for brown bird with light beak.
+(tree-insert! bird-decision-tree "light"
+              (str "It was probably a european greenfinch. "
+                   "For more information about birds, "
+                   "please type - 'bird' again.")
+            :attach-to
+             (str "Was brown bird's beak dark or light colored? "
+                    "Type 'dark' or 'light'."))
+;dark colored bird - grey?
+(tree-insert! bird-decision-tree "no"
+              "Was the bird grey? Type 'yes' or 'no'."
+            :attach-to
+              "Was the bird brown? Type 'yes' or 'no'.")
+;dark or light colored beak of the grey bird
+(tree-insert! bird-decision-tree "yes"
+              (str "Was grey bird's beak dark or light colored? "
+                    "Type 'dark' or 'light'.")
+            :attach-to
+              "Was the bird grey? Type 'yes' or 'no'.")
+;decision made for grey bird with dark beak.
+(tree-insert! bird-decision-tree "dark"
+              (str "I think it was a grey catbird. "
+                   "For more information about birds, "
+                   "please type - 'bird' again.")
+            :attach-to
+              (str "Was grey bird's beak dark or light colored? "
+                    "Type 'dark' or 'light'."))
+;decision made for grey bird with light beak.
+(tree-insert! bird-decision-tree "light"
+              (str "It was probably a nuthatch. "
+                   "For more information about birds, "
+                   "please type - 'bird' again.")                        
+            :attach-to
+              (str "Was grey bird's beak dark or light colored? "
+                    "Type 'dark' or 'light'."))
+
+
+;light colored bird - red?
+(tree-insert! bird-decision-tree "light"
+              "Was the bird red? Type 'yes' or 'no'."
+            :attach-to
+              "Was the bird dark or light colored? Type 'dark' or 'light'.")
+;dark or light colored beak of the red bird
+(tree-insert! bird-decision-tree "yes"
+              (str "Was red bird's beak dark or light colored? "
+                   "Type 'dark' or 'light'.")
+            :attach-to
+              "Was the bird red? Type 'yes' or 'no'.")
+;decision made for red bird with dark beak.
+(tree-insert! bird-decision-tree "dark"
+              (str "It was probably a robin. "
+                   "For more information about birds, "
+                   "please type - 'bird' again.")
+            :attach-to
+             (str "Was red bird's beak dark or light colored? "
+                  "Type 'dark' or 'light'."))
+;decision made for red bird with light beak.
+(tree-insert! bird-decision-tree "light"
+              (str "It could have been a middle spotted woodpecker. "
+                   "For more information about birds, "
+                   "please type - 'bird' again.")
+            :attach-to 
+              (str "Was red bird's beak dark or light colored? "
+                   "Type 'dark' or 'light'."))
+;light colored bird - white?
+(tree-insert! bird-decision-tree "no"
+              "Was the bird white? Type 'yes' or 'no'."
+            :attach-to
+              "Was the bird red? Type 'yes' or 'no'.")
+;dark or light colored beak of the white bird
+(tree-insert! bird-decision-tree "yes"
+              (str "Was white bird's beak dark or light colored? "
+                   "Type 'dark' or 'light'.")
+            :attach-to
+              "Was the bird white? Type 'yes' or 'no'.")
+;decision made for white bird with dark beak.
+(tree-insert! bird-decision-tree "dark"
+             (str "I assume it was a marsh tit. "
+                  "For more information about birds, "
+                  "please type - 'bird' again.")
+              :attach-to
+              (str "Was white bird's beak dark or light colored? "
+                   "Type 'dark' or 'light'."))
+;decision made for white bird with light beak.
+(tree-insert! bird-decision-tree "light"
+              (str "It was probably a collared dove."
+                   "For more information about birds, "
+                   "please type - 'bird' again.")     
+            :attach-to
+              (str "Was white bird's beak dark or light colored? "
+                   "Type 'dark' or 'light'."))
+
 
 ; Example of how the decision tree traversal with user input might look like
  (defn questions-loop-helper
