@@ -1,6 +1,7 @@
 (ns web.backend
   (:require
     [ring.adapter.jetty :refer [run-jetty]]
+    [environ.core :refer [env]]
     [clojure.string :as str]
     [monger.core :as mg]
     [monger.collection :as mc]
@@ -16,8 +17,8 @@
 
 
 (def conn (mg/connect))
-(def db (mg/get-db conn "test"))
-(def coll "users")
+(def db (mg/get-db conn (env :database)))
+(def coll (env :collection))
 (defn chatbot-page [content current-uri]
   (page/html5
     [:head
@@ -170,5 +171,4 @@
 
 (defn run-backend!
   []
-  ;       {:keys [conn db]} (mg/connect-via-uri uri)]
-  (run-jetty request-handler {:port 8080}))
+  (run-jetty request-handler {:port 3000}))
