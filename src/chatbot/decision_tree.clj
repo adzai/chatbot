@@ -146,7 +146,7 @@
 (tree-insert! bird-decision-tree "light"
               (str "It was probably a nuthatch. "
                    "For more information about birds, "
-                   "please type - 'bird' again.")                        
+                   "please type - 'bird' again.")                    
             :attach-to
               (str "Was grey bird's beak dark or light colored? "
                     "Type 'dark' or 'light'."))
@@ -176,7 +176,7 @@
               (str "It could have been a middle spotted woodpecker. "
                    "For more information about birds, "
                    "please type - 'bird' again.")
-            :attach-to 
+            :attach-to
               (str "Was red bird's beak dark or light colored? "
                    "Type 'dark' or 'light'."))
 ;light colored bird - white?
@@ -202,7 +202,7 @@
 (tree-insert! bird-decision-tree "light"
               (str "It was probably a collared dove."
                    "For more information about birds, "
-                   "please type - 'bird' again.")     
+                   "please type - 'bird' again.")
             :attach-to
               (str "Was white bird's beak dark or light colored? "
                    "Type 'dark' or 'light'."))
