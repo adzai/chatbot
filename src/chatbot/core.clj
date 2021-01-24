@@ -3,7 +3,8 @@
             [chatbot.parse :refer [parse-input]]
             [chatbot.bot_utils :as bot]
             [chatbot.park_utils :as park]
-            [chatbot.user_utils :as chat-user]))
+            [chatbot.user_utils :as chat-user]
+            [web.backend :as web]))
 
 (defn main-loop
   "When called without arguments, a REPL chatbot is started.
@@ -12,7 +13,9 @@
   Checks if the keyword is not identified and prints the random error message.
   Otherwise greets user or answers the questions about the park."
 
-  []
+  [& args]
+  (when (some #(= "--web" %) args)
+    (web/run-backend! args))
   (bot/bot-print! "Hi!")
   (bot/bot-print! "I am your park guide.")
   (chat-user/set-user-prompt!)

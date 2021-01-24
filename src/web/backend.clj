@@ -16,12 +16,56 @@
     [ring.util.response :refer [response]]))
 
 
-(def conn "MongoDB connection"
-  (mg/connect))
-(def db "MongoDB database"
-  (mg/get-db conn (env :database)))
-(def coll "MongoDB users collection"
-  (env :collection))
+(def chat-map (ref (hash-map)))
+
+(def db-type (ref :map))
+(def db (ref nil))
+; (def conn (ref nil))
+(def coll (ref nil))
+(defn get-info
+  [user-id]
+  (if (= @db-type :mongo)
+  (get
+    (mc/find-one-as-map
+      @db @coll
+      {:user_id user-id})
+    (keyword @park/park-name))
+  (get
+    @chat-map
+    (keyword (str user-id)))))
+
+
+(defn connect-to-db!
+  [conn]
+  (dosync
+          (ref-set
+            db
+            (mg/get-db conn (env :database)))
+          (ref-set
+            coll
+            (env :collection))))
+
+
+(defn upsert
+  [user-id val-to-upsert]
+  (if (= @db-type :mongo)
+    (mc/update @db @coll {:user_id user-id}
+               (assoc (mc/find-one-as-map @db @coll
+                                          {:user_id user-id})
+                      (keyword @park/park-name) val-to-upsert)
+               {:upsert true})
+    (dosync
+      (ref-set chat-map
+                     (assoc @chat-map
+                          (keyword (str user-id))
+                            val-to-upsert)))))
+
+; (def conn "MongoDB connection"
+;   (mg/connect))
+; (def db "MongoDB database"
+;   (mg/get-db conn (env :database)))
+; (def coll "MongoDB users collection"
+;   (env :collection))
 (defn chatbot-page [content current-uri]
   (page/html5
     [:head
@@ -50,6 +94,9 @@
     [:body
      [:h1 "Prague parks chatbot"]
      [:h2 "List of parks: "]
+     [:p
+      [:a {:href "/bertramka"}
+       "Bertramka"]]
      [:p
       [:a {:href "/riegerovy-sady"}
        "Riegerovy Sady"]]
@@ -83,19 +130,14 @@
 
 (defn chatbot-respond! [session user-input]
   (let [parsed-input (keyword-response-main (parse-input user-input))
-        convo-map
-        (mc/find-one-as-map db coll {:user_id (:id session)})
-        park-string (get convo-map (keyword @park/park-name))
-        ret-str (if-not (nil? park-string)
+        park-string
+        (get-info (:id session))
+        ret-str
                   (str park-string "<p class=\"bot-msg\">"
                        (if parsed-input (park/find-park-data parsed-input)
-                         (rand-nth bot/possible-error-messages)) "</p>")
-                  (str "<p class=\"bot-msg\">"
-                       (if parsed-input (park/find-park-data parsed-input)
-                         (rand-nth bot/possible-error-messages)) "</p>"))]
-    (mc/update db coll {:user_id (:id session)}
-               (assoc (mc/find-one-as-map db coll {:user_id (:id session)})
-                      (keyword @park/park-name) ret-str) {:upsert true})))
+                         (rand-nth bot/possible-error-messages)) "</p>")]
+    (upsert (:id session) ret-str)
+    ))
 
 (def list-of-park-uris '("/bertramka" "/riegerovy-sady" "/klamovka" "/letna"
                                       "/stromovka" "/ladronka"
@@ -119,29 +161,28 @@
     (do
       (set-park! (str/replace uri #"/" ""))
       (when (get params "input")
-        (when (nil? (mc/find-one-as-map db coll {:user_id (:id session)}))
-          (mc/insert db coll
-                     {:user_id (:id session) (keyword @park/park-name) ""}))
-        (let [convo-map
-              (mc/find-one-as-map db coll {:user_id (:id session)})
-              park-string (get convo-map (keyword @park/park-name))
+        (when (= @db-type :mongo)
+        (when (nil? (mc/find-one-as-map @db @coll {:user_id (:id session)}))
+          (mc/insert @db @coll
+                     {:user_id (:id session) (keyword @park/park-name) ""})))
+        ; (when (nil?
+        ;         (get-info (:id session)))
+        ;   (upsert (:id session) ""))
+        (let [park-string
+              (get-info (:id session))
               string (if-not (nil? park-string)
                        (str park-string
                             "<p class=\"human-msg\">"
                             (get params "input") "</p>")
                        (str "<p class=\"human-msg\">"
                             (get params "input") "</p>"))]
-          (mc/update db coll {:user_id (:id session)}
-                     (assoc
-                       (mc/find-one-as-map db coll {:user_id (:id session)})
-                            (keyword @park/park-name) string) {:upsert true}))
+          (upsert (:id session) string)
+          )
         (chatbot-respond! session (get params "input")))
       (response
-        (chatbot-page (get
-                        (mc/find-one-as-map
-                          db coll
-                          {:user_id (:id session)})
-                        (keyword @park/park-name)) uri)))
+        (chatbot-page
+          (get-info (:id session))
+          uri)))
 
     :else
     (response (str "<h1>Route not found</h1>"
@@ -152,9 +193,7 @@
   (if (nil? (:id session))
     (loop [id (rand-int 100000000)]
       ; check if the id already exists
-      (if-not (nil?
-                (mc/find-one-as-map db coll
-                                    {:user_id (:id session)}))
+      (if (nil? (get-info (:id session)))
         (assoc session :id id)
         (recur (rand-int 100000000))))
     session))
@@ -173,5 +212,8 @@
       (wrap-session {:cookie-attrs {:max-age 3600}})))
 
 (defn run-backend!
-  []
+  [args]
+  (when (some #(= "--mongo" %) args)
+    (dosync (ref-set db-type :mongo))
+    (connect-to-db! (mg/connect)))
   (run-jetty request-handler {:port 3000}))
