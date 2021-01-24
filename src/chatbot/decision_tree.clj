@@ -146,7 +146,7 @@
 (tree-insert! bird-decision-tree "light"
               (str "It was probably a nuthatch. "
                    "For more information about birds, "
-                   "please type - 'bird' again.")          
+                   "please type - 'bird' again.")
             :attach-to
               (str "Was grey bird's beak dark or light colored? "
                     "Type 'dark' or 'light'."))
