@@ -16,9 +16,12 @@
     [ring.util.response :refer [response]]))
 
 
-(def conn (mg/connect))
-(def db (mg/get-db conn (env :database)))
-(def coll (env :collection))
+(def conn "MongoDB connection"
+  (mg/connect))
+(def db "MongoDB database"
+  (mg/get-db conn (env :database)))
+(def coll "MongoDB users collection"
+  (env :collection))
 (defn chatbot-page [content current-uri]
   (page/html5
     [:head
