@@ -223,7 +223,7 @@
                "specific characteritics of birds."))
   (bot-print! (str
                "Based on the recieved inputs, "
-                "chatbot will identifiy the bird species."))            
+                "chatbot will identifiy the bird species."))
   (bot-print!  (str
                 "The user must give the specific inputs to the asked questions"
                 ", for example, 'yes'/'no' or 'dark'/'light'." ))
