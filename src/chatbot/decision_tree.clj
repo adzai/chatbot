@@ -50,30 +50,102 @@
   [user-response lst-of-nodes]
   (let [node (first lst-of-nodes)]
   (cond
-    (nil? (first lst-of-nodes))
+    (nil? node)
     nil
     (some #(= (:answer-to-previous node) %) user-response)
     node
     :else
     (recur user-response (rest lst-of-nodes)))))
 
-; Example of constructing a decision tree about birds
-(def bird-decision-tree (make-tree))
+(defn bird-helper
+  "Describes the functionalities of bird identification mode."
+  []
+  (bot-print! (str
+               "The bot can help the user to identify "
+               "the birds of Prague parks."))
+  (bot-print! (str
+               "Bot asks user questions about the"
+               "specific characteritics of birds."))
+  (bot-print! (str
+               "Based on the recieved inputs, "
+               "chatbot will identifiy the bird species."))
+  (bot-print! (str
+               "The user must give the specific inputs to the asked questions"
+               ", for example, 'yes'/'no' or 'dark'/'light'." ))
+  (bot-print! (str
+               "If the user-input is obscure to the bot, "
+               "it will raise an error and ask user "
+               "for more specific response."))
+  (bot-print! (str
+               "Once the bird is identified, the bot goes to the normal mode "
+               "and recieves user input about the chosen park."))
+  (bot-print! (str
+               "If the bird is not identified, the bot informs the user "
+               "that the match is not found and goes to the normal mode."))
+  (bot-print! (str
+               "The user can exit the bird identifier mode by typing "
+               "keyword - 'helper'."))
+  (bot-print! (str
+               "In order to continue bird identification, type the "
+               "keyword - 'bird' once again.")))
+
+(defn questions-loop-helper
+  "Helper for the 'questions-loop' function. Recieves a user input. "
+  [node]
+  (if (empty? @(:children node))
+    (bot-print! (:response-to-user node))
+    (do (bot-print! (:response-to-user node))
+        (let [user-input (parse-input (get-user-input))
+              next-node (find-node-response user-input @(:children node))
+              bird-help? (= '("helper") user-input)
+              bird-exit? (= '("exit") user-input)]
+          (cond
+            bird-exit?
+            (do
+              (bot-print!
+               "Now, you can ask questions about the chosen park.")
+              (bot-print!
+               "To change the current park, type - 'park'."))
+
+            bird-help?
+            (bird-helper)
+
+            (nil? next-node)
+            (do
+              (bot-print!
+               (str
+                "Please, give a specific answer, for example, "
+                "'yes'/'no' or 'dark'/'light'. "))
+              (bot-print!
+               "If you need further help, type - 'helper'.")
+              (questions-loop-helper node))
+
+            :else (recur next-node))))))
+
+(defn questions-loop
+  "Main loop for the bird identification mode."
+  [tree]
+  (questions-loop-helper @(:root tree)))
+
+(def bird-decision-tree "Decision tree for the chosen domain - birds."
+  (make-tree))
+
 ;bird seen or not?
 (tree-insert! bird-decision-tree nil
-              "Have you seen bird in the park?")
+              "Have you seen a bird in the park?")
 (tree-insert! bird-decision-tree "no"
                (str
                 "For more information about birds, type - 'bird'."
                 "Otherwise, you will continue getting information"
                 "about the chosen park.")
             :attach-to
-              "Have you seen bird in the park?")
+              "Have you seen a bird in the park?")
+
 ;dark or light colored bird
 (tree-insert! bird-decision-tree "yes"
               "Was the bird dark or light colored?"
             :attach-to
-              "Have you seen bird in the park?")
+              "Have you seen a bird in the park?")
 
 ;dark colored bird - black?
 (tree-insert! bird-decision-tree "dark"
@@ -99,6 +171,7 @@
                    "please type - 'bird' again." )
             :attach-to
               "Was black bird's beak dark or light colored?")
+
 ;dark colored bird - brown?
 (tree-insert! bird-decision-tree "no"
               "Was the bird brown?"
@@ -122,6 +195,7 @@
                    "please type - 'bird' again.")
             :attach-to
              "Was brown bird's beak dark or light colored?")
+
 ;dark colored bird - grey?
 (tree-insert! bird-decision-tree "no"
               "Was the bird grey?"
@@ -147,7 +221,6 @@
             :attach-to
               "Was grey bird's beak dark or light colored?")
 
-
 ;light colored bird - red?
 (tree-insert! bird-decision-tree "light"
               "Was the bird red?"
@@ -172,6 +245,7 @@
                    "please type - 'bird' again.")
             :attach-to
               "Was red bird's beak dark or light colored?")
+
 ;light colored bird - white?
 (tree-insert! bird-decision-tree "no"
               "Was the bird white?"
@@ -196,8 +270,9 @@
                    "please type - 'bird' again.")
              :attach-to
               "Was white bird's beak dark or light colored?")
+
 ;match not found for dark colored bird, i.e.,
-; the seen bird is not black, brown or grey.
+;the seen bird is not black, brown or grey.
 (tree-insert! bird-decision-tree "no"
               (str "Unfortunately, the match was not found."
                    "For more information about birds, type - 'bird'.")
@@ -210,72 +285,3 @@
                    "For more information about birds, type - 'bird'.")
               :attach-to
                "Was the bird white?")
-
-
-
-;bird-helper
-(defn bird-helper []
-  (bot-print! (str
-               "The bot can help the user to identify "
-               "the birds of Prague parks."))
-  (bot-print! (str
-               "Bot asks user questions about the"
-               "specific characteritics of birds."))
-  (bot-print! (str
-               "Based on the recieved inputs, "
-                "chatbot will identifiy the bird species."))
-  (bot-print!  (str
-                "The user must give the specific inputs to the asked questions"
-                ", for example, 'yes'/'no' or 'dark'/'light'." ))
-  (bot-print!  (str
-               "If the user-input is obscure to the bot, "
-                "it will raise an error and ask user "
-                "for more specific response."))
-  (bot-print!  (str
-                "Once the bird is identified, the bot goes to the normal mode "
-                "and recieves user input about the chosen park."))
-  (bot-print!  (str
-               "If the bird is not identified, the bot informs the user "
-               "that the match is not found and goes to the normal mode."))
-   (bot-print!  (str
-               "The user can exit the bird identifier mode by typing "
-               "keyword - 'helper'."))
-  (bot-print!  (str
-               "In order to continue bird identification, type the "
-               "keyword - 'bird' once again.")))
-
-; Example of how the decision tree traversal with user input might look like
- (defn questions-loop-helper [node]
-   (if (empty? @(:children node))
-     (bot-print! (:response-to-user node))
-     (do (bot-print! (:response-to-user node))
-         (let [user-input (parse-input (get-user-input))
-               next-node (find-node-response user-input @(:children node))
-               bird-help? (= '("helper") user-input)
-               bird-exit? (= '("exit") user-input)]
-           (cond
-             bird-exit?
-             (do
-               (bot-print!
-                "Now, you can ask questions about the chosen park.")
-               (bot-print!
-                "To change the current park, type - 'park'."))
-
-             bird-help?
-             (bird-helper)
-
-             (nil? next-node)
-             (do
-               (bot-print!
-                (str
-                 "Please, give a specific answer, for example, "
-                 "'yes'/'no' or 'dark'/'light'. "))
-               (bot-print!
-                "If you need further help, type - 'helper'.")
-               (questions-loop-helper node))
-
-             :else (recur next-node))))))
-
- (defn questions-loop
-   [tree]
-   (questions-loop-helper @(:root tree)))
