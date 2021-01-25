@@ -53,6 +53,7 @@
           response
           (bot/bot-print! (park/find-park-data response))
 
-          :else (bot/bot-print! (rand-nth bot/possible-error-messages)))
+          :else (bot/handle-error))
+
 
         (recur (parse-input (chat-user/get-user-input)))))))
