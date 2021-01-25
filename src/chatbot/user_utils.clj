@@ -45,8 +45,9 @@
 
 (defn offer-help-to-user
   []
-  (bot/bot-print! (str "Too many unrecognized sentences! Do you want me to print"
-                   " out the help instructions? (yes/no)"))
+  (bot/bot-print! (str "Too many unrecognized sentences! "
+                       "Do you want me to print out the help instructions? "
+                       "(yes/no)"))
   (let [user-input (str/lower-case (get-user-input))]
    (cond
 

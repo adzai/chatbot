@@ -83,4 +83,3 @@
    (and (= 1 (count input)) (some #(= (first input) %) terminating-keywords))
     true
     false))
-
