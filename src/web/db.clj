@@ -6,15 +6,20 @@
     [chatbot.park_utils :as park]))
 
 
-(def chat-map (ref (hash-map)))
+(def chat-map "Map that is used to store data when a database was not
+              selected"
+  (ref (hash-map)))
 
+(def db-type "Type of database used, can be :map or :mongo"
+  (ref :map))
+(def db "Selected MongoDB database"
+  (ref nil))
 
-(def db-type (ref :map))
-(def db (ref nil))
-; (def conn (ref nil))
-(def coll (ref nil))
+(def coll "Selected MongoDB collection"
+  (ref nil))
 
 (defn find-one
+  "Find an entry in MongoDB based on the user's id"
   [user-id]
   (if (= @db-type :mongo)
   (get
@@ -27,23 +32,14 @@
     (keyword (str user-id)))))
 
 (defn insert
+  "Insert an entry in MongoDB based on the user's id"
   [user-id val-to-insert]
           (mc/insert @db @coll
                      {:user_id user-id
                       (keyword @park/park-name) val-to-insert}))
 
-(defn connect-to-db!
-  []
-  (let [conn (mg/connect)]
-  (dosync
-          (ref-set
-            db
-            (mg/get-db conn (env :database)))
-          (ref-set
-            coll
-            (env :collection)))))
-
 (defn upsert
+  "Upsert an entry in MongoDB based on the user's id"
   [user-id val-to-upsert]
   (if (= @db-type :mongo)
     (mc/update @db @coll {:user_id user-id}
@@ -56,3 +52,16 @@
                      (assoc @chat-map
                           (keyword (str user-id))
                             val-to-upsert)))))
+
+(defn connect-to-db!
+  "Connects to MongoDB. Credentials must be supplied through environ
+  (https://github.com/weavejester/environ)"
+  []
+  (let [conn (mg/connect)]
+  (dosync
+          (ref-set
+            db
+            (mg/get-db conn (env :database)))
+          (ref-set
+            coll
+            (env :collection)))))

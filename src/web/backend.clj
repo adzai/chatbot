@@ -14,13 +14,12 @@
     [web.pages :as pages]))
 
 
-(def list-of-park-uris '("/bertramka" "/riegerovy-sady" "/klamovka" "/letna"
-                                      "/stromovka" "/ladronka"
-                                      "/frantiskanska-zahrada" "/kampa"
-                                      "/obora-hvezda" "/petrin"
-                                      "/kinskeho-zahrada" "/vysehrad"))
+(def list-of-park-uris (map #(str "/" (name %)) park/park-name-keywords))
 
-(defn chatbot-respond! [session user-input]
+(defn chatbot-respond!
+  "Generates a response to the user and inserts the result in the chosen
+   database"
+  [session user-input]
   (let [parsed-input (keyword-response-main (parse-input user-input))
         park-string
         (db/find-one (:id session))
@@ -28,17 +27,18 @@
                   (str park-string "<p class=\"bot-msg\">"
                        (if parsed-input (park/find-park-data parsed-input)
                          (rand-nth bot/possible-error-messages)) "</p>")]
-    (db/upsert (:id session) ret-str)
-    ))
+    (db/upsert (:id session) ret-str)))
 
 (defn set-park!
+  "Sets the global park-name variable from park_utils
+   to the user selected park"
   [route-park-name]
   (when-not (= route-park-name @park/park-name)
     (dosync (ref-set park/park-name route-park-name))))
 
 (defn routes-handler
+  "Inspects a route and performs according action"
   [uri params session]
-  ; handle routes
   (cond
     (= uri "/")
     (response (pages/index))
@@ -50,7 +50,7 @@
         ; Insert a user in db if they aren't there yet
         (when (and (= @db/db-type :mongo)
                    (nil? (db/find-one (:id session))))
-            (db/insert (:id session) ""))
+          (db/insert (:id session) ""))
         (let [park-string
               (db/find-one (:id session))
               string (if-not (nil? park-string)
@@ -71,6 +71,7 @@
                    "<h2><a href="\/">Home</a></h2>"))))
 
 (defn ensure-session-id
+  "Creates a new and unique session id"
   [session]
   (if (nil? (:id session))
     (loop [id (rand-int 100000000)]
@@ -80,7 +81,7 @@
         (recur (rand-int 100000000))))
     session))
 
-(def request-handler
+(def request-handler "Handles current request and assigns session id"
   (-> (fn [& args]
         (let [session (get (first args) :session)
               uri (get (first args) :uri)
@@ -94,6 +95,7 @@
       (wrap-session {:cookie-attrs {:max-age 3600}})))
 
 (defn run-backend!
+  "Starts the server on port 3000 and connects to the chosen database"
   [args]
   (when (some #(= "--mongo" %) args)
     (dosync (ref-set db/db-type :mongo))

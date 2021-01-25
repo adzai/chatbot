@@ -8,7 +8,7 @@
   (ref ""))
 (def data-map "Hash-map of the data/date-en.json file"
   (parse-json "data/data-en.json"))
-(def keywords "Keywords extracted from the data-map"
+(def park-name-keywords "Keywords extracted from the data-map"
   (keys data-map))
 
 (defn park->keyword
@@ -35,7 +35,7 @@
   (bot-print! (str "Select a park to get info for "
                    "(type the corresponding number):"))
   (loop [i 1
-         keywords keywords]
+         keywords park-name-keywords]
     (when-not (empty? keywords)
       (println (str i ": " (keyword->park (first keywords))))
       (recur (inc i) (rest keywords))))
@@ -43,10 +43,10 @@
     (let [raw-input (chat-user/get-user-input)
           input (if (= "" raw-input) false (read-string raw-input))]
       (if (and (number? input)
-               (<= input (count keywords))
+               (<= input (count park-name-keywords))
                (> input 0))
         (dosync (ref-set park-name
-                         (keyword->park (nth keywords (dec input)))))
+                         (keyword->park (nth park-name-keywords (dec input)))))
         (do
           (bot-print! "Enter a valid number between 1-12")
           (recur)))))

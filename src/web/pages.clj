@@ -5,7 +5,9 @@
     [chatbot.park_utils :as park]))
 
 
-(defn chatbot-page [content current-uri]
+(defn chatbot-page
+  "Page of the selected park"
+  [content current-uri]
   (page/html5
     [:head
      [:meta {:charset "UTF-8"}]
@@ -24,7 +26,9 @@
        [:input
         {:type "text" :autofocus "autofocus" :id "input" :name "input"}]]]]))
 
-(defn index []
+(defn index
+  "Home page"
+  []
   (page/html5
     [:head
      [:meta {:charset "UTF-8"}]
