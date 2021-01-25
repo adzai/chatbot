@@ -7,7 +7,7 @@
             [chatbot.bot_utils :refer :all]
             [chatbot.identify_keyword :refer :all]
             [chatbot.decision_tree :refer :all]
-            [chatbot.park_utils :refer [park-name find-park-data]]))
+            [chatbot.park_utils :refer :all]))
 
 (deftest data-test
   (testing "JSON file in data folder"
@@ -110,17 +110,36 @@
               "about dogs in Bertramka.")
          (find-park-data "dogs")))))
 
-
 (deftest decision-tree
   (testing "Testing decision tree building"
     (let [tree (make-tree)]
       (tree-insert! tree nil "What color was the bird?")
-      (tree-insert! tree "Black" "What color was the beak?"
+      (tree-insert! tree "black" "What color was the beak?"
                     :attach-to "What color was the bird?")
       (is
-        (= "Black" (:answer-to-previous (first @(:children @(:root tree)))))))))
+        (= "black" (:answer-to-previous (first @(:children @(:root tree)))))))))
+
+(deftest find-node-response-test
+  (testing "Testing finding the correct node given a response"
+    (let [tree (make-tree)]
+      (tree-insert! tree nil "What color was the bird?")
+      (tree-insert! tree "black" "What color was the beak?"
+                    :attach-to "What color was the bird?")
+    (is
+    (= (:response-to-user (find-node-response ["black"] @(:children @(:root tree))))
+       "What color was the beak?")))))
 
 (deftest finish-test
-  (testing "testing the terminating keywords"
+  (testing "Testing the terminating keywords"
     (is
      (= true (finish? (list "exit"))))))
+
+(deftest park->keyword-test
+  (testing "Testing conversion from park to keyword"
+    (is
+      (= :riegerovy-sady (park->keyword "Riegerovy sady")))))
+
+(deftest keyword->park-test
+  (testing "testing conversion from keyword to park"
+    (is
+      (= "Riegerovy sady" (keyword->park :riegerovy-sady)))))
