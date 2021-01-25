@@ -126,7 +126,8 @@
       (tree-insert! tree "black" "What color was the beak?"
                     :attach-to "What color was the bird?")
     (is
-    (= (:response-to-user (find-node-response ["black"] @(:children @(:root tree))))
+    (= (:response-to-user
+         (find-node-response ["black"] @(:children @(:root tree))))
        "What color was the beak?")))))
 
 (deftest finish-test
