@@ -1,7 +1,11 @@
 (ns chatbot.bot_utils
   (:require [chatbot.levenshtein :refer [similarity]]))
 
-(def bot-prompt "Chatbot prompt in the REPL" "Chatbot> ")
+(def bot-prompt "Chatbot prompt in the REPL"
+  "Chatbot> ")
+
+(def error-count "Counts the number of errors in a row"
+  (ref 0))
 
 (def possible-error-messages "Vector of various error messages"
   (vector "Sorry, I didn't understand you, please try again!"
@@ -26,7 +30,9 @@
 
 (defn bot-print!
   "Format's the message with a bot-prompt and prints it out"
-  [msg]
+  [msg & {:keys [error-msg?] :or {error-msg? false}}]
+  (when-not error-msg?
+    (dosync (ref-set error-count 0)))
   (println (str bot-prompt msg)))
 
 (defn help-function
@@ -50,8 +56,8 @@
                    " of Prague parks, based on given characteristics."
                    "For this, the user should type keyword - 'bird'."))
   (bot-print! (str "The user can finish the conversation by "
-                   "typing the terminating keyword, such as 'exit',
-                    'quit', 'end', 'terminate' or 'bye'.")))
+                   "typing the terminating keyword, such as exit, "
+                   "quit, end, terminate or bye.")))
 
 (defn greeting
   "Using similarity function, identifies if
@@ -75,3 +81,13 @@
    (and (= 1 (count input)) (some #(= (first input) %) terminating-keywords))
     true
     false))
+
+(defn handle-error
+  "Return an error message and increment error counter.
+  if there were 3 error messages already printed out, offers help"
+  []
+  (dosync (ref-set error-count (inc @error-count)))
+  (if (> @error-count 3)
+    (help-function)
+    (bot-print!
+      (rand-nth possible-error-messages) :error-msg? true)))
