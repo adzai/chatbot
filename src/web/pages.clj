@@ -41,8 +41,8 @@
       [:a {:href "/bertramka"}
        "Bertramka"]]
      [:p
-      [:a {:href "/riegerovy-sady"}
-       "Riegerovy Sady"]]
+      [:a {:href "/riegrovy-sady"}
+       "Riegrovy Sady"]]
      [:p
       [:a {:href "/klamovka"}
        "Klamovka"]]
