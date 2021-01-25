@@ -28,7 +28,9 @@
           "Good to see you again"
           "Hi there, how can I help?"))
 
-(def terminating-keywords (vector "quit" "exit" "end" "terminate" "bye"))
+(def terminating-keywords "Vector with all possible terminating
+                            keywords"
+  (vector "quit" "exit" "end" "terminate" "bye"))
 
 (defn bot-print!
   "Format's the message with a bot-prompt and prints it out"

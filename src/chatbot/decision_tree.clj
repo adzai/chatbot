@@ -130,6 +130,8 @@
 (def bird-decision-tree "Decision tree for the chosen domain - birds."
   (make-tree))
 
+;;;;;;;;;;;;;;;;; BIRD DECISION TREE BUILDING ;;;;;;;;;;;;;;;;;
+
 ;bird seen or not?
 (tree-insert! bird-decision-tree nil
               "Have you seen a bird in the park?")
