@@ -1,10 +1,12 @@
 (ns chatbot.bot_utils
-  (:require [chatbot.levenshtein :refer [similarity]]))
+  (:require
+    [chatbot.levenshtein :refer [similarity]]))
 
 (def bot-prompt "Chatbot prompt in the REPL"
   "Chatbot> ")
 
-(def error-count "Counts the number of errors in a row"
+(def unrecognized-sentences-counter "Counts the number of unrecognized
+                                     sentences in a row"
   (ref 0))
 
 (def possible-error-messages "Vector of various error messages"
@@ -32,7 +34,7 @@
   "Format's the message with a bot-prompt and prints it out"
   [msg & {:keys [error-msg?] :or {error-msg? false}}]
   (when-not error-msg?
-    (dosync (ref-set error-count 0)))
+    (dosync (ref-set unrecognized-sentences-counter 0)))
   (println (str bot-prompt msg)))
 
 (defn help-function
@@ -82,12 +84,3 @@
     true
     false))
 
-(defn handle-error
-  "Return an error message and increment error counter.
-  if there were 3 error messages already printed out, offers help"
-  []
-  (dosync (ref-set error-count (inc @error-count)))
-  (if (> @error-count 3)
-    (help-function)
-    (bot-print!
-      (rand-nth possible-error-messages) :error-msg? true)))
