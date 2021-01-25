@@ -4,7 +4,7 @@
             [chatbot.bot_utils :as bot]
             [chatbot.park_utils :as park]
             [chatbot.user_utils :as user]
-            [chatbot.decision_tree :as dec_tree]
+            [chatbot.decision_tree :as dec-tree]
             [web.backend :as web]))
 
 (defn main-loop
@@ -59,12 +59,11 @@
           (park/user-select-park!)
 
           bird-info?
-          (dec_tree/questions-loop dec_tree/bird-decision-tree)
+          (dec-tree/questions-loop dec-tree/bird-decision-tree)
 
           response
           (bot/bot-print! (park/find-park-data response))
 
           :else (user/handle-unrecognized-sentence))
-
 
         (recur (parse-input (user/get-user-input)))))))
