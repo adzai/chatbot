@@ -57,11 +57,13 @@
   "Connects to MongoDB. Credentials must be supplied through environ
   (https://github.com/weavejester/environ)"
   []
-  (let [conn (mg/connect)]
-  (dosync
-          (ref-set
-            db
-            (mg/get-db conn (env :database)))
-          (ref-set
-            coll
-            (env :collection)))))
+  (let [^MongoOptions opts (mg/mongo-options '(:threads-allowed-to-block-for-connection-multiplier 300))
+        ^ServerAddress sa  (mg/server-address "127.0.0.1" 27017)
+        conn               (mg/connect sa opts)]
+    (dosync
+      (ref-set
+        db
+        (mg/get-db conn (env :database)))
+      (ref-set
+        coll
+        (env :collection)))))
