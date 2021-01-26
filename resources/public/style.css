@@ -23,6 +23,9 @@ body {
   background-position: top;
   z-index: -1;
 }
+a {
+    cursor: pointer;
+}
 
 h1 {
   font-size: 3rem;
