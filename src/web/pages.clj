@@ -46,8 +46,8 @@
      [:h1 "Prague parks chatbot"]
      [:div {:class "greeting"}
       "Hi! I am your park guide. You can choose the park you are
-      interested in and write what you want to know in the chat. 
-      If you need help, use the Help button. History of the park 
+      interested in and write what you want to know in the chat.
+      If you need help, use the Help button. History of the park
       can be viewed by tapping the button History."]
      [:h2 "List of parks: "]
      [:div {:class "park-list"}
