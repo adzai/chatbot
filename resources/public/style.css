@@ -125,9 +125,15 @@ h3 {
   margin: 0 auto;
   height: 80px;
   width: 160px;
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
   overflow: hidden;
   padding-top: 25px;
+
+  box-shadow: 10 10 10px rgba(46, 54, 68, 0.03);
+  background: rgba(255, 255, 255, 0.1);
+  border: solid 2px transparent;
+  background-clip: padding-box;
+  backdrop-filter: blur(5px);
 }
 
 .btn-home {
@@ -138,7 +144,7 @@ h3 {
   height: 100%;
 }
 
-.btn-home:before {
+/* .btn-home:before {
   content: "";
   position: absolute;
   top: 0;
@@ -146,7 +152,7 @@ h3 {
   width: 50%;
   height: 100%;
   background: rgba(255, 255, 255, 0.1);
-}
+} */
 
 .btn-home:after {
   content: "";
@@ -188,8 +194,7 @@ h3 {
 .chat {
   background-color: #ffffff;
   margin: 0 auto;
-  height: 300px;
-  max-width: 50vw;
+  width: 35vw;
 }
 
 .chat-title {
@@ -207,8 +212,10 @@ h3 {
   border: solid 1px #ddd;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: 100%;
+  min-height: 0;
+  max-height: 300px;
   color: rgb(0, 0, 0);
+  margin-bottom: 5px;
 }
 
 .human-msg {
