@@ -56,7 +56,7 @@
          "Bertramka"]]
        [:p {:class "btn-wrapper"}
         [:a {:href "/riegrovy-sady" :class "btn btn-park"}
-         "Riegerovy Sady"]]
+         "Riegrovy Sady"]]
        [:p {:class "btn-wrapper"}
         [:a {:href "/klamovka" :class "btn btn-park"}
          "Klamovka"]]
