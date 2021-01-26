@@ -45,7 +45,7 @@
         [:a {:href "/bertramka" :class "btn btn-park"}
          "Bertramka"]]
        [:p {:class "btn-wrapper"}
-        [:a {:href "/riegerovy-sady" :class "btn btn-park"}
+        [:a {:href "/riegrovy-sady" :class "btn btn-park"}
          "Riegerovy Sady"]]
        [:p {:class "btn-wrapper"}
         [:a {:href "/klamovka" :class "btn btn-park"}
