@@ -97,9 +97,9 @@
      (page/include-css "style.css")]
     [:body
      [:div {:class "btn-block"}
-      [:div {:class "btn-home-wrapper" :class "btn-fix"}
+      [:div {:class "btn-home-wrapper btn-fix"}
        [:a {:href "/" :class "btn btn-home"} "Home"]]
-      [:div {:class "btn-back-wrapper" :class "btn-fix"}
+      [:div {:class "btn-back-wrapper btn-fix"}
        [:a {:class "btn btn-back" :onclick "history.back(-1)"} "Back"]]]
      [:div {:class "help-block"}
       [:p (str "The chatbot is designed to answer users' questions regarding "
@@ -121,9 +121,9 @@
      (page/include-css "style.css")]
     [:body
      [:div {:class "btn-block"}
-      [:div {:class "btn-home-wrapper" :class "btn-fix"}
+      [:div {:class "btn-home-wrapper btn-fix"}
        [:a {:href "/" :class "btn btn-home"} "Home"]]
-      [:div {:class "btn-back-wrapper" :class "btn-fix"}
+      [:div {:class "btn-back-wrapper btn-fix"}
        [:a {:class "btn btn-back" :onclick "history.back(-1)"} "Back"]]]
       ; Fetches history about currently chosen park
         
