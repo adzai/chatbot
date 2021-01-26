@@ -18,9 +18,7 @@
   (Node. answer-to-previous response-to-user (ref '())))
 
 (defn tree-insert-helper!
-  "Helper function for inserting a node in a tree.
-   The attach-to value is used to identify to which node the newly
-   created node should be attached."
+  "Helper function for inserting a node in a tree."
   [answer-to-previous response-to-user attach-to queue]
   (if (empty? queue)
     (println "Target response to user was not found")
@@ -35,7 +33,9 @@
                        @(:children current-node)))))))
 
 (defn tree-insert!
-  "Inserts a node in a tree."
+  "Inserts a node in a tree.
+   The attach-to key is used to identify to which node the newly
+   created node should be attached."
   [tree answer-to-previous response-to-user
    & {:keys [attach-to] :or {attach-to false}}]
   (if attach-to
@@ -46,7 +46,7 @@
                                              response-to-user)))))
 
 (defn find-node-response
-  "Returns a nodes which corresponds to the user's response or nil."
+  "Returns a node which corresponds to the user's response or nil."
   [user-response lst-of-nodes]
   (let [node (first lst-of-nodes)]
   (cond

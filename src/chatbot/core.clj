@@ -10,12 +10,15 @@
   (:gen-class))
 
 (defn -main
-  "When called without arguments, a REPL chatbot is started.
+  "When called without arguments a REPL chatbot is started.
   It consumes user input until a terminating keyword is met.
-  The main loop calls help function if user input is help.
-  Checks if the keyword is not identified and prints the random error message.
-  Otherwise greets user or answers the questions about the park."
-
+  The main loop calls the help function if user input is help.
+  It also checks if the keyword is not identified and prints
+  a random error message.
+  Otherwise greets user, answers questions about the park or
+  tries to identify a bird.
+  When run with a --web flag, a web server will be started instead
+  of the REPL."
   [& args]
   (when (cli/start-web-server? args)
     (web/run-backend! args))
