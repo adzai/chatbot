@@ -90,7 +90,11 @@
        [:a {:href "/" :class "btn btn-home"} "Home"]]
       [:p {:class "btn-home-wrapper"}
        [:a {:class "btn btn-home" :onclick "history.back(-1)"} "Back"]]
-     [:p "The chatbot is designed to answer users' questions regarding the park of their choice."]
-     [:p "The bot provides information about various aspects such as wc, attractions, biking, skating, sports field, playground, transportation, parking and more."]
-     [:p "Error messages are used to inform user that  asked questions are obscure to the chatbot."]
+     [:p (str "The chatbot is designed to answer users' questions regarding "
+              "the park of their choice.")]
+     [:p (str "The bot provides information about various aspects such as wc, "
+              "attractions, biking, skating, sports field, playground, "
+              "transportation, parking and more.")]
+     [:p (str "Error messages are used to inform user that asked questions "
+              "are obscure to the chatbot.")]
      [:p "Example question: Can I ride a bike in Bertramka?"]]))
