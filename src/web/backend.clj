@@ -1,7 +1,6 @@
 (ns web.backend
   (:require
     [ring.adapter.jetty :refer [run-jetty]]
-    [clojure.string :as str]
     [ring.middleware.resource :refer [wrap-resource]]
     [ring.middleware.params :refer [wrap-params]]
     [ring.middleware.session :refer [wrap-session]]
@@ -32,9 +31,10 @@
 (defn set-park!
   "Sets the global park-name variable from park_utils
    to the user selected park"
-  [route-park-name]
+  [route]
+  (let [route-park-name (park/route-name->park route)]
   (when-not (= route-park-name @park/park-name)
-    (dosync (ref-set park/park-name route-park-name))))
+    (dosync (ref-set park/park-name route-park-name)))))
 
 (defn routes-handler
   "Inspects a route and performs according action"
@@ -45,7 +45,7 @@
 
     (some #(= uri %) list-of-park-uris)
     (do
-      (set-park! (str/replace uri #"/" ""))
+      (set-park! uri)
       (when (get params "input")
         ; Insert a user in db if they aren't there yet
         (when (and (= @db/db-type :mongo)

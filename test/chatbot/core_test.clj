@@ -138,9 +138,14 @@
 (deftest park->keyword-test
   (testing "Testing conversion from park to keyword"
     (is
-      (= :riegerovy-sady (park->keyword "Riegerovy sady")))))
+      (= :riegrovy-sady (park->keyword "Riegrovy sady")))))
+
+(deftest route-name->park-test
+  (testing "testing conversion from route name to park"
+    (is
+      (= "Riegrovy sady" (route-name->park "/riegrovy-sady")))))
 
 (deftest keyword->park-test
   (testing "testing conversion from keyword to park"
     (is
-      (= "Riegerovy sady" (keyword->park :riegerovy-sady)))))
+      (= "Riegrovy sady" (keyword->park :riegrovy-sady)))))
