@@ -9,7 +9,8 @@ can be found [here](https://www.praha.eu/jnp/cz/co_delat_v_praze/parky/index.htm
 The chatbot also provides the users with the possibility to
 identify bird species spread throughout the Prague parks.
 
-The work on this project is documented on https://adzai.github.io/chatbot/
+The work on this project is documented on https://adzai.github.io/chatbot/intro.html
+(or alternatively [here](https://schoolstuff.me/chatbot/intro.html)).
 
 ## Requirements
 * The chatbot is written in [clojure](https://clojure.org/) and as such requires
@@ -27,7 +28,7 @@ $ lein deps
 
 ## Usage in the REPL
 ```
-lein run
+$ lein run
 ```
 Chatbot will greet you and prompt you for a username. The username can be changed later at any time.
 ```
@@ -138,7 +139,7 @@ For more information about uberjar you can visit https://github.com/technomancy/
 
 ## Tests
 ```
-lein test
+$ lein test
 ```
 
 ## Authors
