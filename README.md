@@ -22,7 +22,7 @@ $ cd chatbot
 $ lein deps
 ```
 
-## Usage
+## Usage in the REPL
 ```
 lein run
 ```
@@ -67,6 +67,27 @@ When you got all the information you needed, you can end the conversation by typ
 Adam> finish
 Chatbot> Bye!
 ```
+
+## Usage in the website
+
+The website with the chatbot is deployed [here](https://schoolstuff.me).
+The web server can also be started locally with `lein --web`.
+This starts the server on localhost:3000. The port can be changed via
+the `--port` flag following a valid port number.
+
+
+MongoDB can be used as the database, by using the `--mongo` flag.
+MongoDB has to be already running and credentials supplied through
+environment variables `database` and `collection`. The environ
+library is used to retrieve the credentials, you can follow a guide
+[here](https://github.com/weavejester/environ).
+
+
+The default database is just a clojure map. Which stores all conversations the user in one place. Thus, when changing parks the conversations
+about previous parks that user had 
+will still be seen on that page. That is not
+the case when using MongoDB, as for every user conversations about
+parks are stored separately.
 
 ## Tests
 ```
