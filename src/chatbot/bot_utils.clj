@@ -1,10 +1,12 @@
 (ns chatbot.bot_utils
-  (:require [chatbot.levenshtein :refer [similarity]]))
+  (:require
+    [chatbot.levenshtein :refer [similarity]]))
 
 (def bot-prompt "Chatbot prompt in the REPL"
   "Chatbot> ")
 
-(def error-count "Counts the number of errors in a row"
+(def unrecognized-sentences-counter "Counts the number of unrecognized
+                                     sentences in a row"
   (ref 0))
 
 (def possible-error-messages "Vector of various error messages"
@@ -26,13 +28,15 @@
           "Good to see you again"
           "Hi there, how can I help?"))
 
-(def terminating-keywords (vector "quit" "exit" "end" "terminate" "bye"))
+(def terminating-keywords "Vector with all possible terminating
+                            keywords"
+  (vector "quit" "exit" "end" "terminate" "bye"))
 
 (defn bot-print!
   "Format's the message with a bot-prompt and prints it out"
   [msg & {:keys [error-msg?] :or {error-msg? false}}]
   (when-not error-msg?
-    (dosync (ref-set error-count 0)))
+    (dosync (ref-set unrecognized-sentences-counter 0)))
   (println (str bot-prompt msg)))
 
 (defn help-function
@@ -45,13 +49,16 @@
                    "sports field, playground, transportation, parking "
                    "and more."))
   (bot-print! (str "The user can get familiarized with the history of "
-                    " specific park by typing the word - history."))
+                    "specific park by typing the word - history."))
   (bot-print! (str "Error messages are used to inform user that "
                    " asked questions are obscure to the chatbot."))
   (bot-print! (str "The user can change their username by "
                    "typing the word - username."))
   (bot-print! (str "The user can change the park the chatbot is "
                    "answering questions about by typing the word - park."))
+  (bot-print! (str "The chatbot can help the user to identify the birds"
+                   " of Prague parks, based on given characteristics."
+                   "For this, the user should type keyword - 'bird'."))
   (bot-print! (str "The user can finish the conversation by "
                    "typing the terminating keyword, such as exit, "
                    "quit, end, terminate or bye.")))
@@ -78,13 +85,3 @@
    (and (= 1 (count input)) (some #(= (first input) %) terminating-keywords))
     true
     false))
-
-(defn handle-error
-  "Return an error message and increment error counter.
-  if there were 3 error messages already printed out, offers help"
-  []
-  (dosync (ref-set error-count (inc @error-count)))
-  (if (> @error-count 3)
-    (help-function)
-    (bot-print!
-      (rand-nth possible-error-messages) :error-msg? true)))

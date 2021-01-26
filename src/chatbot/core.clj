@@ -5,6 +5,7 @@
             [chatbot.park_utils :as park]
             [chatbot.user_utils :as chat-user]
             [chatbot.cli_utils :as cli]
+            [chatbot.decision_tree :as dec-tree]
             [web.backend :as web])
   (:gen-class))
 
@@ -21,15 +22,20 @@
   (cli/display-help? args)
   (bot/bot-print! "Hi!")
   (bot/bot-print! "I am your park guide.")
-  (chat-user/set-user-prompt!)
+  (user/set-user-prompt!)
   (bot/bot-print! (str "You can change your username at any time "
                        "by typing 'username'."))
   (park/user-select-park!)
-  (bot/bot-print! "To end the conversation, enter 'finish'.")
+  (bot/bot-print! (str
+                   "To end the conversation, enter the terminating keyword, "
+                   "such as 'exit', 'quit', 'end', 'terminate' or 'bye'."))
   (bot/bot-print! "If you need help, type 'help'.")
   (bot/bot-print! "History of the park can be viewed by entering 'history'.")
   (bot/bot-print! "If you want to change the park type 'park'.")
-  (loop [user-input (parse-input (chat-user/get-user-input))]
+  (bot/bot-print! (str
+                   "By typing the keyword - 'bird',the bot will help you "
+                   "to identify the birds of Prague parks."))
+  (loop [user-input (parse-input (user/get-user-input))]
     (if (bot/finish? user-input)
       (bot/bot-print! (rand-nth bot/possible-goodbye-messages))
       (let [help? (= '("help") user-input)
@@ -37,26 +43,30 @@
             park-history? (= '("history") user-input)
             greeting? (bot/greeting bot/possible-greetings user-input)
             park-change? (= '("park") user-input)
-            response (keyword-response-main user-input)]
+            response (keyword-response-main user-input)
+            bird-info? (= '("bird") user-input)]
         (cond
           help?
           (bot/help-function)
 
           username-change?
-          (chat-user/set-user-prompt!)
+          (user/set-user-prompt!)
 
           park-history?
           (bot/bot-print! (park/park-history))
 
           greeting?
           (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
+
           park-change?
           (park/user-select-park!)
+
+          bird-info?
+          (dec-tree/questions-loop dec-tree/bird-decision-tree)
 
           response
           (bot/bot-print! (park/find-park-data response))
 
-          :else (bot/handle-error))
+          :else (user/handle-unrecognized-sentence))
 
-
-        (recur (parse-input (chat-user/get-user-input)))))))
+        (recur (parse-input (user/get-user-input)))))))
