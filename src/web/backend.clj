@@ -46,6 +46,9 @@
     (= uri "/help")
     (response (pages/help-page))
 
+    (= uri "/history")
+    (response (pages/history-page))
+
     (some #(= uri %) list-of-park-uris)
     (do
       (set-park! uri)

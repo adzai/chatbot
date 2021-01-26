@@ -2,6 +2,7 @@
   (:require
     [clojure.string :as str]
     [hiccup.page :as page]
+    [chatbot.parse :refer [parse-json]]
     [chatbot.park_utils :as park]))
 
 
@@ -21,6 +22,8 @@
        [:a {:href "/" :class "btn btn-home"} "Home"]]
       [:p {:class "btn-home-wrapper"}
        [:a {:href "/help" :class "btn btn-home"} "Help"]]
+      [:p {:class "btn-home-wrapper"}
+       [:a {:href "/history" :class "btn btn-home"} "History"]]
       [:h3 (str "Current park: " (park/keyword->park
                                    (str/replace current-uri #"/" "")))]
       [:form {:method "POST" :action current-uri}
@@ -98,3 +101,20 @@
      [:p (str "Error messages are used to inform user that asked questions "
               "are obscure to the chatbot.")]
      [:p "Example question: Can I ride a bike in Bertramka?"]]))
+
+(defn history-page
+  "History page"
+  []
+  (page/html5
+    [:head
+     [:meta {:charset "UTF-8"}]
+     [:title "Chatbot"]
+     (page/include-css "style.css")]
+    [:body
+      [:p {:class "btn-home-wrapper"}
+       [:a {:href "/" :class "btn btn-home"} "Home"]]
+      [:p {:class "btn-home-wrapper"}
+       [:a {:class "btn btn-home" :onclick "history.back(-1)"} "Back"]]
+      ; Fetches history about currently chosen park
+     [:p (get (parse-json "data/park-history.json")
+         (park/park->keyword @park/park-name))]]))
