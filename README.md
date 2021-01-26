@@ -56,12 +56,12 @@ Chatbot> Select a park to get info for (type the corresponding number):
 Adam> 1
 ```
 Now you can ask your questions about the chosen park.
-The park can be changed later by typing *park*.
+The park can be changed later by typing `park`.
 ```
 Adam> Can I ride my bicycle in the Bertramka park?
 Chatbot> Biking is possible in Bertramka.
 ```
-The bird identification feature can be initiated by typing the keyword *bird*.
+The bird identification feature can be initiated by typing the keyword `bird`.
 
 The chatbot carries out a textual dialogue with the user by asking questions
 regarding specific characteristics of birds.
@@ -76,25 +76,25 @@ Chatbot> Was black bird's beak dark or light colored?
 Adam> The beak was dark too
 Chatbot> It was probably a crow. For more information about birds, please type - 'bird' again.
 ```
-For more information about functionalities of bird identification feature, type – *helper*.
+For more information about functionalities of bird identification feature, type – `helper`.
 
-The user can exit the bird identification mode by typing – *exit*.
+The user can exit the bird identification mode by typing – `exit`.
 ```
 Adam> exit
 Chatbot> Now, you can ask questions about the chosen park.
 Chatbot> To change the current park, type - 'park'.
 ```
 If you need an overview of the chatbot's commands and overall functionality
-of the chatbot, type *help* in the input field.
+of the chatbot, type `help` in the input field.
 
 When you got all the information you needed, you can end the conversation by typing
-terminating keywords, such as *exit*, *bye*, *terminate* and etc.
+terminating keywords, such as `exit`, `bye`, `terminate` and etc.
 ```
 Adam> exit
 Chatbot> Bye!
 ```
 
-## Usage in the website
+## Usage of the website
 A demo website was created, it is deployed [here](https://schoolstuff.me).
 The chatbot on the website has slightly less features than the REPL version, since like mentioned before it's more of a demo
 of how a better presentation
@@ -120,6 +120,21 @@ about previous parks that user had
 will still be seen on that page. That is not
 the case when using MongoDB, as for every user conversations about
 parks are stored separately.
+
+
+## Documentation
+Documentation is generated with the help of [codox](https://github.com/weavejester/codox).
+The documentation page can be accessed [here](https://schoolstuff,me/chatbot).
+
+
+Documentation can also be built locally with the `lein codox` command.
+All the html produced will be in the `docs` folder.
+
+
+## Jar
+A jar executable can be created with the `lein uberjar` command.
+The produced jar file will be in the `target` folder.
+For more information about uberjar you can visit https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#uberjar.
 
 ## Tests
 ```
