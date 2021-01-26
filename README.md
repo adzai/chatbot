@@ -69,8 +69,14 @@ Chatbot> Bye!
 ```
 
 ## Usage in the website
+A demo website was created, it is deployed [here](https://schoolstuff.me).
+The chatbot on the website has slightly less features than the REPL version, since like mentioned before it's more of a demo
+of how a better presentation
+of the chatbot could look like. The biggest missing feature is the
+information about birds, however it still offers information 
+about every park listed.
 
-The website with the chatbot is deployed [here](https://schoolstuff.me).
+
 The web server can also be started locally with `lein --web`.
 This starts the server on localhost:3000. The port can be changed via
 the `--port` flag following a valid port number.
