@@ -20,12 +20,21 @@
   "Generates a response to the user and inserts the result in the chosen
   database"
   [session user-input]
-  (let [parsed-input (keyword-response-main (parse-input user-input))
+  (let [parsed-user-input (parse-input user-input)
+        greeting? (bot/greeting bot/possible-greetings parsed-user-input)
+        parsed-input (keyword-response-main parsed-user-input)
         park-string
         (db/find-one (:id session))
         ret-str
         (str park-string "<p class=\"bot-msg\">"
-             (if parsed-input (park/find-park-data parsed-input)
+             (cond
+               greeting?
+               greeting?
+
+               parsed-input
+               (park/find-park-data parsed-input)
+
+               :else
                (rand-nth bot/possible-error-messages)) "</p>")]
     (db/upsert (:id session) ret-str)))
 

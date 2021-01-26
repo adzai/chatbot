@@ -56,7 +56,7 @@
           (bot/bot-print! (park/park-history))
 
           greeting?
-          (bot/bot-print! (bot/greeting bot/possible-greetings user-input))
+          (bot/bot-print! greeting?)
 
           park-change?
           (park/user-select-park!)
