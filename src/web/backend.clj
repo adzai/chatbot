@@ -5,6 +5,7 @@
     [ring.middleware.params :refer [wrap-params]]
     [ring.middleware.session :refer [wrap-session]]
     [ring.util.response :refer [response]]
+    [chatbot.cli_utils :as cli]
     [chatbot.identify_keyword :refer [keyword-response-main]]
     [chatbot.parse :refer [parse-input]]
     [chatbot.bot_utils :as bot]
@@ -17,15 +18,15 @@
 
 (defn chatbot-respond!
   "Generates a response to the user and inserts the result in the chosen
-   database"
+  database"
   [session user-input]
   (let [parsed-input (keyword-response-main (parse-input user-input))
         park-string
         (db/find-one (:id session))
         ret-str
-                  (str park-string "<p class=\"bot-msg\">"
-                       (if parsed-input (park/find-park-data parsed-input)
-                         (rand-nth bot/possible-error-messages)) "</p>")]
+        (str park-string "<p class=\"bot-msg\">"
+             (if parsed-input (park/find-park-data parsed-input)
+               (rand-nth bot/possible-error-messages)) "</p>")]
     (db/upsert (:id session) ret-str)))
 
 (defn set-park!
@@ -94,10 +95,10 @@
       (wrap-params {:encoding "UTF-8"})
       (wrap-session {:cookie-attrs {:max-age 3600}})))
 
+
 (defn run-backend!
-  "Starts the server on port 3000 and connects to the chosen database"
+  "Starts the server on chosen or default port and
+  connects to the chosen or default database"
   [args]
-  (when (some #(= "--mongo" %) args)
-    (dosync (ref-set db/db-type :mongo))
-    (db/connect-to-db!))
-  (run-jetty request-handler {:port 3000}))
+  (cli/set-up-db! args)
+  (run-jetty request-handler {:port (cli/get-port-number args)}))
