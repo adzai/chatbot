@@ -20,7 +20,7 @@
      [:header {:class "header"}
       [:h1 "Prague parks chatbot"]
       [:div  {:class "header-btn"}
-       [:div  {:class "btn-history-wrapper btn-fix"
+       [:div  {:class "btn-history-wrapper btn-fix"}
         [:a {:href "/history" :class "btn btn-history"} "Help"]]
        [:div  {:class "btn-help-wrapper btn-fix"
         [:a {:href "/help" :class "btn btn-help"} "Help"]]]]
