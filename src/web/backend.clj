@@ -6,6 +6,7 @@
     [ring.middleware.params :refer [wrap-params]]
     [ring.middleware.session :refer [wrap-session]]
     [ring.util.response :refer [response]]
+    [chatbot.cli_utils :as cli]
     [chatbot.identify_keyword :refer [keyword-response-main]]
     [chatbot.parse :refer [parse-input]]
     [chatbot.bot_utils :as bot]
@@ -94,34 +95,10 @@
       (wrap-params {:encoding "UTF-8"})
       (wrap-session {:cookie-attrs {:max-age 3600}})))
 
-(defn get-port-number
-  "Determines the port number to use. Default is 3000"
-  [args]
-  (let [port-index (inc (.indexOf args "--port"))]
-    (if (> port-index 0)
-      (let [number (nth args port-index)
-            parsed-number (re-find #"\d+" number)]
-        (if (and (not (nil? parsed-number))
-                 (> (read-string parsed-number) 1023)
-                 (< (read-string parsed-number) 65536))
-          (read-string parsed-number)
-          (do
-            (println (str "Wrong parameter following the --port flag!\n"
-                          "Use a number from 1024-65535"))
-            (System/exit 1))))
-      3000)))
-
-(defn set-up-db!
-  "Sets db-type to mongo if chosen or defaults to using a map"
-  [args]
-  (if (some #(= "--mongo" %) args)
-    (dosync (ref-set db/db-type :mongo)
-            (db/connect-to-db!))
-    (dosync (ref-set db/db-type :map))))
 
 (defn run-backend!
   "Starts the server on chosen or default port and
   connects to the chosen or default database"
   [args]
-  (set-up-db! args)
-  (run-jetty request-handler {:port (get-port-number args)}))
+  (cli/set-up-db! args)
+  (run-jetty request-handler {:port (cli/get-port-number args)}))

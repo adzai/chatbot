@@ -4,9 +4,11 @@
             [chatbot.bot_utils :as bot]
             [chatbot.park_utils :as park]
             [chatbot.user_utils :as chat-user]
-            [web.backend :as web]))
+            [chatbot.cli_utils :as cli]
+            [web.backend :as web])
+  (:gen-class))
 
-(defn main-loop
+(defn -main
   "When called without arguments, a REPL chatbot is started.
   It consumes user input until a terminating keyword is met.
   The main loop calls help function if user input is help.
@@ -14,8 +16,9 @@
   Otherwise greets user or answers the questions about the park."
 
   [& args]
-  (when (some #(= "--web" %) args)
+  (when (cli/start-web-server? args)
     (web/run-backend! args))
+  (cli/display-help? args)
   (bot/bot-print! "Hi!")
   (bot/bot-print! "I am your park guide.")
   (chat-user/set-user-prompt!)
