@@ -3,7 +3,7 @@
             [chatbot.parse :refer [parse-input]]
             [chatbot.bot_utils :as bot]
             [chatbot.park_utils :as park]
-            [chatbot.user_utils :as chat-user]
+            [chatbot.user_utils :as user]
             [chatbot.cli_utils :as cli]
             [chatbot.decision_tree :as dec-tree]
             [web.backend :as web])
