@@ -18,20 +18,20 @@
 
 (defn chatbot-respond!
   "Generates a response to the user and inserts the result in the chosen
-   database"
+  database"
   [session user-input]
   (let [parsed-input (keyword-response-main (parse-input user-input))
         park-string
         (db/find-one (:id session))
         ret-str
-                  (str park-string "<p class=\"bot-msg\">"
-                       (if parsed-input (park/find-park-data parsed-input)
-                         (rand-nth bot/possible-error-messages)) "</p>")]
+        (str park-string "<p class=\"bot-msg\">"
+             (if parsed-input (park/find-park-data parsed-input)
+               (rand-nth bot/possible-error-messages)) "</p>")]
     (db/upsert (:id session) ret-str)))
 
 (defn set-park!
   "Sets the global park-name variable from park_utils
-   to the user selected park"
+  to the user selected park"
   [route-park-name]
   (when-not (= route-park-name @park/park-name)
     (dosync (ref-set park/park-name route-park-name))))
@@ -94,10 +94,34 @@
       (wrap-params {:encoding "UTF-8"})
       (wrap-session {:cookie-attrs {:max-age 3600}})))
 
-(defn run-backend!
-  "Starts the server on port 3000 and connects to the chosen database"
+(defn get-port-number
+  "Determines the port number to use. Default is 3000"
   [args]
-  (when (some #(= "--mongo" %) args)
-    (dosync (ref-set db/db-type :mongo))
-    (db/connect-to-db!))
-  (run-jetty request-handler {:port 3000}))
+  (let [port-index (inc (.indexOf args "--port"))]
+    (if (> port-index 0)
+      (let [number (nth args port-index)
+            parsed-number (re-find #"\d+" number)]
+        (if (and (not (nil? parsed-number))
+                 (> (read-string parsed-number) 1023)
+                 (< (read-string parsed-number) 65536))
+          (read-string parsed-number)
+          (do
+            (println (str "Wrong parameter following the --port flag!\n"
+                          "Use a number from 1024-65535"))
+            (System/exit 1))))
+      3000)))
+
+(defn set-up-db!
+  "Sets db-type to mongo if chosen or defaults to using a map"
+  [args]
+  (if (some #(= "--mongo" %) args)
+    (dosync (ref-set db/db-type :mongo)
+            (db/connect-to-db!))
+    (dosync (ref-set db/db-type :map))))
+
+(defn run-backend!
+  "Starts the server on chosen or default port and
+  connects to the chosen or default database"
+  [args]
+  (set-up-db! args)
+  (run-jetty request-handler {:port (get-port-number args)}))
