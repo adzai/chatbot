@@ -17,13 +17,15 @@
      (page/include-js "script.js")]
     [:body
      [:div {:id "content"}
+     [:header {:class "header"}
       [:h1 "Prague parks chatbot"]
+      [:div  {:class "header-btn"}
+       [:div  {:class "btn-history-wrapper btn-fix"}
+        [:a {:href "/history" :class "btn btn-history"} "History"]]
+       [:div  {:class "btn-help-wrapper btn-fix"}
+        [:a {:href "/help" :class "btn btn-help"} "Help"]]]]
       [:p {:class "btn-home-wrapper"}
        [:a {:href "/" :class "btn btn-home"} "Home"]]
-      [:p {:class "btn-home-wrapper"}
-       [:a {:href "/help" :class "btn btn-home"} "Help"]]
-      [:p {:class "btn-home-wrapper"}
-       [:a {:href "/history" :class "btn btn-home"} "History"]]
       [:h3 (str "Current park: " (park/keyword->park
                                    (str/replace current-uri #"/" "")))]
       [:form {:method "POST" :action current-uri}
@@ -44,6 +46,11 @@
      (page/include-css "style.css")]
     [:body
      [:h1 "Prague parks chatbot"]
+     [:div {:class "greeting"}
+      "Hi! I am your park guide. You can choose the park you are
+      interested in and write what you want to know in the chat.
+      If you need help, use the Help button. History of the park
+      can be viewed by tapping the button History."]
      [:h2 "List of parks: "]
      [:div {:class "park-list"}
        [:p {:class "btn-wrapper"}
@@ -51,7 +58,7 @@
          "Bertramka"]]
        [:p {:class "btn-wrapper"}
         [:a {:href "/riegrovy-sady" :class "btn btn-park"}
-         "Riegerovy Sady"]]
+         "Riegrovy Sady"]]
        [:p {:class "btn-wrapper"}
         [:a {:href "/klamovka" :class "btn btn-park"}
          "Klamovka"]]
@@ -89,18 +96,20 @@
      [:title "Chatbot"]
      (page/include-css "style.css")]
     [:body
-      [:p {:class "btn-home-wrapper"}
+     [:div {:class "btn-block"}
+      [:div {:class "btn-home-wrapper btn-fix"}
        [:a {:href "/" :class "btn btn-home"} "Home"]]
-      [:p {:class "btn-home-wrapper"}
-       [:a {:class "btn btn-home" :onclick "history.back(-1)"} "Back"]]
-     [:p (str "The chatbot is designed to answer users' questions regarding "
+      [:div {:class "btn-back-wrapper btn-fix"}
+       [:a {:class "btn btn-back" :onclick "history.back(-1)"} "Back"]]]
+     [:div {:class "help-block"}
+      [:p (str "The chatbot is designed to answer users' questions regarding "
               "the park of their choice.")]
-     [:p (str "The bot provides information about various aspects such as wc, "
-              "attractions, biking, skating, sports field, playground, "
+      [:p (str "The bot provides information about various aspects such as wc,"
+              " attractions, biking, skating, sports field, playground, "
               "transportation, parking and more.")]
-     [:p (str "Error messages are used to inform user that asked questions "
+      [:p (str "Error messages are used to inform user that asked questions "
               "are obscure to the chatbot.")]
-     [:p "Example question: Can I ride a bike in Bertramka?"]]))
+      [:p "Example question: Can I ride a bike in Bertramka?"]]]))
 
 (defn history-page
   "History page"
@@ -111,10 +120,11 @@
      [:title "Chatbot"]
      (page/include-css "style.css")]
     [:body
-      [:p {:class "btn-home-wrapper"}
+     [:div {:class "btn-block"}
+      [:div {:class "btn-home-wrapper btn-fix"}
        [:a {:href "/" :class "btn btn-home"} "Home"]]
-      [:p {:class "btn-home-wrapper"}
-       [:a {:class "btn btn-home" :onclick "history.back(-1)"} "Back"]]
+      [:div {:class "btn-back-wrapper btn-fix"}
+       [:a {:class "btn btn-back" :onclick "history.back(-1)"} "Back"]]]
       ; Fetches history about currently chosen park
-     [:p (get (parse-json "data/park-history.json")
+     [:p {:class "park-info"} (get (parse-json "data/park-history.json")
          (park/park->keyword @park/park-name))]]))
