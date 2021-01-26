@@ -14,6 +14,7 @@ the question.
 * Additional styling was applied to the website
 * Added option to choose a port for the webserver
 * Added help and history sections to the website
+* Added greetings to website chatbot
 
 ### Changed
 * Error counter now explains to the user that there were too many
