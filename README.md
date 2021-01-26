@@ -1,5 +1,5 @@
 ![Clojure CI](https://github.com/adzai/chatbot/workflows/Clojure%20CI/badge.svg?branch=main)
-# Prague Parks Chatbot (WIP)
+# Prague Parks Chatbot
 
 The Prague Parks Chatbot answers the user's questions about various
 parks in Prague and activities related to them.
