@@ -21,8 +21,8 @@
       [:h1 "Prague parks chatbot"]
       [:div  {:class "header-btn"}
        [:div  {:class "btn-history-wrapper btn-fix"}
-        [:a {:href "/history" :class "btn btn-history"} "Help"]]
-       [:div  {:class "btn-help-wrapper btn-fix"
+        [:a {:href "/history" :class "btn btn-history"} "History"]]
+       [:div  {:class "btn-help-wrapper btn-fix"}
         [:a {:href "/help" :class "btn btn-help"} "Help"]]]]
       [:p {:class "btn-home-wrapper"}
        [:a {:href "/" :class "btn btn-home"} "Home"]]
