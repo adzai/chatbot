@@ -101,7 +101,7 @@
        [:a {:href "/" :class "btn btn-home"} "Home"]]
       [:div {:class "btn-back-wrapper" :class "btn-fix"}
        [:a {:class "btn btn-back" :onclick "history.back(-1)"} "Back"]]]
-     [div {:class "help-block"}
+     [:div {:class "help-block"}
       [:p (str "The chatbot is designed to answer users' questions regarding "
               "the park of their choice.")]
       [:p (str "The bot provides information about various aspects such as wc,"
