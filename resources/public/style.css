@@ -23,18 +23,24 @@ body {
   background-position: top;
   z-index: -1;
 }
-a {
-    cursor: pointer;
-}
 
 h1 {
   font-size: 3rem;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.greeting {
+  font-size: 20px;
+  width: 80%;
+  margin: 0 auto;
   margin-bottom: 40px;
 }
 
 /* ----------------------------------------HOME------------------------------------ */
 
 h2 {
+  margin: 0 auto;
   margin-bottom: 20px;
 }
 
