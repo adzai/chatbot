@@ -17,7 +17,7 @@
     [:body
      [:div {:id "content"}
       [:h1 "Prague parks chatbot"]
-      [:p {:class "btn-home-wrapper"} 
+      [:p {:class "btn-home-wrapper"}
        [:a {:href "/" :class "btn btn-home"} "Home"]]
       [:h3 (str "Current park: " (park/keyword->park
                                    (str/replace current-uri #"/" "")))]
