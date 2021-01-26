@@ -112,9 +112,48 @@ instructions about expected responses.
 
 ### Website
 
+A website was created to showcase a more common and user friendly approach to deploying chatbots, rather than the REPL environment.
+The backend is written in clojure and leverages the [ring](https://github.com/ring-clojure/ring) and [hiccup](https://github.com/weavejester/hiccup) libraries. The web server can be started by using the `--web` flag.
+
+There is an option to connect the web server to MongoDB. MongoDB has
+to be running and credentials can be provided through environment
+variables or following instructions of the environ library that
+was used for this purpose. 
+When the web server is run with the `--mongo` flag, the server
+uses MongoDB for storing data about the user and their conversations.
+Each park has a unique conversation associated with it.
+
+If not started with `--mongo`, the web server defaults to using a clojure map for storing 
+data about the user and their conversation. The parks share the
+user's conversation history with each other. So if the user chats
+about Bertramka and later switches to Ladronka, they will still see
+the conversation about Bertramka in the Ladronka page.
+
+Furthermore, a port number the server will start on can be configured
+via the `--port` flag, following a valid port number.
+
+
+The project can be compiled to a `.jar` file which can be run
+with `java -r chatbot.jar`. This configuration is used on the deployment
+server of the website, which can be found on https://schoolstuff.me.
+The `.jar` file also supports an additonal flag `-h` or `--help` which
+explains the available flags to the user. This behavior is not possible
+when the program is started with `lein run`, as the flag triggers
+a leiningen help list.
+
+
+
+### Documentation
+
+Automatic documentation generation was added to the project with the help
+of the [codox](https://github.com/weavejester/codox) library. Codox extracts doc strings found in the source 
+files and creates the documentation pages which you are seeing right
+now. The generation of documentation is done with the `lein codox` 
+command.
+
 ### Further enhancement
 The improved version of the chatbot has the ability to keep track of error
 responses. If a keyword is not detected in the user's input more than 3 times
-in a row, a help menu is displayed to the user.
+in a row, the user is prompted if they want to see a help menu.
 
 ---
