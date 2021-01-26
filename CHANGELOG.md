@@ -1,7 +1,27 @@
 # Changelog
 
-List of changes from ICA1 to ICA2 (tracking from 0.1.0)
+List of changes from ICA1 to ICA2 (tracking from 0.2.0)
 
+## [1.0.0] - 2021-01-26
+
+### Added
+* Bird identification mode now raises an error when the user's input is irrelevant to
+the question.
+* Added more information about the project in https://adzai.github.io/chatbot/intro.html.
+* Added a keyword for exiting bird identification mode
+* Added sections to README.
+* Website was deployed [here](http://schoolstuff.me/)
+* Additional styling was applied to the website
+* Added option to choose a port for the webserver
+* Added help and history sections to the website
+
+### Changed
+* Error counter now explains to the user that there were too many
+unrecognized sentences and asks if they want to see the help menu.
+
+### Fixes
+
+* Fixed park names not displaying correctly in the website
 
 ## [0.2.0] - 2021-01-25
 
