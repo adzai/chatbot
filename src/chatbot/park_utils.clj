@@ -12,17 +12,26 @@
   (keys data-map))
 
 (defn park->keyword
-  "Takes a park name e.g. 'Riegerovy sady' and transforms it into
-  a keyword :riegerovy-sady"
+  "Takes a park name e.g. 'Riegrovy sady' and transforms it into
+  a keyword :riegrovy-sady"
   [park-name]
   (-> park-name
       (str/replace #" " "-")
       (str/lower-case)
       (keyword)))
 
+(defn route-name->park
+  "Takes a route-name  e.g. /riegrovy-sady and transforms it into
+  a park name 'Riegrovy sady'"
+  [route-name]
+  (-> route-name
+      (str/replace #"/" "")
+      (str/replace #"-" " ")
+      (str/capitalize)))
+
 (defn keyword->park
-  "Takes a keyword  e.g. :riegerovy-sady and transforms it into
-  a park name 'Riegerovy sady'"
+  "Takes a keyword  e.g. :riegrovy-sady and transforms it into
+  a park name 'Riegrovy sady'"
   [kw]
   (-> kw
       (str/replace #":" "")

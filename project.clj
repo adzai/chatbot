@@ -22,5 +22,8 @@
              :name-collisions false}
   :codox {:doc-files ["docs/intro.md"]
         :output-path "docs"}
-  :main chatbot.core/main-loop
-  :repl-options {:init-ns chatbot.core})
+  :main chatbot.core
+  :repl-options {:init-ns chatbot.core}
+  :profiles
+    {:uberjar {:env {:production true}
+               :aot :all}})
