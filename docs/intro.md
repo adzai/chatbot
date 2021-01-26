@@ -72,3 +72,49 @@ To achieve fuzzy string matching, the
 [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) is used, which allows to calculate the number of edits word 1 is away from word 2.
 
 ---
+
+## ICA2
+
+### Fixes
+Based on the remarks provided in ICA 1 feedback,
+some functionalities of the chatbot were fixed.
+
+Due to the inappropriateness of the previously defined terminating keyword
+– ‘finish’, the more suitable terminating keywords were added, such as ‘exit’
+(commonly used in UNIX environment), ‘end’, ‘terminate’, ‘bye’ and etc.
+
+Furthermore, the initial chatbot could not provide information about the
+restaurants of Prague parks. This problem was solved by adding restaurant
+information in park data and defining corresponding keyword and synonyms for
+data retrieval. Chatbot now provides correct information about restaurants.
+
+### Bird Identification Feature
+The chatbot was enhanced with a more interactive feature, in particular,
+the bot provides the users with the possibility to identify birds.
+It was decided to choose birds as the local natural domain because
+it is the most widely spread natural domain throughout the Prague parks.
+Therefore, it was assumed that there’s a higher chance of users seeing and
+getting interested in various bird species than other less abundant
+natural domains.
+
+The bird identification feature of the chatbot is based on
+the machine learning tool – decision tree. The implemented decision tree was
+integrated with the chatbot and allows the user to identify 10 different domain
+objects (bird species). The process of bird identification is initiated by
+typing the keyword – ‘bird’. Afterward, the chatbot carries out a textual
+dialogue with the user by asking questions in order to determine the correct
+answer to the domain problem.
+
+For a better user experience, the chatbot provides a helper function which
+describes the functionalities of bird identification mode. Moreover,
+in case the user input is obscure, the chatbot raises errors and gives clear
+instructions about expected responses.
+
+### Website
+
+### Further enhancement
+The improved version of the chatbot has the ability to keep track of error
+responses. If a keyword is not detected in the user's input more than 3 times
+in a row, a help menu is displayed to the user.
+
+---
