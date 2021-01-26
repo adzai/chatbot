@@ -127,5 +127,5 @@
        [:a {:class "btn btn-back" :onclick "history.back(-1)"} "Back"]]]
       ; Fetches history about currently chosen park
         
-     [:p {:class: "park-info"} (get (parse-json "data/park-history.json")
+     [:p {:class "park-info"} (get (parse-json "data/park-history.json")
          (park/park->keyword @park/park-name))]]))
