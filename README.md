@@ -125,7 +125,7 @@ parks are stored separately.
 
 ## Documentation
 Documentation is generated with the help of [codox](https://github.com/weavejester/codox).
-The documentation page can be accessed [here](https://schoolstuff.me/chatbot/).
+The documentation page can be accessed [here](https://adzai.github.io/chatbot/) or [here](https://schoolstuff.me/chatbot/).
 
 
 Documentation can also be built locally with the `lein codox` command.
