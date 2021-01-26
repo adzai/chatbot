@@ -19,6 +19,8 @@
       [:h1 "Prague parks chatbot"]
       [:p {:class "btn-home-wrapper"}
        [:a {:href "/" :class "btn btn-home"} "Home"]]
+      [:p {:class "btn-home-wrapper"}
+       [:a {:href "/help" :class "btn btn-home"} "Help"]]
       [:h3 (str "Current park: " (park/keyword->park
                                    (str/replace current-uri #"/" "")))]
       [:form {:method "POST" :action current-uri}
@@ -74,3 +76,17 @@
        [:p {:class "btn-wrapper"}
         [:a {:href "/vysehrad" :class "btn btn-park"}
          "Vyšehrad"]]]]))
+
+(defn help-page
+  "Help page"
+  []
+  (page/html5
+    [:head
+     [:meta {:charset "UTF-8"}]
+     [:title "Chatbot"]
+     (page/include-css "style.css")]
+    [:body
+     [:p "The chatbot is designed to answer users' questions regarding the park of their choice."]
+     [:p "The bot provides information about various aspects such as wc, attractions, biking, skating, sports field, playground, transportation, parking and more."]
+     [:p "Error messages are used to inform user that  asked questions are obscure to the chatbot."]
+     [:p "Example question: Can I ride a bike in Bertramka?"]]))
