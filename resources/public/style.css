@@ -172,6 +172,7 @@ h3 {
   display: block;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 }
 
 .btn-home:after,
